@@ -1,5 +1,20 @@
 de:
   feasts:
+    colors:
+      white: Weiß ist die Farbe des Lichts und wird an Herrenfesten sowie Festen von Heiligen, die keine Märtyrer sind, getragen. Weiterhin wird Weiß bei den Sakramenten der Taufe, der Trauung und der Weihe getragen.
+
+      red: Rot ist die Farbe des Feuers und des Blutes. Sie wird zu Festen der Märtyrer und als Sinnbild des Heiligen Geistes zu bspw. Pfingsten, Palmsonntag und zur Firmung getragen.
+
+      violet: Violett ist Farbe der Buße und Umkehr und wird daher in der Advents- und Fastenzeit, sowie bei Beerdigungen getragen.
+
+      green: Grün ist die Farbe der Hoffnung und des Lebens. Sie wird im gesamten Kirchenjahr getragen, wenn kein anderes Fest ansteht.
+
+      pink: Rosa ist Zeichen der Vorfreude und wird nur zweimal im Jahr getragen. Zu Gaudete (3. Adventssonntag) und Laetare (4. Fastensonntag). Sie kann aber durch Violett ersetzt werden.
+
+      black: Schwarz ist Farbe des Todes und der Trauer und wird dementsprechend bei Beerdigungen getragen, kann aber durch Violett ersetzt werden.
+
+      blue: Blau ist Farbe der Reinheit und des Himmels. Früher wurde sie zu Marienfesten getragen, inzwischen ist dafür aber weiß vorgesehen.
+
     defaults:
       default:
         color: green
