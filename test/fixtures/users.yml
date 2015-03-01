@@ -1,0 +1,7 @@
+max:
+  email: max@gianfelice.de
+  password_digest: <%= BCrypt::Password.create('testen', cost: 4) %>
+
+monika:
+  email: monika@gianfelice.de
+  password_digest: <%= BCrypt::Password.create('blabla', cost: 4) %>

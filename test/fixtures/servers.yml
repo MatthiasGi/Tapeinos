@@ -1,0 +1,10 @@
+max:
+  firstname: Max
+  lastname: Mustermann
+  email: max@mustermann.de
+  user: max
+
+heinz:
+  firstname: Heinz
+  lastname: Müller
+  email: heinz@gianfelice.de
