@@ -32,6 +32,9 @@ gem 'haml'
 # Bootstrap helpers make using Twitter's Bootstrap easier
 gem 'bh'
 
+# Use Simple Form to create simple forms
+gem 'simple_form'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
