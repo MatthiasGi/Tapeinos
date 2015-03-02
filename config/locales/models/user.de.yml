@@ -1,0 +1,17 @@
+de:
+  activerecord:
+    models:
+      user: Benutzer
+
+    attributes:
+      user:
+        email: E-Mail-Adresse
+        password: Passwort
+        password_confirmation: Password (wiederholen)
+        last_used: Zuletzt benutzt
+        servers: Messdiener
+        
+      user/servers:
+        size_talar: Talargröße
+        size_rochet: Rochettgröße
+

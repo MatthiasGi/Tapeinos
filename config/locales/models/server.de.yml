@@ -1,0 +1,27 @@
+de:
+  activerecord:
+    models:
+      server: Messdiener
+
+    attributes:
+      server:
+        firstname: Vorname
+        lastname: Nachname
+        email: E-Mail-Adresse
+        birthday: Geburtstag
+        sex: Geschlecht
+        rank: Rang
+        size_talar: Talargröße
+        size_rochet: Rochettgröße
+        last_used: Zuletzt genutzt
+        user: Benutzer
+
+      server/sex:
+        male: Männlich
+        female: Weiblich
+
+      server/rank:
+        novice: Anwärter
+        disciple: Messdiener
+        veteran: Leiterkandidat
+        master: Leiter
