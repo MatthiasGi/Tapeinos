@@ -1,0 +1,7 @@
+de:
+  sessions:
+    new:
+      title: Willkommen
+      lead: Sofern Du Dir ein Benutzerkonto erstellt hast, kannst Du Dich hier damit einloggen.
+      no_account: Wenn Du noch kein Benutzerkonto hast, öffne Deinen personalisierten Link in einer E-Mail. Dort kannst Du Dir dann ein Konto erstellen.
+      forgot_password: Passwort vergessen
