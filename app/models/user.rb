@@ -50,12 +50,23 @@ class User < ActiveRecord::Base
   # Clears the password-reset, useful e.g. when the password was changed
   # successfully or the user logged in while the procedure is still going
   def clear_password_reset
-    update password_reset_token: nil, password_reset_expire: nil
+    update password_reset_token: nil, password_reset_expire: nil,
+      failed_authentications: 0
   end
 
   # Checks if the password is still resetable
   def password_reset_expired?
     password_reset_expire.nil? || password_reset_expire.past?
+  end
+
+  # The authentication failed, increment the counter
+  def failed_authentication
+    increment! :failed_authentications
+  end
+
+  # The user has failed authenticating too many times, block him
+  def blocked?
+    failed_authentications >= 5
   end
 
   # :nodoc:

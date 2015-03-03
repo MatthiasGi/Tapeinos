@@ -131,4 +131,21 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "update failed password attempts" do
+    user = users(:max)
+    user.failed_authentication
+    user = User.find(user.id)
+    assert_equal 1, user.failed_authentications
+
+    3.times do
+      user.failed_authentication
+    end
+    assert_not user.blocked?
+    user.failed_authentication
+    assert user.blocked?
+
+    user.clear_password_reset
+    assert_equal 0, user.failed_authentications
+  end
+
 end

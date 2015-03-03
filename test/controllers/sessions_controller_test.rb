@@ -26,6 +26,8 @@ class SessionsControllerTest < ActionController::TestCase
     assert_select '.email.has-error', false
     assert_select '.password.has-error .help-block', I18n.t('sessions.create.password_wrong')
     assert_equal user.email, assigns(:user).email
+    user = User.find(user.id)
+    assert_equal 1, user.failed_authentications
 
     # Everything right
     used = user.last_used
@@ -34,6 +36,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal user.id, session[:user_id]
     user = User.find(session[:user_id])
     assert_not_equal used, user.last_used
+    assert_equal 0, user.failed_authentications
     #assert_redirected_to root_path #TODO
   end
 

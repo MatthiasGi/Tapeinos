@@ -8,6 +8,7 @@ class CreateServers < ActiveRecord::Migration
       t.integer :sex
       t.integer :size_talar
       t.integer :size_rochet
+      t.date :since
 
       t.integer :rank, default: 0, null: false
       t.datetime :last_used

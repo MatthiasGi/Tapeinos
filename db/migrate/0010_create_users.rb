@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration
 
       t.string :password_reset_token, unique: true
       t.datetime :password_reset_expire
+      t.integer :failed_authentications, null: false, default: 0
 
       t.timestamps null: false
     end

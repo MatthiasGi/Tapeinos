@@ -30,6 +30,7 @@ class SessionsController < ApplicationController
 #      redirect_to root_path #TODO
     else
       # The password was wrong, inform the user
+      @user.failed_authentication
       @user.errors.add :password, t('.password_wrong')
     end
 
