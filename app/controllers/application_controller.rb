@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  # Log the current user out a.k.a. destroy the session
+  # Log the current user out a.k.a. destroy the session.
   def logout
     session[:user_id] = nil
   end

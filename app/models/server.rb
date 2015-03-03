@@ -1,31 +1,31 @@
 # This class contains the server: a kind of user of the interface who can
-# optionally be linked with a "real" user.
+#    optionally be linked with a "real" user.
 
 class Server < ActiveRecord::Base
 
   # Optional linked user-account to make login and password-managment available
-  # to one or more servers
+  #    to one or more servers.
   belongs_to :user
 
-  # Absolutley mandatory are first- and lastname to identify the server
+  # Absolutley mandatory are first- and lastname to identify the server.
   validates :firstname, :lastname, presence: true
 
   # This simple validation ensures that there is an email and that it contains
-  # an @. This is only to prevent really bad typos.
+  #    an @. This is only to prevent really bad typos.
   validates :email, format: { with: /@/ }
 
   # The email should be saved downcase. Because beauty.
   before_save { self.email = email.downcase }
 
-  # Sex and rank are hardcoded and available as enums
+  # Sex and rank are hardcoded and available as enums.
   enum sex: [ :male, :female ]
   enum rank: [ :novice, :disciple, :veteran, :master ]
 
-  # The rank must be set for each server, it defaults to :novice
+  # The rank must be set for each server, it defaults to :novice.
   validates :rank, presence: true
 
   # Talar and rochet size are limited to integers between certain thresholds,
-  # but they should be optional
+  #    but they should be optional.
   validates :size_talar,
     numericality: {
       only_integer: true,
@@ -42,35 +42,35 @@ class Server < ActiveRecord::Base
     allow_nil: true
 
   # The seed is used to identify a server without user. So it should be unique
-  # and have only certain characters and length to allow url-usage
+  #    and have only certain characters and length to allow url-usage.
   validates :seed,
     uniqueness: true,
     format: { with: /\A[0-9a-f]{32}\z/ }
 
-  # The seed should be generated automagically if it does not exist already
+  # The seed should be generated automagically if it does not exist already.
   after_initialize :generate_seed, unless: :seed
 
   # ============================================================================
 
-  # If the server has an linked account, the email should be taken from the user
+  # If the server has a linked account, the email should be taken from the user.
   def email
     user.present? ? user.email : self[:email]
   end
 
-  # This function updates the servers seed, it can also be called externally
+  # This function updates the servers seed, it can also be called externally.
   def generate_seed
-    update seed: SecureRandom.hex
+    update(seed: SecureRandom.hex)
   end
 
   # This updates the time the server was last used. Should be called by session-
-  # managment or similar
+  #    managment or similar.
   def used
-    update last_used: DateTime.now
+    update(last_used: DateTime.now)
   end
 
-  # Removes the currently linked user from the server and saves the email
+  # Removes the currently linked user from the server and saves the email.
   def unlink_user
-    update email: user.email, user_id: nil if user.present?
+    update(email: user.email, user_id: nil) if user.present?
   end
 
   # :nodoc:
