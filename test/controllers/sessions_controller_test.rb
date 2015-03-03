@@ -65,4 +65,20 @@ class SessionsControllerTest < ActionController::TestCase
     assert_select '.alert.alert-success', false
   end
 
+  test "blocked accounts should not be able to log in" do
+    user = users(:max)
+    user.update(failed_authentications: 5)
+    post :create, {user: {email: user.email, password: 'testen'}}
+    assert_nil session[:user_id]
+    assert_response :success
+    assert_template :new
+    assert_equal user, assigns(:user)
+    assert_select '.alert.alert-danger', I18n.t('sessions.new.blocked')
+
+    # Blocked should not provide hints about real password.
+    post :create, {user: {email: user.email, password: 'wrong_pass'}}
+    assert_select '.alert.alert-danger', I18n.t('sessions.new.blocked')
+    assert_select '.password.has-error', false
+  end
+
 end

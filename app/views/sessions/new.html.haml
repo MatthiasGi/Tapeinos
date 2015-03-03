@@ -2,8 +2,8 @@
 %p.lead= t '.lead'
 %p= t '.no_account'
 
-- if flash[:logout]
-  = alert_box t('.logout'), context: :success
+= alert_box t('.logout'), context: :success if flash[:logout]
+= alert_box t('.blocked'), context: :danger if flash[:blocked]
 
 = panel do
   .panel-body

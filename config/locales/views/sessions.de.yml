@@ -6,6 +6,7 @@ de:
       no_account: Wenn Du noch kein Benutzerkonto hast, öffne Deinen personalisierten Link in einer E-Mail. Dort kannst Du Dir dann ein Konto erstellen.
       forgot_password: Passwort vergessen
       logout: Du wurdest erfolgreich ausgeloggt. Bis zum nächsten Mal!
+      blocked: Dein Benutzeraccount wurde gesperrt. Jemand hat zu oft versucht, sich mit einem falschen Passwort einzuloggen. Falls Du das nicht selber warst, schützt Dich diese Funktion vor Angriffen. Um Deinen Account zu entsperren, klicke unten bitte auf „Passwort vergessen“.
 
     create:
       email_not_found: Diese E-Mail-Adresse wurde nicht gefunden. Hast Du Dich vielleicht vertippt? Oder noch gar keinen Account?

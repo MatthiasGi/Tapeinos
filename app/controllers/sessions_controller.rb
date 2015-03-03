@@ -23,6 +23,11 @@ class SessionsController < ApplicationController
       @user = User.new(email: email)
       @user.errors.add(:email, t('.email_not_found'))
 
+    elsif @user.blocked?
+
+      # The user is blocked because of to many failed authentication-attempts.
+      flash.now[:blocked] = true
+
     elsif @user.authenticate(params[:user][:password])
 
       # The user could be authenticated successfully.
