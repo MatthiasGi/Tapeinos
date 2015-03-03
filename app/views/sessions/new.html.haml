@@ -8,7 +8,7 @@
     -# Create a new user if not already specified by a controller
     - @user = User.new unless @user
 
-    = simple_horizontal_form_for @user, url: sessions_path do |f|
+    = simple_horizontal_form_for @user, url: login_path do |f|
 
       = f.input :email, autofocus: true
       = f.input :password
