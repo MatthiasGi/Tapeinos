@@ -3,7 +3,11 @@
 class SessionsController < ApplicationController
 
   # Automatically clean the session while logging in.
-  before_action :logout, only: [:new, :create]
+  before_action :logout
+
+  # As this controller handles login, the general "everyone must be logged in"
+  #    rule should not apply.
+  skip_before_action :require_login
 
   # ============================================================================
 
@@ -34,7 +38,7 @@ class SessionsController < ApplicationController
       @user.clear_password_reset
       @user.used
       session[:user_id] = @user.id
-#      redirect_to root_path #TODO
+      return redirect_to root_path
 
     else
 
@@ -51,9 +55,7 @@ class SessionsController < ApplicationController
 
   # Destroy the current session a.k.a. log the user out.
   def destroy
-    @user = User.find_by(id: session[:user_id])
-    logout
-    flash.now[:logout] = true if @user
+    flash.now[:logout] = true if (@user = @current_user)
     render :new
   end
 

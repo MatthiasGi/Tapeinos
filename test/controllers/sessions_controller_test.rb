@@ -32,12 +32,11 @@ class SessionsControllerTest < ActionController::TestCase
     # Everything right
     used = user.last_used
     post :create, {user: {email: user.email, password: 'testen'}}
-    assert_response :success
     assert_equal user.id, session[:user_id]
     user = User.find(session[:user_id])
     assert_not_equal used, user.last_used
     assert_equal 0, user.failed_authentications
-    #assert_redirected_to root_path #TODO
+    assert_redirected_to root_path
   end
 
   test "reset password reset on login" do
@@ -79,6 +78,14 @@ class SessionsControllerTest < ActionController::TestCase
     post :create, {user: {email: user.email, password: 'wrong_pass'}}
     assert_select '.alert.alert-danger', I18n.t('sessions.new.blocked')
     assert_select '.password.has-error', false
+  end
+
+  test "No current user on login" do
+    user = users(:max)
+    get :new, nil, {user_id: user.id}
+    assert_response :success
+    assert_template :new
+    assert_nil assigns(:user)
   end
 
 end
