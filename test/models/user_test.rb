@@ -99,7 +99,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.password_reset_expired?, "Should now display as expired"
 
     user.clear_password_reset
-    assert_equal nil, user.password_reset_token || user.password_reset_expire, "Password reset still possible?"
+    assert_nil user.password_reset_token || user.password_reset_expire, "Password reset still possible?"
     assert user.password_reset_expired?, "Should be expired if not in reset-mode"
   end
 
