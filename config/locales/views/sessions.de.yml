@@ -5,6 +5,7 @@ de:
       lead: Sofern Du Dir ein Benutzerkonto erstellt hast, kannst Du Dich hier damit einloggen.
       no_account: Wenn Du noch kein Benutzerkonto hast, öffne Deinen personalisierten Link in einer E-Mail. Dort kannst Du Dir dann ein Konto erstellen.
       forgot_password: Passwort vergessen
+      logout: Du wurdest erfolgreich ausgeloggt. Bis zum nächsten Mal!
 
     create:
       email_not_found: Diese E-Mail-Adresse wurde nicht gefunden. Hast Du Dich vielleicht vertippt? Oder noch gar keinen Account?

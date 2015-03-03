@@ -56,6 +56,13 @@ class SessionsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :new
     assert_equal user, assigns(:user)
+    assert_select '.alert.alert-success', I18n.t('sessions.new.logout')
+  end
+
+  test "no logout message if not appropriate" do
+    delete :destroy, nil, nil
+    assert_template :new
+    assert_select '.alert.alert-success', false
   end
 
 end

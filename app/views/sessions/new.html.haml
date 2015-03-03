@@ -2,11 +2,14 @@
 %p.lead= t '.lead'
 %p= t '.no_account'
 
+- if flash[:logout]
+  = alert_box t('.logout'), context: :success
+
 = panel do
   .panel-body
 
     -# Create a new user if not already specified by a controller
-    - @user = User.new unless @user
+    - @user ||= User.new
 
     = simple_horizontal_form_for @user, url: login_path do |f|
 
