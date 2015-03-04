@@ -5,6 +5,10 @@ class SessionsController < ApplicationController
   # Automatically clean the session while logging in.
   before_action :logout
 
+  # Remove currently logged in user (see below) but not for logout: Needed to
+  #    get last logged in user.
+  before_action :no_current_user, except: :destroy
+
   # As this controller handles login, the general "everyone must be logged in"
   #    rule should not apply.
   skip_before_action :require_login
@@ -56,7 +60,19 @@ class SessionsController < ApplicationController
   # Destroy the current session a.k.a. log the user out.
   def destroy
     flash.now[:logout] = true if (@user = @current_user)
+    no_current_user
     render :new
+  end
+
+  # ============================================================================
+
+  private
+
+  # Resets the variable telling the view that a user is currently logged in.
+  #    This prevents content in the views that shouldn't be displayed to a
+  #    freshly logged out user.
+  def no_current_user
+    @current_user = nil
   end
 
 end

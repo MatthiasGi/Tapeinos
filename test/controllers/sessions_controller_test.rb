@@ -18,6 +18,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_template :new
     assert_select '.email.has-error .help-block', I18n.t('sessions.create.email_not_found')
     assert_equal email, assigns(:user).email
+    assert_nil assigns(:current_user)
 
     # Wrong password
     post :create, {user: {email: user.email, password: 'wrongpass'}}
@@ -28,6 +29,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal user.email, assigns(:user).email
     user = User.find(user.id)
     assert_equal 1, user.failed_authentications
+    assert_nil assigns(:current_user)
 
     # Everything right
     used = user.last_used
@@ -56,6 +58,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_template :new
     assert_equal user, assigns(:user)
     assert_select '.alert.alert-success', I18n.t('sessions.new.logout')
+    assert_nil assigns(:current_user)
   end
 
   test "no logout message if not appropriate" do
@@ -86,6 +89,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :new
     assert_nil assigns(:user)
+    assert_nil assigns(:current_user)
   end
 
 end
