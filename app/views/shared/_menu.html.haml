@@ -1,0 +1,16 @@
+= navbar position: :top do
+  = vertical do
+    = link_to '<span class="tap-tau">𝛕</span>apeinos', root_path
+
+  - if @current_user
+
+    .navbar-right
+      - html = icon(:user) + ' ' + @current_user
+      = dropdown html, button: { class: 'navbar-btn' } do
+        = link_to logout_path do
+          = icon :log_out
+          Logout
+
+    = horizontal do
+      = nav do
+        = link_to 'Plans', '#TODO'
