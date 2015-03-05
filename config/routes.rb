@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
 
   # Session-managment
+  get '/login/:server_seed' => 'sessions#temporary', \
+    constraints: { server_seed: /[a-f0-9]{32}/ }
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
   # Displays the plan-overview as root.
   root 'plans#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
