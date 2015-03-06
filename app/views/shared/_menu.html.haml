@@ -2,10 +2,10 @@
   = vertical do
     = link_to '<span class="tap-tau">𝛕</span>apeinos', root_path
 
-  - if @current_user
+  - if @current_server
 
     .navbar-right
-      - html = icon(:user) + ' ' + @current_user
+      - html = icon(:user) + ' ' + @current_server.firstname
       = dropdown html, button: { class: 'navbar-btn' } do
         = link_to logout_path do
           = icon :log_out
