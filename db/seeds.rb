@@ -13,4 +13,8 @@ User.create({email: 'heinz@gianfelice.de', password: 'testen'})
   Server.create(firstname: name, lastname: 'Gianfelice', user: user)
 end
 Server.create(firstname: 'Matthias', lastname: 'Gianfelice', seed: '12345678901234567890123456789012', user: user)
+
 Server.create(firstname: 'Stand', lastname: 'Alone', email: 'standalone@gianfelice.de', seed: '1234567890abcdef1234567890abcdef')
+
+Server.create(firstname: 'Siblin1', lastname: 'Sibling', email: 'siblings@gianfelice.de', seed: '09876543210987654321098765432109')
+Server.create(firstname: 'Siblin2', lastname: 'Sibling', email: 'siblings@gianfelice.de', seed: '19876543210987654321098765432109')

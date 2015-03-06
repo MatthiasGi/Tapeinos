@@ -181,4 +181,19 @@ class ServerTest < ActiveSupport::TestCase
     assert_equal user.email, server.email, "Email was not correctly forwarded to server"
   end
 
+  test "get other managable servers of server" do
+    # User-managed server
+    server = servers(:max)
+    others = server.user.servers.where.not(id: server.id).to_a
+    assert_equal others, server.siblings
+
+    # Server without user
+    server = servers(:heinz)
+    others = Server.where(email: server.email, user_id: nil).where.not(id: server.id).to_a
+    assert_equal others, server.siblings
+
+    # Server with nothing else
+    assert_empty servers(:kunz).siblings
+  end
+
 end

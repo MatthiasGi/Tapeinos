@@ -4,7 +4,39 @@ max:
   email: max@mustermann.de
   user: max
 
+max2:
+  firstname: Max2
+  lastname: Mustermann
+  user: max
+
+max3:
+  firstname: Max3
+  lastname: Mustermann
+  user: max
+
+max4:
+  firstname: Max4
+  lastname: Mustermann
+  email: heinz@gianfelice.de
+  user: max
+
 heinz:
   firstname: Heinz
   lastname: Müller
   email: heinz@gianfelice.de
+
+heinz2:
+  firstname: Heinz2
+  lastname: Müller
+  email: heinz@gianfelice.de
+
+heinz3:
+  firstname: Heinz3
+  lastname: Müller
+  email: heinz@gianfelice.de
+
+kunz:
+  firstname: Kunz
+  lastname: Hinz
+  email: hinz@kunz.com
+

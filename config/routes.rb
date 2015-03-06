@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   # Session-managment
+  get '/login/as/:id' => 'sessions#update', as: 'change_server'
   get '/login/:seed' => 'sessions#temporary', \
     constraints: { seed: /[a-f0-9]{32}/ }
   get '/login' => 'sessions#new'

@@ -2,6 +2,10 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
 
+  def setup
+    request.env["HTTP_REFERER"] = root_path
+  end
+
   test "new session stub" do
     get :new
     assert_response :success
@@ -156,6 +160,57 @@ class SessionsControllerTest < ActionController::TestCase
     assert_select '.alert.alert-danger', I18n.t('sessions.new.no_server_available')
     assert_nil session[:user_id]
     assert_nil assigns(:current_user)
+  end
+
+  test "changing user-managed servers" do
+    user = users(:max)
+    get :update, { id: user.servers.second }, { user_id: user.id, server_id: user.servers.first.id }
+    assert_redirected_to root_path
+    assert_equal user.servers.second.id, session[:server_id]
+  end
+
+  test "changing server-managed servers" do
+    server = servers(:heinz)
+    get :update, { id: server.id }, { server_id: servers(:heinz2).id }
+    assert_redirected_to root_path
+    assert_equal session[:server_id], server.id
+  end
+
+  test "changing servers with invalid servers" do
+    user = users(:max)
+
+    # Invalid server
+    get :update, { id: 20 }, { user_id: user.id, server_id: user.servers.first.id }
+    assert_template :new
+    assert_nil session[:server_id]
+    assert_nil session[:user_id]
+    assert_select '.alert.alert-danger', I18n.t('sessions.new.invalid_server_change')
+    assert_equal user, assigns(:user)
+
+    # User may not manage server
+    server = servers(:heinz)
+    get :update, { id: server.id }, { user_id: user.id, server_id: user.servers.first.id }
+    assert_template :new
+    assert_nil session[:server_id]
+    assert_nil session[:user_id]
+    assert_select '.alert.alert-danger', I18n.t('sessions.new.invalid_server_change')
+    assert_equal user, assigns(:user)
+
+    # Servers do not have equal email-addresses
+    get :update, { id: servers(:heinz).id }, { server_id: servers(:kunz).id }
+    assert_template :new
+    assert_nil session[:server_id]
+    assert_nil session[:user_id]
+    assert_select '.alert.alert-danger', I18n.t('sessions.new.invalid_server_change')
+    assert_nil assigns(:user)
+
+    # New server managed by user
+    get :update, { id: servers(:heinz).id }, { server_id: servers(:max4).id }
+    assert_template :new
+    assert_nil session[:server_id]
+    assert_nil session[:user_id]
+    assert_select '.alert.alert-danger', I18n.t('sessions.new.invalid_server_change')
+    assert_nil assigns(:user)
   end
 
 end

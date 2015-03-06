@@ -7,6 +7,7 @@
 = alert_box t('.server_has_account'), context: :warning if flash[:server_has_account]
 = alert_box t('.invalid_seed'), context: :danger if flash[:invalid_seed]
 = alert_box t('.no_server_available'), context: :danger if flash[:no_server_available]
+= alert_box t('.invalid_server_change'), context: :danger if flash[:invalid_server_change]
 
 = panel do
   .panel-body

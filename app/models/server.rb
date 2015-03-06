@@ -73,6 +73,20 @@ class Server < ActiveRecord::Base
     user and update(email: user.email, user_id: nil)
   end
 
+  # Gathers all related servers: if the server is linked to an user, all other
+  #    servers will be selected. If the server is not linked to an user, all
+  #    other servers, that are not linked to an user and have the same email-
+  #    address, will be selected
+  def siblings
+    others = user ? user.servers : Server.where(email: email, user_id: nil)
+    others.where.not(id: id).to_a
+#    if user
+#      user.servers.where.not(id: id).to_a
+#    else
+#      Server.where(email: email, user_id: nil).where.not(id: id).to_a
+#    end
+  end
+
   # :nodoc:
   def to_s
     [firstname, lastname].join(' ')

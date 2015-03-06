@@ -11,6 +11,7 @@ de:
       server_has_account: Du hast offenbar bereits einen Account, weshalb Du nicht mehr über die personalisierten Links auf die Pläne zugreifen kannst. Logge Dich im Folgenden bitte mit Deinem Account ein.
       invalid_seed: Der angegebene, personalisierte Link ist leider ungültig. Ist er vielleicht schon sehr veraltet?
       no_server_available: Dein Benutzer verwaltet keine Messdiener, deshalb ist ein Login nicht wirklich sinnvoll. Setze Dich doch bitte mit dem Leiterteam in Verbindung.
+      invalid_server_change: Beim Auswählen eines Messdieners ist ein Fehler aufgetreten. Aus Sicherheitsgründen wurdest Du deshalb ausgeloggt. Bitte logge Dich erneut ein.
 
     create:
       email_not_found: Diese E-Mail-Adresse wurde nicht gefunden. Hast Du Dich vielleicht vertippt? Oder noch gar keinen Account?

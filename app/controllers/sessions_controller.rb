@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
   # Automatically clean the session while logging in.
   before_action :logout
 
-  # Remove currently logged in user and server (see below) but not for logout:
-  #    Needed to get last logged in user.
-  before_action :destroy_currents, except: :destroy
+  # Remove currently logged in user and server (see below) when creating new
+  #    sessions.
+  before_action :destroy_currents, only: [ :new, :create, :temporary ]
 
   # ============================================================================
 
@@ -62,6 +62,21 @@ class SessionsController < ApplicationController
     # Render the login-form with errors.
     render :new
 
+  end
+
+  # Allows changing the currently selected server.
+  def update
+    server = Server.find_by(id: params[:id])
+
+    if server and @current_server and @current_server.siblings.include?(server)
+      session[:server_id] = server.id
+      redirect_to :back
+    else
+      flash.now[:invalid_server_change] = true
+      @user = @current_user
+      destroy_currents
+      render :new
+    end
   end
 
   # Destroy the current session a.k.a. log the user out.
