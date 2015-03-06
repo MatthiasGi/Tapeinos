@@ -70,7 +70,7 @@ class Server < ActiveRecord::Base
 
   # Removes the currently linked user from the server and saves the email.
   def unlink_user
-    update(email: user.email, user_id: nil) if user.present?
+    user and update(email: user.email, user_id: nil)
   end
 
   # :nodoc:

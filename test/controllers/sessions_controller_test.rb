@@ -52,7 +52,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "logout" do
     user = users(:max)
-    delete :destroy, nil, {user_id: user.id}
+    delete :destroy, nil, {user_id: user.id, server_id: user.servers.first.id}
     assert_nil session[:user_id]
     assert_response :success
     assert_template :new
@@ -89,6 +89,72 @@ class SessionsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :new
     assert_nil assigns(:user)
+    assert_nil assigns(:current_user)
+  end
+
+  test "login by seed" do
+    server = servers(:heinz)
+    get :temporary, { seed: server.seed }
+    assert_equal server.id, session[:server_id]
+    assert_redirected_to root_path
+  end
+
+  test "login of server with user should fail" do
+    server = servers(:max)
+    get :temporary, { seed: server.seed }
+    assert_nil session[:server_id]
+    assert_nil assigns(:current_server)
+    assert_template :new
+    assert_equal server.user, assigns(:user)
+    assert_select '.alert.alert-warning', I18n.t('sessions.new.server_has_account')
+  end
+
+  test "login with invalid seed" do
+    get :temporary, { seed: '12345678901234567890123456789012' }
+    assert_nil session[:server_id]
+    assert_nil assigns(:current_server)
+    assert_template :new
+    assert_select '.alert.alert-danger', I18n.t('sessions.new.invalid_seed')
+  end
+
+  test "logout server by different means" do
+    server = servers(:heinz)
+    get :temporary, { seed: server.seed }
+    get :destroy
+    assert_nil session[:server_id]
+    assert_nil assigns(:current_server)
+    assert_template :new
+    assert_select '.alert.alert-success', I18n.t('sessions.new.logout')
+
+    get :temporary, { seed: server.seed }
+    get :temporary, { seed: '12345678901234567890123456789012' }
+    assert_nil session[:server_id]
+    assert_nil assigns(:current_server)
+
+    get :temporary, { seed: server.seed }
+    get :new
+    assert_nil session[:server_id]
+    assert_nil assigns(:current_server)
+
+    get :temporary, { seed: server.seed }
+    post :create, { user: { email: nil } }
+    assert_nil session[:server_id]
+    assert_nil assigns(:current_server)
+  end
+
+  test "logging in user logs in first available server" do
+    user = users(:max)
+    post :create, {user: {email: user.email, password: 'testen'}}
+    server = user.servers.first
+    assert_equal server.id, session[:server_id]
+  end
+
+  test "logging in user without server fails" do
+    user = users(:monika)
+    post :create, {user: {email: user.email, password: 'blabla'}}
+    assert_template :new
+    assert_select '.alert.alert-danger', I18n.t('sessions.new.no_server_available')
+    assert_nil session[:user_id]
     assert_nil assigns(:current_user)
   end
 

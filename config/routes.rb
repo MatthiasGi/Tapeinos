@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   # Session-managment
-  get '/login/:server_seed' => 'sessions#temporary', \
-    constraints: { server_seed: /[a-f0-9]{32}/ }
+  get '/login/:seed' => 'sessions#temporary', \
+    constraints: { seed: /[a-f0-9]{32}/ }
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'

@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   # The password should have a minimal length. Security. But only if one is
-  # given. If not the user is probably not changing it.
+  #    given. If not the user is probably not changing it.
   validates :password,
     presence: true,
     length: { minimum: 6 },
@@ -34,13 +34,13 @@ class User < ActiveRecord::Base
   # ============================================================================
 
   # This updates the time the server was last used. Should be called by
-  # session-managment or similar.
+  #    session-managment or similar.
   def used
     update(last_used: DateTime.now)
   end
 
   # Allows the user to reset his password by creating a reset-token which is
-  # returned (only valid for 24 hours).
+  #    returned (only valid for 24 hours).
   def prepare_password_reset
     update(
       password_reset_token: SecureRandom.hex,
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   # Clears the password-reset, useful e.g. when the password was changed
-  # successfully or the user logged in while the procedure is still going.
+  #    successfully or the user logged in while the procedure is still going.
   def clear_password_reset
     update(
       password_reset_token: nil,
