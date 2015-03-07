@@ -2,12 +2,12 @@
 %p.lead= t '.lead'
 %p= t '.no_account'
 
-= alert_box t('.logout'), context: :success if flash[:logout]
-= alert_box t('.blocked'), context: :danger if flash[:blocked]
-= alert_box t('.server_has_account'), context: :warning if flash[:server_has_account]
-= alert_box t('.invalid_seed'), context: :danger if flash[:invalid_seed]
-= alert_box t('.no_server_available'), context: :danger if flash[:no_server_available]
-= alert_box t('.invalid_server_change'), context: :danger if flash[:invalid_server_change]
+= flash_messages([:logout, context: :success],
+                 [:blocked, context: :danger],
+                 [:server_has_account, context: :warning],
+                 [:invalid_seed, context: :danger],
+                 [:no_server_available, context: :danger],
+                 [:invalid_server_change, context: :danger])
 
 = panel do
   .panel-body
