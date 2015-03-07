@@ -1,0 +1,8 @@
+# This file is an example for the local_env.yml needed inside this directory.
+
+# This are the Gmail-credentials for the mailers.
+GMAIL_USERNAME: 'matthias@gianfelice.de'
+GMAIL_PASSWORD: 'asdfasdfasdfasdfasdfadsf'
+
+# Base url of the application: Used for creating external links.
+BASE_URL: 'http://localhost:3000'
