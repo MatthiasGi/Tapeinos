@@ -1,0 +1,4 @@
+de:
+  user_mailer:
+    forgot_password_mail:
+      subject: Tapeinos - Passwort vergessen
