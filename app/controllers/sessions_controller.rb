@@ -68,7 +68,10 @@ class SessionsController < ApplicationController
   def update
     server = Server.find_by(id: params[:id])
 
-    if server and @current_server and @current_server.siblings.include?(server)
+    # The change is allowed, if new and old server are the same, or the current
+    #    server is allowed to change to the new one (checked by the model).
+    if server and @current_server and @current_server == server or
+        @current_server.siblings.include?(server)
       session[:server_id] = server.id
       redirect_to :back
     else

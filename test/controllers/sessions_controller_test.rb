@@ -173,7 +173,7 @@ class SessionsControllerTest < ActionController::TestCase
     server = servers(:heinz)
     get :update, { id: server.id }, { server_id: servers(:heinz2).id }
     assert_redirected_to root_path
-    assert_equal session[:server_id], server.id
+    assert_equal server.id, session[:server_id]
   end
 
   test "changing servers with invalid servers" do
@@ -211,6 +211,13 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil session[:user_id]
     assert_select '.alert.alert-danger', I18n.t('sessions.new.invalid_server_change')
     assert_nil assigns(:user)
+  end
+
+  test "changing server to itself" do
+    server = servers(:heinz)
+    get :update, { id: server.id }, { server_id: server.id }
+    assert_redirected_to root_path
+    assert_equal server.id, session[:server_id]
   end
 
 end
