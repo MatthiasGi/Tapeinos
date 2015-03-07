@@ -4,6 +4,8 @@ module DesignHelper
 
   include Bh::Helpers
 
+  # ============================================================================
+
   # The page-header contains a title and optional subtitle.
   def page_header(title = t('.title'), remark = nil)
     content_tag :div, class: 'page-header' do
@@ -15,10 +17,13 @@ module DesignHelper
     end
   end
 
+  # Outputs a message, if the corresponding flash-attribute is set.
   def flash_message(title, context: nil, text: t(".#{title}"))
     alert_box text, context: context if flash[title]
   end
 
+  # If multiple flash-messages (see above) are checked, this method allows easy
+  #    check of multiple messages.
   def flash_messages(*messages)
     output = []
     messages.each do |message|
