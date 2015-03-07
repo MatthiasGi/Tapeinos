@@ -2,24 +2,22 @@
 %p.lead= t '.lead'
 %p= t '.no_account'
 
-= flash_messages([:logout, context: :success],
+= flash_messages [:logout, context: :success],
                  [:blocked, context: :danger],
                  [:server_has_account, context: :warning],
                  [:invalid_seed, context: :danger],
                  [:no_server_available, context: :danger],
-                 [:invalid_server_change, context: :danger])
+                 [:invalid_server_change, context: :danger]
 
 = panel do
   .panel-body
 
-    -# Create a new user if not already specified by a controller
+    -# Create a new user if not already specified by a controller.
     - @user ||= User.new
-
     = simple_horizontal_form_for @user, url: login_path, method: :post do |f|
-
       = f.input :email, autofocus: true
       = f.input :password
       .form-group
         .col-sm-offset-3.col-sm-9
           = f.button :submit, t('.submit')
-          = btn_link_to t('.forgot_password'), '#TODO', context: :link
+          = btn_link_to t('.forgot_password'), forgot_password_path, context: :link

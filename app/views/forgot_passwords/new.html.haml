@@ -1,0 +1,19 @@
+= page_header
+%p.lead= t '.lead'
+%p= t '.reset_password_description'
+
+= flash_messages [:mail_sent, context: :success],
+                 [:reset_link_already_sent, context: :warning]
+
+= panel do
+  .panel-body
+
+  -# Create a new user if not already specified by a controller.
+  - @user ||= User.new
+  = simple_horizontal_form_for @user, url: forgot_password_path, method: :post do |f|
+    = f.input :email, autofocus: true
+    .form-group
+      .col-sm-offset-3.col-sm-9
+        = f.button :submit, t('defaults.submit')
+        = btn_link_to t('defaults.cancel'), login_path, context: :link
+

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   # Displays the plan-overview as root.
   root 'plans#index'
 
+  # Managment of forgot passwords.
+  get '/forgot-password' => 'forgot_passwords#new'
+  post '/forgot-password' => 'forgot_passwords#create'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
