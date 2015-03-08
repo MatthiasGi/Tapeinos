@@ -21,4 +21,12 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [ENV['GMAIL_USERNAME']], mail.from
   end
 
+  test "user created mail" do
+    user = users(:max)
+    mail = UserMailer.user_created_mail(user, 'testen')
+    assert_equal I18n.t('user_mailer.user_created_mail.subject'), mail.subject
+    assert_equal [user.email], mail.to
+    assert_equal [ENV['GMAIL_USERNAME']], mail.from
+  end
+
 end

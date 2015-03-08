@@ -16,4 +16,11 @@ class UserMailer < ApplicationMailer
     mail to: user.email
   end
 
+  # If a new user is created, he receives his new password by mail.
+  def user_created_mail(user, password)
+    @email = user.email
+    @password = password
+    mail to: @email
+  end
+
 end
