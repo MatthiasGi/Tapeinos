@@ -22,4 +22,15 @@ class PlansControllerTest < ActionController::TestCase
     assert_equal server, assigns(:current_server)
   end
 
+  test "get register advertising" do
+    server = servers(:heinz)
+    get :index, nil, { server_id: server.id }
+    assert_select '.panel .btn', I18n.t('defaults.register.submit')
+
+    user = users(:max)
+    server = user.servers.first
+    get :index, nil, { user_id: user.id, server_id: server.id }
+    assert_select '.panel .btn', false
+  end
+
 end

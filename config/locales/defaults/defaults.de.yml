@@ -2,3 +2,11 @@ de:
   defaults:
     submit: Absenden
     cancel: Abbrechen
+
+    register:
+      title: Account erstellen
+      body: |
+        Wenn Du möchtest, kannst Du Dir einen Account erstellen. Damit kannst Du Dich jederzeit mit E-Mail-Adresse und Passwort hier einloggen und hast Zugriff auf alle Funktionen des Portals. Selbstverständlich ist dies aber optional, Du kannst Dich jederzeit auch ohne Account in die Pläne eintragen.
+
+        Dieser Vorgang lässt sich jederzeit rückgängig machen. Klicke auf folgenden Knopf, um weitere Informationen zu erhalten:
+      submit: Account erstellen

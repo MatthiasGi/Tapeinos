@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     constraints: { token: /[a-f0-9]{32}/ }
   post '/forgot-password/save' => 'forgot_passwords#update'
 
+  # Non-administrative user-managment
+  get '/register' => 'users#new'
+
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
