@@ -26,8 +26,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-# Use Haml as template engine
+# Use Haml (with markdown-support) as template engine
 gem 'haml'
+gem 'rdiscount'
 
 # Bootstrap helpers make using Twitter's Bootstrap easier
 gem 'bh'
