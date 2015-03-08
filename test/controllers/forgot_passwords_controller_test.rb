@@ -16,6 +16,7 @@ class ForgotPasswordsControllerTest < ActionController::TestCase
 
   test "requesting for valid user" do
     user = users(:max)
+    user.clear_password_reset
     assert ActionMailer::Base.deliveries.empty?
     post :create, { user: { email: user.email }}
     user = User.find(user.id)
@@ -33,6 +34,34 @@ class ForgotPasswordsControllerTest < ActionController::TestCase
     assert_template :new
     assert_select '.alert.alert-warning', I18n.t('forgot_passwords.new.reset_link_already_sent')
     assert_equal user, assigns(:user)
+  end
+
+  test "requesting change with valid token" do
+    user = users(:max)
+    token = user.prepare_password_reset
+    get :edit, { token: token }
+    assert_response :success
+    assert_template :edit
+    assert_equal user, assigns(:user)
+    assert_select '.page-header small', user.email
+  end
+
+  test "requesting change with invalid token" do
+    token = '123456789012345678901234567890af'
+    get :edit, { token: token }
+    assert_template :new
+    assert_nil assigns(:user)
+    assert_select '.alert.alert-danger', I18n.t('forgot_passwords.new.invalid_token')
+  end
+
+  test "requesting change with expired token" do
+    user = users(:max)
+    token = user.prepare_password_reset
+    user.update({ password_reset_expire: 1.minute.ago })
+    get :edit, { token: token }
+    assert_template :new
+    assert_equal user, assigns(:user)
+    assert_select '.alert.alert-warning', I18n.t('forgot_passwords.new.expired_token')
   end
 
 end

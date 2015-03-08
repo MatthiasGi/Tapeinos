@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
-  # Session-managment
+  # Session-management
   get '/login/as/:id' => 'sessions#update', as: 'change_server'
   get '/login/:seed' => 'sessions#temporary', \
-    constraints: { seed: /[a-f0-9]{32}/ }
+    constraints: { seed: /[a-f0-9]{32}/ }
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
@@ -11,12 +11,12 @@ Rails.application.routes.draw do
   # Displays the plan-overview as root.
   root 'plans#index'
 
-  # Managment of forgot passwords.
+  # Management of forgot passwords.
   get '/forgot-password' => 'forgot_passwords#new'
   post '/forgot-password' => 'forgot_passwords#create'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  get '/forgot-password/:token' => 'forgot_passwords#edit', \
+    constraints: { token: /[a-f0-9]{32}/ }
+  post '/forgot-password/save' => 'forgot_passwords#update'
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

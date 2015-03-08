@@ -3,7 +3,9 @@
 %p= t '.reset_password_description'
 
 = flash_messages [:mail_sent, context: :success],
-                 [:reset_link_already_sent, context: :warning]
+                 [:reset_link_already_sent, context: :warning],
+                 [:invalid_token, context: :danger],
+                 [:expired_token, context: :warning]
 
 = panel do
   .panel-body

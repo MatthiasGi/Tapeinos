@@ -21,4 +21,19 @@ class ForgotPasswordsController < ApplicationController
     render :new
   end
 
+  def edit
+    @user = User.find_by(password_reset_token: params[:token])
+
+    if @user.nil?
+      flash.now[:invalid_token] = true
+      render :new
+    elsif @user.password_reset_expired?
+      flash.now[:expired_token] = true
+      render :new
+    end
+  end
+
+  def update
+  end
+
 end
