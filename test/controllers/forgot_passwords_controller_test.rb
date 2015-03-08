@@ -17,11 +17,11 @@ class ForgotPasswordsControllerTest < ActionController::TestCase
   test "requesting for valid user" do
     user = users(:max)
     user.clear_password_reset
-    assert ActionMailer::Base.deliveries.empty?
-    post :create, { user: { email: user.email }}
+    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+      post :create, { user: { email: user.email }}
+    end
     user = User.find(user.id)
     assert_not user.password_reset_expired?
-    assert_not ActionMailer::Base.deliveries.empty?
     assert_template :new
     assert_select '.alert.alert-success', I18n.t('forgot_passwords.new.mail_sent')
     assert_nil assigns(:user)
@@ -44,6 +44,7 @@ class ForgotPasswordsControllerTest < ActionController::TestCase
     assert_template :edit
     assert_equal user, assigns(:user)
     assert_select '.page-header small', user.email
+    assert_select 'input[type=hidden][name="user[password_reset_token]"][value=?]', token
   end
 
   test "requesting change with invalid token" do
@@ -62,6 +63,76 @@ class ForgotPasswordsControllerTest < ActionController::TestCase
     assert_template :new
     assert_equal user, assigns(:user)
     assert_select '.alert.alert-warning', I18n.t('forgot_passwords.new.expired_token')
+  end
+
+  test "actually changing the password" do
+    user = users(:max)
+    token = user.prepare_password_reset
+    user.update({ failed_authentications: 5 })
+    assert user.blocked?
+    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+      post :update, { user: { password: 'blabla', password_confirmation: 'blabla', password_reset_token: token }}
+    end
+    assert_template 'sessions/new'
+    assert_equal user, assigns(:user)
+    assert_select '.alert.alert-success', I18n.t('sessions.new.password_changed')
+    user = User.find(user.id)
+    assert user.authenticate('blabla')
+    assert_not user.blocked?
+    assert_nil user.password_reset_token
+    assert_nil user.password_reset_expire
+  end
+
+  test "providing unmatching password/confirmation" do
+    user = users(:max)
+    token = user.prepare_password_reset
+    expire = user.password_reset_expire
+    user.update({ failed_authentications: 5 })
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      post :update, { user: { password: 'blabla', password_confirmation: 'blabla2', password_reset_token: token }}
+    end
+    user = User.find(user.id)
+    assert_template :edit
+    assert_equal user, assigns(:user)
+    assert_select '.user_password_confirmation.has-error .help-block'
+    assert_not user.authenticate('blabla')
+    assert user.blocked?
+    assert_equal token, user.password_reset_token
+    assert_equal expire, user.password_reset_expire
+  end
+
+  test "user is not allowed to change password (expired)" do
+    user = users(:max)
+    token = user.prepare_password_reset
+    user.update({ failed_authentications: 5, password_reset_expire: 1.minute.ago })
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      post :update, { user: { password: 'blabla', password_confirmation: 'blabla2', password_reset_token: token }}
+    end
+    user = User.find(user.id)
+    assert_template :new
+    assert_equal user, assigns(:user)
+    assert_select '.alert.alert-warning', I18n.t('forgot_passwords.new.expired_token')
+    assert_not user.authenticate('blabla')
+    assert user.blocked?
+    assert user.password_reset_token
+    assert user.password_reset_expire
+  end
+
+  test "changing with invalid token" do
+    user = users(:max)
+    user.prepare_password_reset
+    user.update({ failed_authentications: 5, password_reset_token: '12345678901234567890123456789012' })
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      post :update, { user: { password: 'blabla', password_confirmation: 'blabla2', password_reset_token: '123456789012345678901234567890af' }}
+    end
+    user = User.find(user.id)
+    assert_template :new
+    assert_nil assigns(:user)
+    assert_select '.alert.alert-danger', I18n.t('forgot_passwords.new.invalid_token')
+    assert_not user.authenticate('blabla')
+    assert user.blocked?
+    assert user.password_reset_token
+    assert user.password_reset_expire
   end
 
 end

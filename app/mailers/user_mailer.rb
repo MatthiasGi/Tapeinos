@@ -10,4 +10,10 @@ class UserMailer < ApplicationMailer
     mail to: user.email
   end
 
+  # This email should be send if a password was changed. It notifies the user of
+  #    a perhaps unwanted change.
+  def password_changed_mail(user)
+    mail to: user.email
+  end
+
 end

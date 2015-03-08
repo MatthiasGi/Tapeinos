@@ -6,6 +6,7 @@
   .panel-body
 
   = simple_horizontal_form_for @user, url: forgot_password_save_path, method: :post do |f|
+    = f.hidden_field :password_reset_token
     = f.input :password, autofocus: true
     = f.input :password_confirmation
     .form-group
