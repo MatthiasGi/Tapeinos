@@ -14,10 +14,15 @@
               = other.firstname
           %li.divider
 
+        - if @current_user
+          = link_to settings_path do
+            = icon :cog
+            = t 'defaults.settings'
+
         = link_to logout_path do
           = icon :log_out
-          Logout
+          = t 'defaults.logout'
 
     = horizontal do
       = nav do
-        = link_to 'Plans', '#TODO'
+        = link_to 'Plans', plans_path #TODO

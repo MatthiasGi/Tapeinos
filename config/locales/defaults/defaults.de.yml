@@ -2,6 +2,8 @@ de:
   defaults:
     submit: Absenden
     cancel: Abbrechen
+    logout: Ausloggen
+    settings: Einstellungen
 
     register:
       title: Account erstellen

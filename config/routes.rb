@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   # Non-administrative user-managment
   get '/register' => 'users#new'
   get '/register/do' => 'users#create'
+  get '/settings' => 'users#edit'
 
   # Plans-placeholder
   resources :plans, only: :index

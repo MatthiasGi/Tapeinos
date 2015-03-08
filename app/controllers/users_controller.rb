@@ -33,6 +33,9 @@ class UsersController < ApplicationController
 
   end
 
+  def edit
+  end
+
   # ============================================================================
 
   private
