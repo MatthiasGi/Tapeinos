@@ -18,6 +18,13 @@ class ApplicationController < ActionController::Base
     session[:user_id] = session[:server_id] = nil
   end
 
+  # Resets the variable telling the view that a user/server is currently logged
+  #    in. This prevents content in the views that shouldn't be displayed to a
+  #    freshly logged out user from showing up.
+  def destroy_currents
+    @current_user = @current_server = nil
+  end
+
   # ============================================================================
 
   private

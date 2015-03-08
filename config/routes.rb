@@ -20,6 +20,10 @@ Rails.application.routes.draw do
 
   # Non-administrative user-managment
   get '/register' => 'users#new'
+  get '/register/do' => 'users#create'
+
+  # Plans-placeholder
+  resources :plans, only: :index
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

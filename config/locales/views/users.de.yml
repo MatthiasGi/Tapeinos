@@ -1,0 +1,22 @@
+de:
+  users:
+    new:
+      title: Account erstellen
+      lead: Hier kannst Du Dir zur einfacheren Verwaltung einen Benutzeraccount erstellen.
+      description: |
+        Das bedeutet, dass Du Dich in Zukunft mit einem Password auf dieser Seite anmeldest. Dies hat mehrere Vorteile:
+
+        - Die Links in der E-Mail haben keinen Wert mehr: damit erreichst Du das Portal **sicherer** und **bequemer**.
+        - Du hast vollen Zugriff auf alle Funktionen des Portals. Zur Zeit gibt es hier noch nicht viel zu sehen, aber für die Zukunft ist zum Beispiel die Verwaltung von aktuellen Ausbildungen geplant.
+        - Du hast jederzeit die Möglichkeit, Deine Termine **einzusehen** und zu **ändern**.
+
+        Dieser Vorgang lässt sich jederzeit rückgängig machen, Du kannst es also problemlos auch einfach ausprobieren.
+
+        Du erhälst nach Klick auf untenstehenden Knopf eine E-Mail zugesandt, in der Du Dein erstes Passwort erhälst. Ändere dies bitte **möglichst bald**.
+      info_alert: |
+        Die Erstellung eines Accounts ist **vollkommen optional**.
+
+        Diese Möglichkeit steht nur zu Deiner **Bequemlichkeit** zur Verfügung.
+      managed_servers: 'Folgende Messdiener werden in dem Account verwaltet:'
+      submit: Account erstellen
+

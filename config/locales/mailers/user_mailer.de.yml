@@ -4,3 +4,5 @@ de:
       subject: Tapeinos - Passwort vergessen
     password_changed_mail:
       subject: Tapeinos - Passwort geändert
+    user_created_mail:
+      subject: Tapeinos - Benutzer erstellt

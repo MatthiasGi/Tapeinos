@@ -1,1 +1,18 @@
+= page_header
 
+%p.lead= t '.lead'
+
+:markdown
+  #{t '.description'}
+
+= alert_box do
+  :markdown
+    #{t '.info_alert'}
+
+%p= t '.managed_servers'
+%ul
+  %li= @current_server
+  - @current_server.siblings.each do |server|
+    %li= server
+
+%p= btn_link_to t('.submit'), register_do_path, context: :primary, layout: :block, size: :large
