@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
     )
   end
 
-  # Checks if the password is still resetable.
+  # Checks if the password is still resettable.
   def password_reset_expired?
     password_reset_expire.nil? || password_reset_expire.past?
   end
