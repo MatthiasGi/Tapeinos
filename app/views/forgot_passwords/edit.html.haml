@@ -1,0 +1,14 @@
+= page_header t('.title'), @user.email
+%p.lead= t '.lead'
+%p= t '.reset_password_description'
+
+= panel do
+  .panel-body
+
+  = simple_horizontal_form_for @user, url: forgot_password_save_path, method: :post do |f|
+    = f.input :password, autofocus: true
+    = f.input :password_confirmation
+    .form-group
+      .col-sm-offset-3.col-sm-9
+        = f.button :submit, t('defaults.submit')
+        = btn_link_to t('defaults.cancel'), login_path, context: :link
