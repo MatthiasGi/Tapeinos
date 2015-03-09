@@ -6,3 +6,5 @@ de:
       subject: Tapeinos - Passwort geändert
     user_created_mail:
       subject: Tapeinos - Benutzer erstellt
+    user_deleted_mail:
+      subject: Tapeinos - Benutzer gelöscht

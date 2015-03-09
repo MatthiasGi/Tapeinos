@@ -29,4 +29,14 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [ENV['GMAIL_USERNAME']], mail.from
   end
 
+  test "user destroyed mail" do
+    user = users(:max)
+    server = user.servers.first
+    mail = UserMailer.user_deleted_mail(server)
+    assert_equal I18n.t('user_mailer.user_deleted_mail.subject'), mail.subject
+    assert_equal [user.email], mail.to
+    assert_equal [ENV['GMAIL_USERNAME']], mail.from
+    assert_match ENV['BASE_URL'] + '/login/' + server.seed, mail.body.encoded
+  end
+
 end

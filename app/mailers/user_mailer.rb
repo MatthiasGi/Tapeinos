@@ -23,4 +23,10 @@ class UserMailer < ApplicationMailer
     mail to: @email
   end
 
+  # Send a server from a newly deleted account an email containing a login-link.
+  def user_deleted_mail(server)
+    @login_link = ENV['BASE_URL'] + '/login/' + server.seed
+    mail to: server.email
+  end
+
 end

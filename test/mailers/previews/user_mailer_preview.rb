@@ -19,4 +19,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.user_created_mail(user, 'blabla')
   end
 
+  # Preview this email at http://localhost:3000/rails/mailers/user_mailer/user_deleted_mail
+  def user_deleted_mail
+    server = Server.new({ email: 'test@bla.de', seed: '12345678901234567890123456789012' })
+    UserMailer.user_deleted_mail([server])
+  end
+
 end
