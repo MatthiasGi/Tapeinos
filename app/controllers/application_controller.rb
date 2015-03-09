@@ -38,12 +38,13 @@ class ApplicationController < ActionController::Base
   # Only allow registered users past this point. Stronger than allowing only
   #    servers (see below).
   def require_user
-    render 'sessions/new' unless @current_user
+    require_server and !@current_user and redirect_to root_path
   end
 
   # Only allow registered servers past this point.
   def require_server
-    render 'sessions/new' unless @current_server
+    @current_server and return true
+    render 'sessions/new' and false
   end
 
 end

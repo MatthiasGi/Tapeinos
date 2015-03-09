@@ -19,4 +19,17 @@ de:
         Diese Möglichkeit steht nur zu Deiner **Bequemlichkeit** zur Verfügung.
       managed_servers: 'Folgende Messdiener werden in dem Account verwaltet:'
       submit: Account erstellen
+    edit:
+      title: Einstellungen
+      lead: Im Folgenden kannst Du die Einstellungen Deines Accounts bearbeiten, die Gewändergrößen anpassen und Deinen Account löschen.
+      password_optional: 'Fülle die folgenden Felder nur aus, wenn Du Dein Passwort tatsächlich ändern möchtest, ansonsten lasse sie einfach leer:'
+      server_lead: Hier kannst Du Deine Gewändergrößen ändern.
+      server_description: Bitte halte diese möglichst aktuell. Wir benutzen diese Angaben, um möglichst immer ausreichend Gewänder vorzuhalten.
+      save_servers: Messdiener aktualisieren
+      delete_account: Account löschen
+      delete_lead: Wenn Du Deinen Account nicht mehr benutzen willst, kannst Du ihn hier löschen.
+      delete_description: Beachte, dass Du Dich weiterhin wieder über personalisierte Links in die Pläne eintragen kannst. Es wird lediglich die Möglichkeit zum Einloggen mit Hilfe eines Passworts entfernt. Weiterhin gehen alle Zusatzfunktionen verloren. Du kannst Dir jederzeit wieder einen Account erstellen.
+      delete: Account löschen
+      delete_confirm: Willst Du Deinen Account wirklich löschen?
+      changes_saved: Deine Änderungen wurden erfolgreich gespeichert!
 

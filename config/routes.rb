@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get '/register' => 'users#new'
   get '/register/do' => 'users#create'
   get '/settings' => 'users#edit'
+  post '/settings' => 'users#update'
+  delete '/settings' => 'users#destroy'
 
   # Plans-placeholder
   resources :plans, only: :index
