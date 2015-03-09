@@ -80,11 +80,6 @@ class Server < ActiveRecord::Base
   def siblings
     others = user ? user.servers : Server.where(email: email, user_id: nil)
     others.where.not(id: id).to_a
-#    if user
-#      user.servers.where.not(id: id).to_a
-#    else
-#      Server.where(email: email, user_id: nil).where.not(id: id).to_a
-#    end
   end
 
   # :nodoc:
