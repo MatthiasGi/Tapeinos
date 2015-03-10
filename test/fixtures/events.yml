@@ -1,1 +1,17 @@
+holythursday:
+  date: 2015-04-02 19:30:00
+  title: Holy Thursday
+  location: EK
+  plan: easter
 
+easter:
+  date: 2015-04-04 21:00:00
+  title: Easter Vigil
+  location: EK
+  plan: easter
+
+goodfriday:
+  date: 2015-04-03 15:00:00
+  title: Good Friday
+  location: LK
+  plan: easter
