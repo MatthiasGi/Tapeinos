@@ -18,3 +18,10 @@ Server.create(firstname: 'Stand', lastname: 'Alone', email: 'standalone@gianfeli
 
 Server.create(firstname: 'Siblin1', lastname: 'Sibling', email: 'siblings@gianfelice.de', seed: '09876543210987654321098765432109')
 Server.create(firstname: 'Siblin2', lastname: 'Sibling', email: 'siblings@gianfelice.de', seed: '19876543210987654321098765432109')
+
+plan = Plan.create(title: 'Easter', remark: 'This is a demo remark about how great Tapeinos is.')
+Event.create(date: '2015-04-02 19:30:00', title: 'Holy Thursday', location: 'EK', plan: plan)
+Event.create(date: '2015-04-03 15:00:00', title: 'Good Friday', location: 'LK', plan: plan)
+Event.create(date: '2015-04-04 21:00:00', title: 'Easter', plan: plan)
+Event.create(date: '2015-04-05 10:30:00', plan: plan)
+
