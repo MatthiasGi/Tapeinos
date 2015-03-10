@@ -42,7 +42,7 @@ class PlansControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :index
 
-    expected = Plan.all.find_all{ |p| p.last_date.past? }.sort_by(&:last_date)
+    expected = Plan.all.find_all{ |p| !p.last_date.past? rescue false }.sort_by(&:first_date)
     assert_equal expected, assigns(:plans)
   end
 

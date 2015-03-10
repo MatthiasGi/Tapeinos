@@ -7,6 +7,6 @@ de:
 
     attributes:
       plan:
-        name: Name
+        title: Name
         remark: Bemerkungen
         events: Termine

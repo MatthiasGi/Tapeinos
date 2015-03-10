@@ -5,7 +5,10 @@ class PlansController < ApplicationController
 
   # ============================================================================
 
-  # NOTE: Placeholder for features yet to come.
-  def index; end
+  # Displays all plans available to the server, filters out old ones.
+  def index
+    @plans = Plan.all.find_all{ |p| !p.last_date.past? rescue false } \
+      .sort_by(&:first_date)
+  end
 
 end

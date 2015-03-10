@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   delete '/settings' => 'users#destroy'
 
   # Plans-placeholder
-  resources :plans, only: :index
+  resources :plans, only: [ :index, :show ]
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

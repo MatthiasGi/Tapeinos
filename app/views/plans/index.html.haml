@@ -1,4 +1,24 @@
-%p.lead
-  Lorem ipsum, dolor sit amet.
+= page_header t('.title'), @current_server.firstname
+
+%p.lead= t '.lead', count: @plans.count
+
+- if @plans.any?
+  .table-responsive
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th= Plan.human_attribute_name(:title)
+          %th= Plan.human_attribute_name(:events)
+          %th= Plan.human_attribute_name(:remark)
+          %th
+      %tbody
+        - @plans.each do |plan|
+          %tr
+            %th= plan
+            %td= [plan.first_date, ' – ', plan.last_date].join(' ')
+            %td= plan.remark
+            %td= btn_link_to t('.enroll'), icon: :pencil, size: :small
 
 = render 'shared/register_alert' unless @current_user
+
+
