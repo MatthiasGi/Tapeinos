@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 40) do
 
   create_table "events", force: :cascade do |t|
-    t.datetime "date"
+    t.datetime "date",       null: false
     t.string   "title"
     t.string   "location"
     t.integer  "plan_id",    null: false
