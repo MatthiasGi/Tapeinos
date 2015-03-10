@@ -1,0 +1,13 @@
+de:
+  acitverecord:
+    models:
+      event:
+        one: Termin
+        other: Termine
+
+    attributes:
+      event:
+        date: Datum
+        title: Titel
+        location: Ort
+        plan: Plan

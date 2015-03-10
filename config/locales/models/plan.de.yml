@@ -1,0 +1,12 @@
+de:
+  activerecord:
+    models:
+      plan:
+        one: Plan
+        other: Pläne
+
+    attributes:
+      plan:
+        name: Name
+        remark: Bemerkungen
+        events: Termine

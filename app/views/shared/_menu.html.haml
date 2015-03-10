@@ -25,4 +25,4 @@
 
     = horizontal do
       = nav do
-        = link_to 'Plans', plans_path #TODO
+        = link_to Plan.model_name.human(count: :many), plans_path
