@@ -1,5 +1,11 @@
-plan1:
-  title: Testplan
+empty:
+  title: Empty testplan
 
 easter:
   title: Easter
+
+older:
+  title: Too old to view
+
+normal:
+  title: Just a normal plan

@@ -1,17 +1,25 @@
 holythursday:
-  date: 2015-04-02 19:30:00
+  date: <%= 3.days.from_now %>
   title: Holy Thursday
   location: EK
   plan: easter
 
 easter:
-  date: 2015-04-04 21:00:00
+  date: <%= 4.days.from_now %>
   title: Easter Vigil
   location: EK
   plan: easter
 
 goodfriday:
-  date: 2015-04-03 15:00:00
+  date: <%= 5.days.from_now %>
   title: Good Friday
   location: LK
   plan: easter
+
+normalsunday:
+  date: <%= 1.month.from_now %>
+  plan: normal
+
+older:
+  date: <%= 1.day.ago %>
+  plan: older

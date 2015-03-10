@@ -81,4 +81,10 @@ class PlanTest < ActiveSupport::TestCase
     assert_not Event.find_by(id: id)
   end
 
+  test "Last/First on empty" do
+    plan = plans(:empty)
+    assert_nil plan.first_date
+    assert_nil plan.last_date
+  end
+
 end

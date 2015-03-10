@@ -11,12 +11,12 @@ class Plan < ActiveRecord::Base
 
   # Returns the earliest event-date associated to the plan
   def first_date
-    events.order(:date).first.date.to_date
+    events.order(:date).first.date.to_date rescue nil
   end
 
   # Returns the latest event-date associated to the plan
   def last_date
-    events.order(:date).last.date.to_date
+    events.order(:date).last.date.to_date rescue nil
   end
 
   # :nodoc:

@@ -3,7 +3,7 @@ require 'test_helper'
 class EventTest < ActiveSupport::TestCase
 
   test "Date and plan necessary" do
-    plan = { plan: plans(:plan1) }
+    plan = { plan: plans(:empty) }
     date = { date: DateTime.now }
 
     event = Event.new(**plan)

@@ -2,6 +2,10 @@ require 'test_helper'
 
 class PlansControllerTest < ActionController::TestCase
 
+  def setup
+    @session = { server_id: servers(:heinz).id }
+  end
+
   test "only logged in user allowed" do
     get :index, nil, nil
     assert_response :success
@@ -31,6 +35,15 @@ class PlansControllerTest < ActionController::TestCase
     server = user.servers.first
     get :index, nil, { user_id: user.id, server_id: server.id }
     assert_select '.panel .btn', false
+  end
+
+  test "listing all plans" do
+    get :index, nil, @session
+    assert_response :success
+    assert_template :index
+
+    expected = Plan.all.find_all{ |p| p.last_date.past? }.sort_by(&:last_date)
+    assert_equal expected, assigns(:plans)
   end
 
 end
