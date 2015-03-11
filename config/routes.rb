@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # Session-management
   get '/login/as/:id' => 'sessions#update', as: 'change_server'
   get '/login/:seed' => 'sessions#temporary', \
-    constraints: { seed: /[a-f0-9]{32}/ }
+    constraints: { seed: /[a-f0-9]{32}/ }, as: 'login_seed'
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'

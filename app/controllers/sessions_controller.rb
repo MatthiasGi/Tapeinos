@@ -3,7 +3,7 @@
 class SessionsController < ApplicationController
 
   # Automatically clean the session while logging in.
-  before_action :logout
+  before_action :logout, except: :update
 
   # Remove currently logged in user and server (see below) when creating new
   #    sessions.
