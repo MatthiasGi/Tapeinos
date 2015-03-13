@@ -9,4 +9,7 @@ class Event < ActiveRecord::Base
 
   validates :needed, numericality: { only_integer: true, greater_than: 0 }, if: :needed
 
+  # The servers can enroll to many events.
+  has_and_belongs_to_many :servers
+
 end

@@ -7,6 +7,9 @@ class Server < ActiveRecord::Base
   #    to one or more servers.
   belongs_to :user
 
+  # The servers can enroll to many events.
+  has_and_belongs_to_many :events
+
   # Absolutley mandatory are first- and lastname to identify the server.
   validates :firstname, :lastname, presence: true
 

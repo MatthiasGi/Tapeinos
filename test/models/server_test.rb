@@ -196,4 +196,12 @@ class ServerTest < ActiveSupport::TestCase
     assert_empty servers(:kunz).siblings
   end
 
+  test "Have a server enroll to multiple events" do
+    evts = [ events(:easter), events(:goodfriday) ]
+    server = servers(:max)
+    assert server.update(events: evts)
+    assert server.valid?
+    assert_equal evts, server.events(true)
+  end
+
 end
