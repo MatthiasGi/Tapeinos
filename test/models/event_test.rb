@@ -31,9 +31,11 @@ class EventTest < ActiveSupport::TestCase
   test "Can enroll many servers to an event" do
     servs = [ servers(:heinz), servers(:heinz2), servers(:kunz), servers(:max) ]
     event = events(:easter)
+    assert_equal 0, event.enrolled
     assert event.update(servers: servs)
     assert event.valid?
     assert_equal servs, event.servers(true)
+    assert_equal 4, event.enrolled
   end
 
 end

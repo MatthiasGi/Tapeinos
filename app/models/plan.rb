@@ -1,3 +1,5 @@
+# A plan holds many dates allowing the servers to enroll to them.
+
 class Plan < ActiveRecord::Base
 
   # The title is the only way for the user to distinguish plans
