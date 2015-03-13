@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 40) do
     t.datetime "date",       null: false
     t.string   "title"
     t.string   "location"
+    t.integer  "needed"
     t.integer  "plan_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

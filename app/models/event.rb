@@ -7,4 +7,6 @@ class Event < ActiveRecord::Base
   # An event without a date wouldn't make any sense, would it?
   validates :date, presence: true
 
+  validates :needed, numericality: { only_integer: true, greater_than: 0 }, if: :needed
+
 end
