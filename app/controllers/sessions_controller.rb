@@ -3,7 +3,7 @@
 class SessionsController < ApplicationController
 
   # Automatically clean the session while logging in.
-  before_action :logout, except: :update
+  before_action :logout
 
   # Remove currently logged in user and server (see below) when creating new
   #    sessions.
@@ -73,6 +73,7 @@ class SessionsController < ApplicationController
     if server and @current_server and @current_server == server or
         @current_server.siblings.include?(server)
       session[:server_id] = server.id
+      @current_user and session[:user_id] = @current_user.id
       redirect_to :back
     else
       flash.now[:invalid_server_change] = true

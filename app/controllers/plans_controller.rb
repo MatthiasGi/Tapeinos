@@ -11,4 +11,6 @@ class PlansController < ApplicationController
       .sort_by(&:first_date)
   end
 
+  def edit; end
+
 end

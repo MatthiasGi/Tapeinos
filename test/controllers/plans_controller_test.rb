@@ -20,7 +20,7 @@ class PlansControllerTest < ActionController::TestCase
 
   test "allow logged in server" do
     server = servers(:heinz)
-    get plans_path, nil, @session
+    get :index, nil, @session
     assert_response :success
     assert_template :index
     assert_equal server, assigns(:current_server)
