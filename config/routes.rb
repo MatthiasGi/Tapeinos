@@ -28,8 +28,10 @@ Rails.application.routes.draw do
   # Non-administrative plan-interface.
   resources :plans, only: [ :index, :show, :update ]
 
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  # Administrative REST-API
+  namespace :admin do
+    resources :servers, only: [ :index, :edit, :update, :destroy ]
+  end
 
   # Example resource route with options:
   #   resources :products do

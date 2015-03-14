@@ -5,3 +5,8 @@ max:
 monika:
   email: monika@gianfelice.de
   password_digest: <%= BCrypt::Password.create('blabla', cost: 4) %>
+
+admin:
+  email: admin@gianfelice.de
+  password_digest: <%= BCrypt::Password.create('testtest', cost: 4) %>
+  admin: true

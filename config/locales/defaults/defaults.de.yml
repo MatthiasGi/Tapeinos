@@ -4,6 +4,7 @@ de:
     cancel: Abbrechen
     logout: Ausloggen
     settings: Einstellungen
+    administration: Administration
 
     register:
       title: Account erstellen

@@ -26,3 +26,4 @@
     = horizontal do
       = nav do
         = link_to Plan.model_name.human(count: :many), plans_path
+        = link_to t('defaults.administration'), admin_servers_path if @current_user.admin

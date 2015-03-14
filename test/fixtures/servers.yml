@@ -40,3 +40,8 @@ kunz:
   lastname: Hinz
   email: hinz@kunz.com
 
+admin:
+  firstname: Admin
+  lastname: Istrator
+  user: admin
+
