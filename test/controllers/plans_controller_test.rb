@@ -35,4 +35,12 @@ class PlansControllerTest < ActionController::TestCase
     assert_equal expected, assigns(:plans)
   end
 
+  test "enrolling for a plan" do
+    plan = plans(:easter)
+    get :edit, { id: plan.id }, @session
+    assert_response :success
+    assert_template :edit
+    assert_equal plan, assigns(:plan)
+  end
+
 end

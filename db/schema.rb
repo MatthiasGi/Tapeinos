@@ -14,13 +14,13 @@
 ActiveRecord::Schema.define(version: 41) do
 
   create_table "events", force: :cascade do |t|
-    t.datetime "date",       null: false
+    t.datetime "date",                   null: false
     t.string   "title"
     t.string   "location"
-    t.integer  "needed"
-    t.integer  "plan_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "needed",     default: 1, null: false
+    t.integer  "plan_id",                null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "events", ["plan_id"], name: "index_events_on_plan_id"

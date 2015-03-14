@@ -17,7 +17,7 @@
             %th= plan
             %td= [plan.first_date, ' – ', plan.last_date].join(' ')
             %td= plan.remark
-            %td= btn_link_to t('.enroll'), icon: :pencil, size: :small
+            %td= btn_link_to t('.enroll'), edit_plan_path(plan), icon: :pencil, size: :small
 
 = render 'shared/register_alert' unless @current_user
 

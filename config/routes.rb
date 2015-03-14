@@ -25,8 +25,8 @@ Rails.application.routes.draw do
   post '/settings' => 'users#update'
   delete '/settings' => 'users#destroy'
 
-  # Plans-placeholder
-  resources :plans, only: [ :index, :edit ]
+  # Plans-placeholder TODO
+  resources :plans#, only: [ :index, :edit ]
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

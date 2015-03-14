@@ -32,7 +32,7 @@ de:
     - Samstag
     formats:
       default: ! '%d.%m.%Y'
-      long: ! '%e. %B %Y'
+      long: ! '%a, %e. %B %Y'
       short: ! '%e. %b'
     month_names:
     -
@@ -199,4 +199,5 @@ de:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
       short: ! '%d. %B, %H:%M Uhr'
+      time_only: ! '%H:%M Uhr'
     pm: nachmittags

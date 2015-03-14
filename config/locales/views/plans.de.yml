@@ -7,3 +7,6 @@ de:
         one: 'Zur Zeit steht der folgende Plan aus:'
         other: 'Zur Zeit stehen die folgenden %{count} Pläne aus:'
       enroll: Eintragen
+
+    edit:
+      title: Eintragen

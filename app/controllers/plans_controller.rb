@@ -11,6 +11,13 @@ class PlansController < ApplicationController
       .sort_by(&:first_date)
   end
 
-  def edit; end
+  # Displays a form to the server where he can enroll for events.
+  def edit
+    @plan = Plan.find_by(id: params[:id])
+  end
+
+  def update
+    @params = params
+  end
 
 end

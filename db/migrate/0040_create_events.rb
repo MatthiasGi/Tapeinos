@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :date, null: false
       t.string :title
       t.string :location
-      t.integer :needed
+      t.integer :needed, null: false, default: 1
 
       t.integer :plan_id, null: false
 
