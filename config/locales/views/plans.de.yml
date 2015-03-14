@@ -8,5 +8,5 @@ de:
         other: 'Zur Zeit stehen die folgenden %{count} Pläne aus:'
       enroll: Eintragen
 
-    edit:
+    show:
       title: Eintragen

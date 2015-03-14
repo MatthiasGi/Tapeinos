@@ -1,5 +1,5 @@
 de:
-  acitverecord:
+  activerecord:
     models:
       event:
         one: Termin
@@ -11,3 +11,4 @@ de:
         title: Titel
         location: Ort
         plan: Plan
+        servers: Messdiener

@@ -1,0 +1,29 @@
+= page_header t('.title'), @plan.title
+
+.rowmit
+
+  .col-md-3.col-md-push-9
+    :markdown
+      #{@plan.remark}
+
+  = simple_form_for @plan, html: { class: 'col-md-9 col-md-pull-3' } do |f|
+    .table-responsive
+      %table.table.table-striped.table-hover.table-cols-contract.table-rows-checkbox
+        %thead
+          %tr
+            %th
+            %th{ colspan: 2 }= Event.human_attribute_name(:date)
+            %th.col-expand= Event.human_attribute_name(:title)
+            %th= Event.human_attribute_name(:servers)
+        %tbody
+          - @plan.events.each do |event|
+            %tr
+              %td= check_box_tag 'events[]', event.id, @current_server.events.include?(event)
+              %th= l event.date.to_date, format: :long
+              %th= l event.date, format: :time_only
+              %td= event.title
+              %td= [ event.enrolled, '/', event.needed ].join(' ')
+
+    .text-right
+      = btn_link_to t('defaults.cancel'), plans_path, context: :link
+      = f.button :submit

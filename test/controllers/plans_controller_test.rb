@@ -38,9 +38,9 @@ class PlansControllerTest < ActionController::TestCase
 
   test "enrolling for a plan" do
     plan = plans(:easter)
-    get :edit, { id: plan.id }, @session
+    get :show, { id: plan.id }, @session
     assert_response :success
-    assert_template :edit
+    assert_template :show
     assert_equal plan, assigns(:plan)
   end
 
@@ -50,13 +50,13 @@ class PlansControllerTest < ActionController::TestCase
     ids = evts.map(&:id)
     patch :update, { id: plan.id, events: ids }, @session
     assert_response :success
-    assert_template :edit
+    assert_template :show
     assert_equal evts, @server.events(true)
     evts.each { |event|  assert_includes event.servers(true), @server }
   end
 
   test "invalid plan shows overview" do
-    get :edit, { id: 1 }, @session
+    get :show, { id: 1 }, @session
     assert_redirected_to plans_path
 
     patch :update, { id: 1 }, @session

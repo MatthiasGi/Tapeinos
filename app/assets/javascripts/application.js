@@ -14,3 +14,27 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+
+  // If a user clicks on an table-row with a checkbox, the checkbox should be activated.
+  // The row kind of reacts like a big label for the checkbox.
+  $('.table-rows-checkbox tr').click(function(event) {
+    if (event.target.type !== 'checkbox') {
+      $(':checkbox', this).trigger('click');
+    }
+  });
+
+  // Highlight selected rows with a bootstrap-green-shade for even clearer feedback.
+  $checkboxes = $('.table-rows-checkbox input[type="checkbox"]')
+  $checkboxes.change(function (e) {
+    $(this).closest('tr').toggleClass('success', $(this).is(':checked'));
+  });
+  $checkboxes.each(function (e) {
+    if ($(this).is(':checked')) $(this).closest('tr').addClass('success');
+  })
+
+  // Allow the CSS to react on javascript-enabled browsers.
+  $(document.body).addClass('js-enabled')
+
+});

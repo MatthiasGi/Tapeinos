@@ -4,7 +4,7 @@ class PlansController < ApplicationController
   before_action :require_server
 
   # Every method that needs a fixed plan provided by an id gets it here.
-  before_action :get_plan, only: [ :edit, :update ]
+  before_action :get_plan, only: [ :show, :update ]
 
   # ============================================================================
 
@@ -15,7 +15,7 @@ class PlansController < ApplicationController
   end
 
   # Displays a form to the server where he can enroll for events.
-  def edit; end
+  def show; end
 
   # Saves the new enrollement of the currently logged in server.
   def update
@@ -23,7 +23,7 @@ class PlansController < ApplicationController
     evts_param = evts_param.compact
     events = @current_server.events - @plan.events + evts_param
     @current_server.update(events: events)
-    render :edit
+    render :show
   end
 
   # ============================================================================

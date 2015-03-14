@@ -22,3 +22,24 @@
 /* A small padding assures, that the content isn't cut off right at the bottom. */
 body
   padding-bottom: 70px
+
+/*
+ * If only a specific amount of columns should expand automagically, this is the way to go:
+ * .table-cols-contract is applied to the containing table, .col-expand to the expanding column.
+ */
+.table-cols-contract
+  td,
+  th
+    width: 1%
+    white-space: nowrap
+
+  .col-expand
+    width: 100%
+    white-space: normal
+
+/*
+ * If java-script is enabled, .table-rows-checkbox toggles checkboxes by clicking on the row.
+ * This gives a visual feedback to the user, that he is able to do this.
+ */
+.js-enabled .table-rows-checkbox tr
+  cursor: pointer

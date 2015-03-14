@@ -4,20 +4,22 @@
 
 - if @plans.any?
   .table-responsive
-    %table.table.table-striped.table-hover
+    %table.table.table-striped.table-hover.table-cols-contract
       %thead
         %tr
           %th= Plan.human_attribute_name(:title)
           %th= Plan.human_attribute_name(:events)
-          %th= Plan.human_attribute_name(:remark)
+          %th.col-expand= Plan.human_attribute_name(:remark)
           %th
       %tbody
         - @plans.each do |plan|
           %tr
             %th= plan
-            %td= [plan.first_date, ' – ', plan.last_date].join(' ')
-            %td= plan.remark
-            %td= btn_link_to t('.enroll'), edit_plan_path(plan), icon: :pencil, size: :small
+            %td= [l(plan.first_date), ' – ', l(plan.last_date)].join(' ')
+            %td
+              :markdown
+                #{plan.remark}
+            %td= btn_link_to t('.enroll'), plan_path(plan), icon: :pencil, size: :small
 
 = render 'shared/register_alert' unless @current_user
 
