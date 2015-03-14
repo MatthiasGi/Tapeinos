@@ -3,7 +3,8 @@ require 'test_helper'
 class PlansControllerTest < ActionController::TestCase
 
   def setup
-    @session = { server_id: servers(:heinz).id }
+    @server = servers(:heinz)
+    @session = { server_id: @server.id }
   end
 
   test "only logged in user allowed" do
@@ -41,6 +42,36 @@ class PlansControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :edit
     assert_equal plan, assigns(:plan)
+  end
+
+  test "saving enrollement" do
+    plan = plans(:easter)
+    evts = [ events(:easter), events(:goodfriday) ]
+    ids = evts.map(&:id)
+    patch :update, { id: plan.id, events: ids }, @session
+    assert_response :success
+    assert_template :edit
+    assert_equal evts, @server.events(true)
+    evts.each { |event|  assert_includes event.servers(true), @server }
+  end
+
+  test "invalid plan shows overview" do
+    get :edit, { id: 1 }, @session
+    assert_redirected_to plans_path
+
+    patch :update, { id: 1 }, @session
+    assert_redirected_to plans_path
+  end
+
+  test "adding to already enrolled events" do
+    plan = plans(:easter)
+    pres = [ events(:holythursday), events(:older), events(:easter) ]
+    posts = [ events(:easter), events(:goodfriday) ]
+    events = [ events(:older), events(:easter), events(:goodfriday) ]
+    @server.update(events: pres)
+
+    patch :update, { id: plan.id, events: posts }, @session
+    assert_equal events, @server.events(true)
   end
 
 end

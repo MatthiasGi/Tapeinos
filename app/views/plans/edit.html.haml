@@ -13,10 +13,9 @@
           %th Name
           %th Messdiener
       %tbody
-        = f.simple_fields_for :events do |fe|
+        - @plan.events.each do |event|
           %tr
-            - event = fe.object
-            %td.text-center= check_box_tag 'event[]', event.id, @current_server.events.include?(event)
+            %td.text-center= check_box_tag 'events[]', event.id, @current_server.events.include?(event)
             %td= l event.date.to_date, format: :long
             %td= l event.date, format: :time_only
             %td= event.title
