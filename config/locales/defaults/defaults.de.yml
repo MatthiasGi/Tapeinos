@@ -5,6 +5,7 @@ de:
     logout: Ausloggen
     settings: Einstellungen
     administration: Administration
+    edit: Bearbeiten
 
     register:
       title: Account erstellen

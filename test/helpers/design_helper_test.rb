@@ -48,4 +48,12 @@ class DesignHelperTest < ActionView::TestCase
     assert_select doc, '.alert.alert-warning', false
   end
 
+  test "rank-icons" do
+    icons = { novice: :pawn, disciple: :bishop, veteran: :tower, master: :king }
+    icons.each do |key, value|
+      doc = node(rank_icon(key))
+      assert_select doc, ".glyphicon.glyphicon-#{value}"
+    end
+  end
+
 end

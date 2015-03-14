@@ -52,7 +52,9 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
 
       # Save the first available server of the user as currently logged in.
-      session[:server_id] = @user.servers.first.id
+      server = @user.servers.first
+      session[:server_id] = server.id
+      server.used
 
       # Allow entrance for the user
       return redirect_to root_path
@@ -74,6 +76,7 @@ class SessionsController < ApplicationController
         @current_server.siblings.include?(server)
       session[:server_id] = server.id
       @current_user and session[:user_id] = @current_user.id
+      server.used
       redirect_to :back
     else
       flash.now[:invalid_server_change] = true
@@ -102,6 +105,7 @@ class SessionsController < ApplicationController
       @user = server.user
     else
       session[:server_id] = server.id
+      server.used
       return redirect_to root_path
     end
 

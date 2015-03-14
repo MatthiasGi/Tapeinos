@@ -7,12 +7,14 @@ de:
       server:
         firstname: Vorname
         lastname: Nachname
+        name: Name
         email: E-Mail-Adresse
         birthday: Geburtstag
         sex: Geschlecht
         rank: Rang
         size_talar: Talargröße
         size_rochet: Rochettgröße
+        sizes: Gewändergrößen
         last_used: Zuletzt genutzt
         user: Benutzer
 

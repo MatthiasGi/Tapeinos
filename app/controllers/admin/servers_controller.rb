@@ -3,7 +3,7 @@
 class Admin::ServersController < Admin::AdminController
 
   def index
-    @servers = Server.all
+    @servers = Server.all.order(:lastname)
   end
 
 end

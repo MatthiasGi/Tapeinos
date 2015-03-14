@@ -32,4 +32,10 @@ module DesignHelper
     safe_join(output)
   end
 
+  # Creates an icon for the corresponding, database-saved rank.
+  def rank_icon(rank)
+    icons = { novice: :pawn, disciple: :bishop, veteran: :tower, master: :king }
+    icon icons[rank.to_sym]
+  end
+
 end

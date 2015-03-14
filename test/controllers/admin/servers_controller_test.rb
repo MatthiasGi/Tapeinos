@@ -30,7 +30,7 @@ class Admin::ServersControllerTest < ActionController::TestCase
     get :index, nil, @session
     assert_response :success
     assert_template :index
-    assert_equal Server.all, assigns(:servers)
+    assert_equal Server.all.order(:lastname), assigns(:servers)
   end
 
 end

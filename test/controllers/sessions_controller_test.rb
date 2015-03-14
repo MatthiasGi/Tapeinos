@@ -98,7 +98,9 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "login by seed" do
     server = servers(:heinz)
+    used = server.last_used
     get :temporary, { seed: server.seed }
+    assert_not_equal used, Server.find(server.id).last_used
     assert_equal server.id, session[:server_id]
     assert_redirected_to root_path
   end
@@ -148,9 +150,11 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "logging in user logs in first available server" do
     user = users(:max)
+    used = user.servers.first
     post :create, {user: {email: user.email, password: 'testen'}}
-    server = user.servers.first
+    server = user.servers(true).first
     assert_equal server.id, session[:server_id]
+    assert_not_equal used, server.last_used
   end
 
   test "logging in user without server fails" do
@@ -164,15 +168,20 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "changing user-managed servers" do
     user = users(:max)
+    used = user.servers.second.last_used
     get :update, { id: user.servers.second }, { user_id: user.id, server_id: user.servers.first.id }
     assert_redirected_to root_path
     assert_equal user.servers.second.id, session[:server_id]
+    assert_not_equal used, user.servers(true).second.last_used
   end
 
   test "changing server-managed servers" do
     server = servers(:heinz)
+    used = server.last_used
     get :update, { id: server.id }, { server_id: servers(:heinz2).id }
     assert_redirected_to root_path
+    server = Server.find(server.id)
+    assert_not_equal used, server.last_used
     assert_equal server.id, session[:server_id]
   end
 
