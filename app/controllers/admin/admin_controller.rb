@@ -7,6 +7,9 @@ class Admin::AdminController < ApplicationController
   #    only be invoked by real administrative users.
   before_action :require_user, :require_admin
 
+  # The administration uses another layout with sidebar for navigation.
+  layout 'administration'
+
   # ============================================================================
 
   private

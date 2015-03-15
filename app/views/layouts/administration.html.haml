@@ -1,0 +1,8 @@
+= render layout: 'layouts/master' do
+  .col-md-2
+    = nav as: :pills, layout: :stacked do
+      = link_to Server.model_name.human(count: :many), admin_servers_path
+      = link_to User.model_name.human(count: :many), admin_users_path
+
+  .col-md-10
+    = yield
