@@ -123,7 +123,7 @@ class Admin::ServersControllerTest < ActionController::TestCase
     assert_not Server.find_by(id: server.id)
   end
 
-  test "show new user form" do
+  test "show new server form" do
     get :new, nil, @session
     assert_response :success
     assert_template :new
@@ -132,7 +132,7 @@ class Admin::ServersControllerTest < ActionController::TestCase
 
   test "create server" do
     assert_difference 'Server.all.count', +1 do
-      post :create, { server: {firstname: 'test', lastname: 'bla', email: 'test@bla.de', sex: :male }}, @session
+      post :create, { server: { firstname: 'test', lastname: 'bla', email: 'test@bla.de', sex: :male }}, @session
     end
     assert_redirected_to admin_servers_path
   end

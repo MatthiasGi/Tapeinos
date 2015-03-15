@@ -1,0 +1,25 @@
+= page_header
+
+.table-responsive
+  %table.table.table-striped.table-hover.table-cols-contract
+    %thead
+      %tr
+        %th= User.human_attribute_name(:email)
+        %th{colspan: 2}= User.human_attribute_name(:servers)
+        %th= User.human_attribute_name(:admin)
+        %th= User.human_attribute_name(:last_used)
+        %th= t '.failed_authentications'
+        %th
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.email
+          %td= user.servers.count if user.servers.any?
+          %td.col-expand
+            - if user.servers.any?
+              %small= user.servers.to_a.join(', ')
+          %td.text-center= icon :ok if user.admin
+          %td= l user.last_used, format: :short if user.last_used
+          %td= user.failed_authentications if user.failed_authentications > 0
+          %td= btn_link_to t('defaults.edit'), edit_admin_user_path(user), icon: :pencil, size: :small
+

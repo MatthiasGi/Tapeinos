@@ -15,7 +15,7 @@
         %tr
           %td= server.firstname
           %th= server.lastname
-          %td= btn_link_to nil, admin_user_path(server.user), icon: :user, size: :small if server.user
+          %td= btn_link_to nil, edit_admin_user_path(server.user), icon: :user, size: :small if server.user
           %td.col-expand= mail_to server.email
           %td
             = rank_icon server.rank
@@ -23,5 +23,4 @@
           %td= l server.last_used, format: :short if server.last_used
           %td= server.size_talar
           %td= server.size_rochet
-          %td
-            = btn_link_to t('defaults.edit'), edit_admin_server_path(server), icon: :pencil, size: :small
+          %td= btn_link_to t('defaults.edit'), edit_admin_server_path(server), icon: :pencil, size: :small

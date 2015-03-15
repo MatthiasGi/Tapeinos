@@ -1,0 +1,17 @@
+de:
+  admin:
+    users:
+      index:
+        title: Benutzer verwalten
+        failed_authentications: Logins
+
+      edit:
+        title: Benutzer bearbeiten
+        no_servers: Dieser Benutzer verwaltet keine Messdiener.
+        confirm_delete: |
+          Soll der Benutzer wirklich gelöscht werden?
+
+          Dies lässt sich nicht wieder rückgängig machen!
+        confirm_server: |
+          Wirklich den ausgewählten Messdiener bearbeiten? Alle Änderungen gehen dadurch verloren!
+

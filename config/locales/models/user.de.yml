@@ -8,9 +8,10 @@ de:
         email: E-Mail-Adresse
         password: Passwort
         password_confirmation: Password (wiederholen)
+        admin: Administrator
         last_used: Zuletzt benutzt
         servers: Messdiener
-        
+
       user/servers:
         size_talar: Talargröße
         size_rochet: Rochettgröße
