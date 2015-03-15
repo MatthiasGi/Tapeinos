@@ -6,6 +6,9 @@ de:
     settings: Einstellungen
     administration: Administration
     edit: Bearbeiten
+    add: Hinzufügen
+    actions: Aktionen
+    delete: Löschen
 
     register:
       title: Account erstellen

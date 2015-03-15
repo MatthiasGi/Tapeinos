@@ -1,0 +1,22 @@
+= simple_horizontal_form_for [ :admin, @server ] do |f|
+
+  = f.input :firstname
+  = f.input :lastname
+  = f.input :email unless @server.user
+  = f.input :birthday, start_year: 1950, end_year: Date.today.year, include_blank: true
+  = f.input :sex, collection: Server.sexes.symbolize_keys.keys, as: :radio_buttons, item_wrapper_class: 'col-sm-4'
+  = f.input :size_talar
+  = f.input :size_rochet
+  = f.input :since, start_year: 1950, end_year: Date.today.year, include_blank: true
+  = f.input :rank, collection: Server.ranks.symbolize_keys.keys, include_blank: false, as: :radio_buttons, item_wrapper_class: 'col-sm-2'
+
+  %hr/
+  %h2= Server.human_attribute_name(:user)
+  = f.association :user
+  %hr/
+
+  .form-group
+    .col-sm-9.col-sm-offset-3
+      = f.button :submit
+      = btn_link_to t('defaults.cancel'), admin_servers_path, context: :link
+      = btn_link_to t('defaults.delete'), admin_server_path(@server), method: :delete, context: :danger, icon: :trash, data: { confirm: t('.confirm_delete') } if action_name == 'edit'

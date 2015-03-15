@@ -10,14 +10,14 @@ user = User.create({email: 'matthias@gianfelice.de', password: 'testen', admin: 
 User.create({email: 'heinz@gianfelice.de', password: 'testen'})
 
 ['Max', 'Heinz'].each do |name|
-  Server.create(firstname: name, lastname: 'Gianfelice', user: user)
+  Server.create(firstname: name, lastname: 'Gianfelice', user: user, sex: :male)
 end
-Server.create(firstname: 'Matthias', lastname: 'Gianfelice', seed: '12345678901234567890123456789012', user: user)
+Server.create(firstname: 'Matthias', lastname: 'Gianfelice', seed: '12345678901234567890123456789012', user: user, sex: :male)
 
-Server.create(firstname: 'Stand', lastname: 'Alone', email: 'standalone@gianfelice.de', seed: '1234567890abcdef1234567890abcdef')
+Server.create(firstname: 'Stand', lastname: 'Alone', email: 'standalone@gianfelice.de', seed: '1234567890abcdef1234567890abcdef', sex: :female)
 
-Server.create(firstname: 'Siblin1', lastname: 'Sibling', email: 'siblings@gianfelice.de', seed: '09876543210987654321098765432109')
-Server.create(firstname: 'Siblin2', lastname: 'Sibling', email: 'siblings@gianfelice.de', seed: '19876543210987654321098765432109')
+Server.create(firstname: 'Siblin1', lastname: 'Sibling', email: 'siblings@gianfelice.de', seed: '09876543210987654321098765432109', sex: :female)
+Server.create(firstname: 'Siblin2', lastname: 'Sibling', email: 'siblings@gianfelice.de', seed: '19876543210987654321098765432109', sex: :female)
 
 plan = Plan.create(title: 'Easter', remark: 'This is a demo remark about how great Tapeinos is.')
 Event.create(date: '2015-04-02 19:30:00', title: 'Holy Thursday', location: 'EK', plan: plan)

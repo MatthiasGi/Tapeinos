@@ -17,6 +17,8 @@ de:
         sizes: Gewändergrößen
         last_used: Zuletzt genutzt
         user: Benutzer
+        since: Mitglied seit
+        seed: Login-Seed
 
       server/sex:
         male: Männlich

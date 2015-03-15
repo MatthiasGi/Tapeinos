@@ -118,7 +118,7 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(email: email, password: 'testen')
     assert user.valid?
     3.times do |i|
-      servers << Server.new(firstname: "first_#{i}", lastname: "last_#{i}", email: "test@bla#{i}.de", user: user)
+      servers << Server.new(firstname: "first_#{i}", lastname: "last_#{i}", email: "test@bla#{i}.de", sex: :male, user: user)
     end
 
     user.destroy

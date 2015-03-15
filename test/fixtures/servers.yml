@@ -3,45 +3,54 @@ max:
   lastname: Mustermann
   email: max@mustermann.de
   user: max
+  sex: 0
 
 max2:
   firstname: Max2
   lastname: Mustermann
   user: max
+  sex: 0
 
 max3:
   firstname: Max3
   lastname: Mustermann
   user: max
+  sex: 0
 
 max4:
   firstname: Max4
   lastname: Mustermann
   email: heinz@gianfelice.de
   user: max
+  sex: 0
 
 heinz:
   firstname: Heinz
   lastname: Müller
   email: heinz@gianfelice.de
+  sex: 0
 
 heinz2:
   firstname: Heinz2
   lastname: Müller
   email: heinz@gianfelice.de
+  sex: 0
 
 heinz3:
   firstname: Heinz3
   lastname: Müller
   email: heinz@gianfelice.de
+  sex: 0
 
 kunz:
   firstname: Kunz
   lastname: Hinz
   email: hinz@kunz.com
+  sex: 0
 
 admin:
   firstname: Admin
   lastname: Istrator
   user: admin
+  sex: 1
 

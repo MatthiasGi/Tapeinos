@@ -1,5 +1,18 @@
 de:
   admin:
     servers:
+      new:
+        title: Messdiener hinzufügen
+
       index:
         title: Messdiener verwalten
+
+      edit:
+        title: Messdiener bearbeiten
+        delete: Messdiener löschen
+
+      form:
+        confirm_delete: |
+          Soll der Messdiener wirklich gelöscht werden?
+
+          Dies lässt sich nicht wieder rückgängig machen!

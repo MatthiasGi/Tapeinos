@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 41) do
     t.string   "lastname",                null: false
     t.string   "email"
     t.date     "birthday"
-    t.integer  "sex"
+    t.integer  "sex",                     null: false
     t.integer  "size_talar"
     t.integer  "size_rochet"
     t.date     "since"

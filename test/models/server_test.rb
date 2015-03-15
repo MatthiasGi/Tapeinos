@@ -7,38 +7,42 @@ class ServerTest < ActiveSupport::TestCase
     @lname = { lastname: 'Mustermann' }
     @name = {**@fname, **@lname}
     @email = { email: 'max@mustermann.de' }
+    @sex = { sex: :male }
+    @all = { **@name, **@email, **@sex }
   end
 
-  test "mandatory fields firstname, lastname and email given" do
-    server = Server.new(**@lname, **@email)
+  test "mandatory fields firstname, lastname, sex and email given" do
+    server = Server.new(**@lname, **@email, **@sex)
     assert_not server.valid?, "No firstname given"
-    server = Server.new(**@fname, **@email)
+    server = Server.new(**@fname, **@email, **@sex)
     assert_not server.valid?, "No lastname given"
-    server = Server.new(**@name)
+    server = Server.new(**@name, **@sex)
     assert_not server.valid?, "No email given"
     server = Server.new(**@name, **@email)
+    assert_not server.valid?, "No sex given"
+    server = Server.new(@all)
     assert server.valid?, "Everything mandatory given but still not valid?"
   end
 
   test "names shouldn't be blank" do
-    server = Server.new(firstname: '    ', **@lname, **@email)
+    server = Server.new(firstname: '    ', **@lname, **@email, **@sex)
     assert_not server.valid?, "Firstname was blank"
-    server = Server.new(**@fname, lastname: '   ', **@email)
+    server = Server.new(**@fname, lastname: '   ', **@email, **@sex)
     assert_not server.valid?, "Lastname was blank"
   end
 
   test "email should be valid" do
-    server = Server.new(**@name, email: 'Test')
+    server = Server.new(**@name, **@sex, email: 'Test')
     assert_not server.valid?, "Email was not valid"
   end
 
   test "email should be saved lowercase" do
-    server = Server.new(**@name, email: 'Test@BlA.DE')
+    server = Server.new(**@name, **@sex, email: 'Test@BlA.DE')
     assert server.save
     assert_equal 'test@bla.de', server.email, "email isn't saved lowercase"
     server.destroy
 
-    server = Server.new(**@name, email: 'test@bla.de')
+    server = Server.new(**@name, **@sex, email: 'test@bla.de')
     assert server.save
     assert_equal 'test@bla.de', server.email, "email isn't kept lowercase"
     server.destroy
@@ -113,7 +117,7 @@ class ServerTest < ActiveSupport::TestCase
   end
 
   test "seed should be generated on user-creation" do
-    server = Server.new(**@name, **@email)
+    server = Server.new(**@all)
     seed = server.seed
     assert_not_nil seed, "server seed shouldn't be empty"
     assert_not_empty seed, "server seed shouldn't be empty"
@@ -153,7 +157,7 @@ class ServerTest < ActiveSupport::TestCase
 
   test "email should only be mandatory if no user" do
     user = users(:max)
-    server = Server.new(**@name, user: user)
+    server = Server.new(**@name, **@sex, user: user)
     assert server.valid?, "email should not be required if user given"
   end
 

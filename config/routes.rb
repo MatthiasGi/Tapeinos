@@ -30,7 +30,8 @@ Rails.application.routes.draw do
 
   # Administrative REST-API
   namespace :admin do
-    resources :servers, only: [ :index, :edit, :update, :destroy ]
+    resources :servers, except: :show
+    resources :users, except: :show
   end
 
   # Example resource route with options:

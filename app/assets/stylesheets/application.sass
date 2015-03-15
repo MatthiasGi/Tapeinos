@@ -43,3 +43,16 @@ body
  */
 .js-enabled .table-rows-checkbox tr
   cursor: pointer
+
+/*
+ * This definitions ensure, that the 100%-width form-control-style is overwritten for fields that
+ * don't require such exceptional width.
+ */
+%inline-input
+  display: inline
+  width: auto
+select.date
+  @extend %inline-input
+  margin-right: 10px
+input[type="number"]
+  @extend %inline-input

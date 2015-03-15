@@ -9,13 +9,13 @@
         %th= Server.human_attribute_name(:rank)
         %th= Server.human_attribute_name(:last_used)
         %th{colspan: 2}= Server.human_attribute_name(:sizes)
-        %th
+        %th= btn_link_to t('defaults.add'), new_admin_server_path, icon: :plus, class: 'pull-right', size: :small, context: :success
     %tbody
       - @servers.each do |server|
         %tr
           %td= server.firstname
           %th= server.lastname
-          %td= btn_link_to nil, '#TODO', icon: :user, size: :small if server.user
+          %td= btn_link_to nil, admin_user_path(server.user), icon: :user, size: :small if server.user
           %td.col-expand= mail_to server.email
           %td
             = rank_icon server.rank

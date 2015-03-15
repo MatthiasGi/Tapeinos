@@ -1,0 +1,20 @@
+de:
+  simple_form:
+    'yes': Ja
+    'no': Nein
+    required:
+      text: Angabe erforderlich
+      mark: '*'
+    error_notification:
+      default_message: Irgendwas stimmt hier noch nicht.
+
+    options:
+      defaults:
+        sex:
+          male: Männlich
+          female: Weiblich
+        rank:
+          novice: Anwärter
+          disciple: Messdiener
+          veteran: Leiterkandidat
+          master: Leiter
