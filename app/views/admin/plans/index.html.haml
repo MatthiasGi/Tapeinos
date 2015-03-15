@@ -1,0 +1,19 @@
+= page_header
+
+.table-reponsive
+  %table.table.table-striped.table-hover.table-cols-contract
+    %thead
+      %tr
+        %th= Plan.human_attribute_name(:title)
+        %th= Plan.human_attribute_name(:events)
+        %th.col-expand= Plan.human_attribute_name(:remark)
+        %th= btn_link_to t('defaults.add'), new_admin_plan_path, icon: :plus, size: :small, context: :success
+    %tbody
+      - @plans.each do |plan|
+        %tr
+          %th= plan
+          %td= [ l(plan.first_date), '–', l(plan.last_date) ].join(' ') if plan.first_date
+          %td
+            :markdown
+              #{plan.remark}
+          %td= btn_link_to t('defaults.see'), admin_plan_path(plan), icon: :eye_open, size: :small

@@ -9,6 +9,9 @@ de:
     add: Hinzufügen
     actions: Aktionen
     delete: Löschen
+    see: Anzeigen
+    back: Zurück
+    remove: Entfernen
 
     register:
       title: Account erstellen

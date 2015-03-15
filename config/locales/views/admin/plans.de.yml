@@ -1,0 +1,22 @@
+de:
+  admin:
+    plans:
+      new:
+        title: Plan erstellen
+
+      index:
+        title: Pläne verwalten
+
+      show:
+        title: Plan verwalten
+
+      edit:
+        title: Plan bearbeiten
+
+      form:
+        needed: Benötigt
+        new_event: Termin hinzufügen
+        confirm_delete: |
+          Soll der Plan wirklich gelöscht werden?
+
+          Dies lässt sich nicht wieder rückgängig machen!

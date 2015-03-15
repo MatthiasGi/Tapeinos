@@ -48,11 +48,12 @@ body
  * This definitions ensure, that the 100%-width form-control-style is overwritten for fields that
  * don't require such exceptional width.
  */
-%inline-input
+select.date,
+select.datetime,
+input[type="number"]
   display: inline
   width: auto
-select.date
-  @extend %inline-input
-  margin-right: 10px
-input[type="number"]
-  @extend %inline-input
+
+/* Contracts a form-control to a very small width. Ideal for tables. */
+.min-control
+  width: 5em !important

@@ -1,0 +1,26 @@
+= page_header t('.title'), @plan
+
+:markdown
+  #{@plan.remark}
+
+.table-responsive
+  %table.table.table-striped.table-hover.table-cols-contract
+    %thead
+      %tr
+        %th{ colspan: 2 }= Event.human_attribute_name(:date)
+        %th= Event.human_attribute_name(:title)
+        %th.col-expand= Event.human_attribute_name(:servers)
+        %th
+    %tbody
+      - @plan.events.each do |event|
+        %tr
+          %td= l event.date.to_date, format: :long
+          %td= l event.date, format: :time_only
+          %th= event.title
+          %td
+            %small= event.servers.join(', ')
+          %td= [ event.enrolled, '/', event.needed ].join(' ')
+
+  .text-right
+    = btn_link_to t('defaults.back'), admin_plans_path, icon: :triangle_left
+    = btn_link_to t('defaults.edit'), edit_admin_plan_path(@plan), icon: :pencil, context: :primary

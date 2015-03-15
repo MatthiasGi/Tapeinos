@@ -1,0 +1,37 @@
+= simple_horizontal_form_for [ :admin, @plan ] do |f|
+
+  = f.input :title
+  = f.input :remark
+
+  %hr/
+  %h2= Plan.human_attribute_name(:events)
+
+  .table-responsive
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th= Event.human_attribute_name(:date)
+          %th= Event.human_attribute_name(:title)
+          %th= Event.human_attribute_name(:location)
+          %th= t '.needed'
+          %th= t 'defaults.actions'
+
+      %tbody#events-table
+        = f.simple_fields_for :events do |event|
+          = render 'event_fields', f: event
+
+  .text-right
+    = link_to_add_association f, :events, data: { association_insertion_node: '#events-table', association_insertion_method: 'append' }, class: 'btn btn-success' do
+      = icon :plus
+      = t '.new_event'
+
+  %hr/
+
+  .form-group
+    .col-sm-9.col-sm-offset-3
+      = f.button :submit
+      - if action_name == 'edit'
+        = btn_link_to t('defaults.cancel'), admin_plan_path(@plan), context: :link
+        = btn_link_to t('defaults.delete'), admin_plan_path(@plan), method: :delete, context: :danger, icon: :trash, data: { confirm: t('.confirm_delete') }
+      - else
+        = btn_link_to t('defaults.cancel'), admin_plans_path, context: :link

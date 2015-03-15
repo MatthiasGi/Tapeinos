@@ -33,8 +33,9 @@ gem 'rdiscount'
 # Bootstrap helpers make using Twitter's Bootstrap easier
 gem 'bh'
 
-# Use Simple Form to create simple forms
+# Use Simple Form to create simple forms and cocoon for complex associations
 gem 'simple_form'
+gem 'cocoon'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
