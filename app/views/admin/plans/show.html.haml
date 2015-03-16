@@ -8,6 +8,7 @@
     %thead
       %tr
         %th{ colspan: 2 }= Event.human_attribute_name(:date)
+        %th= Event.human_attribute_name(:location)
         %th= Event.human_attribute_name(:title)
         %th.col-expand= Event.human_attribute_name(:servers)
         %th
@@ -16,6 +17,7 @@
         %tr
           %td= l event.date.to_date, format: :long
           %td= l event.date, format: :time_only
+          %td= event.location
           %th= event.title
           %td
             %small= event.servers.join(', ')
