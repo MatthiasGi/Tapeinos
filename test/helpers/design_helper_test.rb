@@ -56,4 +56,12 @@ class DesignHelperTest < ActionView::TestCase
     end
   end
 
+  test "state-icons" do
+    icons = { draft: :edit, sent: :check }
+    icons.each do |key, value|
+      doc = node(state_icon(key))
+      assert_select doc, ".glyphicon.glyphicon-#{value}"
+    end
+  end
+
 end

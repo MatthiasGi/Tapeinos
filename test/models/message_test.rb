@@ -33,4 +33,8 @@ class MessageTest < ActiveSupport::TestCase
     assert_not message.valid?
   end
 
+  test "to string" do
+    assert_equal 'Lorem ipsum.', "#{messages(:two)}"
+  end
+
 end

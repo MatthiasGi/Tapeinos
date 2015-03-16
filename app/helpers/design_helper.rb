@@ -32,10 +32,16 @@ module DesignHelper
     safe_join(output)
   end
 
-  # Creates an icon for the corresponding, database-saved rank.
+  # Creates an icon for the corresponding, database-saved rank of a server.
   def rank_icon(rank)
     icons = { novice: :pawn, disciple: :bishop, veteran: :tower, master: :king }
     icon icons[rank.to_sym]
+  end
+
+  # Creates an icon for the corresponding, database-saved state of a message.
+  def state_icon(state)
+    icons = { draft: :edit, sent: :check }
+    icon icons[state.to_sym]
   end
 
 end

@@ -14,4 +14,11 @@ class Message < ActiveRecord::Base
   enum state: [ :draft, :sent ]
   validates :state, presence: true
 
+  # ============================================================================
+
+  # :nodoc:
+  def to_s
+    subject
+  end
+
 end

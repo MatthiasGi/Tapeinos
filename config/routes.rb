@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     resources :servers, except: :show
     resources :users, only: [ :index, :edit, :update, :destroy ]
     resources :plans
+    resources :messages
   end
 
   # Example resource route with options:
