@@ -1,0 +1,9 @@
+one:
+  subject: Testsubject 1
+  text: "**Test** %{firstname}\n\n %{login}"
+  user: max
+
+two:
+  subject: Lorem ipsum.
+  text: "**Test2** %{firstname}\n\n %{login}"
+  user: max

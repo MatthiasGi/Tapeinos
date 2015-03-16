@@ -18,3 +18,7 @@ de:
           disciple: Messdiener
           veteran: Leiterkandidat
           master: Leiter
+
+        state:
+          draft: Entwurf
+          sent: Gesendet

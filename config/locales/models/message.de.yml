@@ -1,0 +1,18 @@
+de:
+  activerecord:
+    models:
+      message:
+        one: Nachricht
+        other: Nachrichten
+
+    attributes:
+      message:
+        subject: Betreff
+        text: Text
+        date: Datum
+        user: Autor
+        state: Status
+
+      message/state:
+        draft: Entwurf
+        sent: Gesendet
