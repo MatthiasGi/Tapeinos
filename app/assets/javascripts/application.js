@@ -17,7 +17,7 @@
 //
 //= require cocoon
 
-$(document).ready(function() {
+var ready = function() {
 
   // If a user clicks on an table-row with a checkbox, the checkbox should be activated.
   // The row kind of reacts like a big label for the checkbox.
@@ -39,4 +39,7 @@ $(document).ready(function() {
   // Allow the CSS to react on javascript-enabled browsers.
   $(document.body).addClass('js-enabled')
 
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

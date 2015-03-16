@@ -14,6 +14,7 @@
             %th
             %th{ colspan: 2 }= Event.human_attribute_name(:date)
             %th.col-expand= Event.human_attribute_name(:title)
+            %th= Event.human_attribute_name(:location)
             %th= Event.human_attribute_name(:servers)
         %tbody
           - @plan.events.each do |event|
@@ -22,6 +23,7 @@
               %th= l event.date.to_date, format: :long
               %th= l event.date, format: :time_only
               %td= event.title
+              %td= event.location
               %td= [ event.enrolled, '/', event.needed ].join(' ')
 
     .text-right
