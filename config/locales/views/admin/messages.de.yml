@@ -1,6 +1,9 @@
 de:
   admin:
     messages:
+      new:
+        title: Nachricht erstellen
+
       index:
         title: Nachrichten verwalten
 

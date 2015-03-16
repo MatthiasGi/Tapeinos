@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     resources :plans
 
     resources :messages
-    get 'messages/:id/send' => 'messages#send', as: 'message_send'
+    get '/messages/:id/mail' => 'messages#mail', as: 'message_mail'
   end
 
   # Example resource route with options:

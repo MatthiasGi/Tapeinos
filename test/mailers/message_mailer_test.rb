@@ -9,8 +9,9 @@ class MessageMailerTest < ActionMailer::TestCase
 
   test "global_mail" do
     server = servers(:max)
-    mail = MessageMailer.global_mail(@subject, server, @text)
-    assert_equal @subject, mail.subject
+    message = messages(:one)
+    mail = MessageMailer.global_mail(server, message)
+    assert_equal 'Testsubject 1', mail.subject
     assert_equal [server.email], mail.to
     assert_equal [ENV['GMAIL_USERNAME']], mail.from
     assert_match server.firstname, mail.body.encoded

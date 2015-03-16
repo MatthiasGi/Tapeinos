@@ -1,0 +1,9 @@
+= simple_horizontal_form_for [ :admin, @message ] do |f|
+
+  = f.input :subject
+  = f.input :text
+
+  .form-group
+    .col-sm-9.col-sm-offset-3
+      = f.button :submit
+      = btn_link_to t('defaults.cancel'), action_name == 'edit' ? admin_message_path(@message) : admin_messages_path

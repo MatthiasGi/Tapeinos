@@ -6,8 +6,8 @@
     %pre= @message.as_text(@current_server)
 
 .text-right
-  = btn_link_to t('defaults.cancel'), admin_messages_path, context: :link
-  = btn_link_to t('defaults.delete'), admin_message_path(@message), method: :delete, context: :danger, icon: :trash, data: { confirm: t('.confirm_delete') }
+  = btn_link_to t('defaults.cancel'), admin_messages_path, icon: :triangle_left
   - if @message.draft?
+    = btn_link_to t('defaults.delete'), admin_message_path(@message), method: :delete, context: :danger, icon: :trash, data: { confirm: t('.confirm_delete') }
     = btn_link_to t('defaults.edit'), edit_admin_message_path(@message), icon: :pencil
-    = btn_link_to t('defaults.send'), admin_message_send_path(@message), icon: :send, context: :primary
+    = btn_link_to t('defaults.send'), admin_message_mail_path(@message), icon: :send, context: :primary
