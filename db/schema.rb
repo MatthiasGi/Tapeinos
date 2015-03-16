@@ -34,11 +34,11 @@ ActiveRecord::Schema.define(version: 50) do
   add_index "events_servers", ["server_id"], name: "index_events_servers_on_server_id"
 
   create_table "messages", force: :cascade do |t|
-    t.string   "subject"
-    t.text     "text"
-    t.datetime "date"
+    t.string   "subject",                null: false
+    t.text     "text",                   null: false
+    t.datetime "date",                   null: false
     t.integer  "state",      default: 0, null: false
-    t.integer  "user_id"
+    t.integer  "user_id",                null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

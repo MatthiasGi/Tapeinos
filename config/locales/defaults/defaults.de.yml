@@ -12,6 +12,7 @@ de:
     show: Anzeigen
     back: Zurück
     remove: Entfernen
+    send: Senden
 
     register:
       title: Account erstellen

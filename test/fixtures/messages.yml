@@ -1,9 +1,12 @@
 one:
   subject: Testsubject 1
   text: "**Test** %{firstname}\n\n %{login}"
+  date: <%= 2.days.ago %>
   user: max
 
 two:
   subject: Lorem ipsum.
   text: "**Test2** %{firstname}\n\n %{login}"
+  date: <%= 1.day.ago %>
+  state: 1
   user: max

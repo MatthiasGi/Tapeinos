@@ -3,3 +3,15 @@ de:
     messages:
       index:
         title: Nachrichten verwalten
+
+      show:
+        title: Nachricht verwalten
+        html: HTML-Ansicht
+        text: Reintextansicht
+        confirm_delete: |
+          Soll die Nachricht wirklich gelöscht werden?
+
+          Dies lässt sich nicht rückgängig machen!
+
+      edit:
+        title: Nachricht bearbeiten

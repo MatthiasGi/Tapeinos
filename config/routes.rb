@@ -33,7 +33,9 @@ Rails.application.routes.draw do
     resources :servers, except: :show
     resources :users, only: [ :index, :edit, :update, :destroy ]
     resources :plans
+
     resources :messages
+    get 'messages/:id/send' => 'messages#send', as: 'message_send'
   end
 
   # Example resource route with options:

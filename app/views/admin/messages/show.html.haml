@@ -1,0 +1,13 @@
+= page_header t('.title'), @message
+
+= panel @message.as_html(@current_server), title: t('.html')
+= panel title: t('.text') do
+  .panel-body
+    %pre= @message.as_text(@current_server)
+
+.text-right
+  = btn_link_to t('defaults.cancel'), admin_messages_path, context: :link
+  = btn_link_to t('defaults.delete'), admin_message_path(@message), method: :delete, context: :danger, icon: :trash, data: { confirm: t('.confirm_delete') }
+  - if @message.draft?
+    = btn_link_to t('defaults.edit'), edit_admin_message_path(@message), icon: :pencil
+    = btn_link_to t('defaults.send'), admin_message_send_path(@message), icon: :send, context: :primary

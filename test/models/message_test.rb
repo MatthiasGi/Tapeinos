@@ -37,4 +37,22 @@ class MessageTest < ActiveSupport::TestCase
     assert_equal 'Lorem ipsum.', "#{messages(:two)}"
   end
 
+  test "parse as html" do
+    message = messages(:two)
+    server = servers(:max)
+    html = message.as_html(server)
+    assert_match server.firstname, html
+    url = ENV['BASE_URL'] + '/login/' + server.seed
+    assert_match url, html
+  end
+
+  test "parse as text" do
+    message = messages(:two)
+    server = servers(:max)
+    text = message.as_text(server)
+    assert_match server.firstname, text
+    url = ENV['BASE_URL'] + '/login/' + server.seed
+    assert_match url, text
+  end
+
 end

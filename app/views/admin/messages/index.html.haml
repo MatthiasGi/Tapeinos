@@ -8,7 +8,7 @@
         %th= Message.human_attribute_name(:user)
         %th= Message.human_attribute_name(:date)
         %th= Message.human_attribute_name(:state)
-        %th
+        %th= btn_link_to t('defaults.add'), new_admin_message_path, icon: :plus, context: :success, size: :small
     %tbody
       - @messages.each do |message|
         %tr

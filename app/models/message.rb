@@ -16,9 +16,30 @@ class Message < ActiveRecord::Base
 
   # ============================================================================
 
+  # Renders the content of the message as html.
+  def as_html(server)
+    RDiscount.new(parse_text(server)).to_html.html_safe
+  end
+
+  # Renders the content of the message as plain text.
+  def as_text(server)
+    Nokogiri::HTML(as_html(server)).text
+  end
+
   # :nodoc:
   def to_s
     subject
+  end
+
+  # ============================================================================
+
+  private
+
+  # Replaces keywords in the message with usable substitutes.
+  def parse_text(server)
+    url = ENV['BASE_URL'] + '/login/' + server.seed
+    login = '[%{url}](%{url})' % { url: url }
+    text % { firstname: server.firstname, login: login }
   end
 
 end
