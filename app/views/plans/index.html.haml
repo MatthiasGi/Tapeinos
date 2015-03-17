@@ -17,8 +17,9 @@
             %th= plan
             %td= [ l(plan.first_date), '–', l(plan.last_date) ].join(' ')
             %td
-              :markdown
-                #{plan.remark}
+              - if plan.remark
+                :markdown
+                  #{plan.remark.truncate_words(10)}
             %td= btn_link_to t('.enroll'), plan_path(plan), icon: :pencil, size: :small
 
 = render 'shared/register_alert' unless @current_user

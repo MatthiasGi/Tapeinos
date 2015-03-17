@@ -14,6 +14,7 @@
           %th= plan
           %td= [ l(plan.first_date), '–', l(plan.last_date) ].join(' ') if plan.first_date
           %td
-            :markdown
-              #{plan.remark}
+            - if plan.remark
+              :markdown
+                #{plan.remark.truncate_words(10)}
           %td= btn_link_to t('defaults.show'), admin_plan_path(plan), icon: :eye_open, size: :small

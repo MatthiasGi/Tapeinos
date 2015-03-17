@@ -55,6 +55,13 @@ class PlansControllerTest < ActionController::TestCase
     evts.each { |event|  assert_includes event.servers(true), @server }
   end
 
+  test "saving with empty plan list" do
+    plan = plans(:easter)
+    patch :update, { id: plan.id, events: nil }, @session
+    assert_response :success
+    assert_template :show
+  end
+
   test "invalid plan shows overview" do
     get :show, { id: 1 }, @session
     assert_redirected_to plans_path
