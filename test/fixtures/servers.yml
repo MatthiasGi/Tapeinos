@@ -54,3 +54,20 @@ admin:
   user: admin
   sex: 1
 
+shortkunz:
+  firstname: Kunz
+  lastname: Hinderlich
+  email: kunz@heinrich.de
+  sex: 0
+
+shortmax:
+  firstname: Max
+  lastname: Schiller
+  email: max@schiller.de
+  sex: 0
+
+maxcopy:
+  firstname: Max
+  lastname: Mustermann
+  email: max@mustermann2.de
+  sex: 0

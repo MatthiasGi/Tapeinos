@@ -208,4 +208,20 @@ class ServerTest < ActiveSupport::TestCase
     assert_equal evts, server.events(true)
   end
 
+  test "Shortnames are unique and as short as possible" do
+    shortnames = {
+      max: 'Max Mustermann',
+      heinz: 'Heinz',
+      kunz: 'Kunz Hinz',
+      admin: 'Admin',
+      shortkunz: 'Kunz Hind.',
+      shortmax: 'Max S.',
+      maxcopy: 'Max Mustermann'
+    }
+
+    shortnames.each do |key, value|
+      assert_equal value, servers(key).shortname
+    end
+  end
+
 end

@@ -38,4 +38,27 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 4, event.enrolled
   end
 
+  test "List enrolled servers with short names" do
+    shortnames = {
+      max: 'Max Mustermann',
+      heinz: 'Heinz',
+      kunz: 'Kunz Hinz',
+      admin: 'Admin',
+      shortkunz: 'Kunz Hind.',
+      shortmax: 'Max S.',
+      maxcopy: 'Max Mustermann'
+    }
+    event = events(:easter)
+
+    servs = []
+    names = []
+    shortnames.each do |key, value|
+      servs << servers(key)
+      names << value
+    end
+
+    assert event.update(servers: servs)
+    assert_equal names.sort.join(', '), event.list_servers
+  end
+
 end

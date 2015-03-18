@@ -23,4 +23,9 @@ class Event < ActiveRecord::Base
     servers.size
   end
 
+  # Creates a list of all associated servers as short list.
+  def list_servers
+    servers.sort_by(&:to_s).map(&:shortname).join(', ')
+  end
+
 end

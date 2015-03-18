@@ -86,9 +86,29 @@ class Server < ActiveRecord::Base
     others.where.not(id: id).to_a
   end
 
+  # Creates a unique as-short-as-possible name for the server.
+  def shortname
+
+    # Get all servers, that share the same firstname
+    doppelgangers = Server.where(firstname: firstname).where.not(id: id).to_a
+    return firstname unless doppelgangers.size > 0
+
+    # Generate an abbreviation of the lastname until there is noone who shares
+    #    the same start.
+    last = ''
+    lastname.each_char do |c|
+      last += c
+      doppelgangers = doppelgangers.select{ |d| d.lastname.starts_with?(last) }
+      break unless doppelgangers.size > 0
+    end
+
+    # Only apply a dot if the lastname was actually shortend.
+    last == lastname ? "#{firstname} #{lastname}" : "#{firstname} #{last}."
+  end
+
   # :nodoc:
   def to_s
-    [firstname, lastname].join(' ')
+    "#{firstname} #{lastname}"
   end
 
 end
