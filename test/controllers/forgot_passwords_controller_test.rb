@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class ForgotPasswordsControllerTest < ActionController::TestCase
+  require 'sidekiq/testing'
+  Sidekiq::Testing.inline!
 
   test "displaying mask" do
     get :new

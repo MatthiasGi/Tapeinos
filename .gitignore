@@ -15,6 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
+dump.rdb
 
 # Enviroment-variables with sensitive information.
 /config/local_env.yml

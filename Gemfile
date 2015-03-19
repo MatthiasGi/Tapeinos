@@ -37,6 +37,9 @@ gem 'bh'
 gem 'simple_form'
 gem 'cocoon'
 
+# Sidekiq handles delayed jobs (e.g. sending mails later)
+gem 'sidekiq'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
