@@ -23,4 +23,10 @@ class AdministratorTest < ActionDispatch::IntegrationTest
     assert_template 'layouts/administration'
   end
 
+  test "Non-administrative layout for login" do
+    get_via_redirect admin_plans_path
+    assert_template 'sessions/new'
+    assert_template layout: 'layouts/application'
+  end
+
 end

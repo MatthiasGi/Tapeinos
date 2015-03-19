@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   # Only allow registered servers past this point.
   def require_server
     @current_server and return true
-    render 'sessions/new' and false
+    render 'sessions/new', layout: 'application' and false
   end
 
 end
