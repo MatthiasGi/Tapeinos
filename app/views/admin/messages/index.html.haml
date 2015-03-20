@@ -1,21 +1,20 @@
 = page_header
 
-.table-responsive
-  %table.table.table-striped.table-hover.table-cols-contract
-    %thead
+%table.table.table-striped.table-hover.table-data{'data-sort-column' => 2, 'data-sort-order' => 'desc'}
+  %thead
+    %tr
+      %th= Message.human_attribute_name(:subject)
+      %th= Message.human_attribute_name(:user)
+      %th= Message.human_attribute_name(:date)
+      %th= Message.human_attribute_name(:state)
+      %th= btn_link_to t('defaults.add'), new_admin_message_path, icon: :plus, context: :success, size: :small
+  %tbody
+    - @messages.each do |message|
       %tr
-        %th.col-expand= Message.human_attribute_name(:subject)
-        %th= Message.human_attribute_name(:user)
-        %th= Message.human_attribute_name(:date)
-        %th= Message.human_attribute_name(:state)
-        %th= btn_link_to t('defaults.add'), new_admin_message_path, icon: :plus, context: :success, size: :small
-    %tbody
-      - @messages.each do |message|
-        %tr
-          %th= message
-          %td= message.user
-          %td= l message.date
-          %td
-            = state_icon(message.state)
-            = Message.human_attribute_name("state.#{message.state}")
-          %td= btn_link_to t('defaults.show'), admin_message_path(message), icon: :eye_open, size: :small
+        %th= message
+        %td= message.user
+        %td{'data-order' => message.date.to_i}= l message.date
+        %td{'data-order' => message[:state]}
+          = state_icon(message.state)
+          = Message.human_attribute_name("state.#{message.state}")
+        %td= btn_link_to t('defaults.show'), admin_message_path(message), icon: :eye_open, size: :small

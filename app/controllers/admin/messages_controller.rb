@@ -26,7 +26,7 @@ class Admin::MessagesController < Admin::AdminController
 
   # Lists all sent and not-sent messages.
   def index
-    @messages = Message.order(date: :desc)
+    @messages = Message.all
   end
 
   # Shows a single, specific message.
