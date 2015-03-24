@@ -31,6 +31,7 @@ gem 'haml'
 gem 'rdiscount'
 
 # Bootstrap helpers make using Twitter's Bootstrap easier
+gem 'bootstrap-sass'
 gem 'bh'
 
 # Use Simple Form to create simple forms and cocoon for complex associations

@@ -16,6 +16,9 @@
  *= require_self
  */
 
+@import 'bootstrap-sprockets'
+@import 'bootstrap'
+
 /* Make the tau in Tapeinos slightly bigger to match rest of the text. */
 .tap-tau
   font-size: 120%
@@ -23,7 +26,7 @@
 
 /* A small padding assures, that the content isn't cut off right at the bottom. */
 body
-  padding-bottom: 70px
+  padding: 70px 0
 
 /*
  * If only a specific amount of columns should expand automagically, this is the way to go:
@@ -59,3 +62,20 @@ input[type="number"]
 /* Contracts a form-control to a very small width. Ideal for tables. */
 .min-control
   width: 5em !important
+
+/* The server-changer allows a user to change the currently available server. It merges with the button for collapsing the menubar on small screens. */
+// See: shared/_menu.html.haml
+@media (min-width: $screen-sm-min)
+
+  /* This ensures, that the button has rounded borders if the neighbour is not shown. */
+  .serverchanger-btn
+    border-top-right-radius: $border-radius-base !important
+    border-bottom-right-radius: $border-radius-base !important
+
+  /* This hides the button for collapsing the nav on large(r) screens. */
+  .serverchanger-menu
+    display: none
+
+/* Whenever the menu is expanded, the button should be similar to an active one. */
+.serverchanger-menu:not(.collapsed)
+  @extend .active
