@@ -64,4 +64,15 @@ class DesignHelperTest < ActionView::TestCase
     end
   end
 
+  test "date range" do
+    range = date_range(Date.new(2015, 10, 8), Date.new(2015, 10, 10))
+    assert_equal '08. – 10.10.2015', range
+
+    range = date_range(Date.new(2015, 10, 8), Date.new(2015, 11, 12))
+    assert_equal '08.10. – 12.11.2015', range
+
+    range = date_range(Date.new(2015, 10, 8), Date.new(2016, 1, 5))
+    assert_equal '08.10.2015 – 05.01.2016', range
+  end
+
 end

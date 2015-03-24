@@ -24,12 +24,17 @@
 
 var ready = function() {
 
+  // If a user clicks on a table-row with a link contained in it, the link should be triggered.
+  $('.table-rows-link tr').click(function(event) {
+    if (event.target instanceof HTMLAnchorElement) return;
+    $('a', this)[0].click();
+  });
+
   // If a user clicks on an table-row with a checkbox, the checkbox should be activated.
   // The row kind of reacts like a big label for the checkbox.
   $('.table-rows-checkbox tr').click(function(event) {
-    if (event.target.type !== 'checkbox') {
-      $(':checkbox', this).trigger('click');
-    }
+    if (event.target.type == 'checkbox') return;
+    $(':checkbox', this).trigger('click');
   });
 
   // Highlight selected rows with a bootstrap-green-shade for even clearer feedback.

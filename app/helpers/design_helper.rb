@@ -44,4 +44,14 @@ module DesignHelper
     icon icons[state.to_sym]
   end
 
+  # This helper prints a beautiful representation of the span between two dates.
+  # It dry's up the year- and month-overhead, if not needed.
+  # E.g. 03.06.2014 – 07.06.2014 becomes 03. – 07.06.2014
+  def date_range(start_date, end_date)
+    start_format = :incl_day
+    start_format = :incl_month unless start_date.month == end_date.month
+    start_format = :incl_year unless start_date.year == end_date.year
+    [l(start_date, format: start_format), l(end_date)].join(' – ')
+  end
+
 end

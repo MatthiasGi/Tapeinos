@@ -3,24 +3,21 @@
 %p.lead= t '.lead', count: @plans.count
 
 - if @plans.any?
-  .table-responsive
-    %table.table.table-striped.table-hover.table-cols-contract
-      %thead
+  %table.table.table-striped.table-hover.table-rows-link
+    %thead
+      %tr
+        %th= Plan.human_attribute_name(:title)
+        %th= Plan.human_attribute_name(:events)
+        %th= Plan.human_attribute_name(:remark)
+    %tbody
+      - @plans.each do |plan|
         %tr
-          %th= Plan.human_attribute_name(:title)
-          %th= Plan.human_attribute_name(:events)
-          %th.col-expand= Plan.human_attribute_name(:remark)
-          %th
-      %tbody
-        - @plans.each do |plan|
-          %tr
-            %th= plan
-            %td= [ l(plan.first_date), '–', l(plan.last_date) ].join(' ')
-            %td
-              - if plan.remark
-                :markdown
-                  #{plan.remark.truncate_words(10)}
-            %td= btn_link_to t('.enroll'), plan_path(plan), icon: :pencil, size: :small
+          %th.text-nowrap= link_to plan, plan_path(plan)
+          %td.text-nowrap= date_range(plan.first_date, plan.last_date)
+          %td
+            - if plan.remark
+              :markdown
+                #{plan.remark.truncate_words(10)}
 
 = render 'shared/register_alert' unless @current_user
 
