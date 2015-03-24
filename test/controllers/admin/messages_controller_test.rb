@@ -12,7 +12,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template :index
-    assert_equal Message.order(date: :desc), assigns(:messages)
+    assert_equal Message.all, assigns(:messages)
   end
 
   test "show invalid message" do
