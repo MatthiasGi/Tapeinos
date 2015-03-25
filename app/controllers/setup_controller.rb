@@ -86,7 +86,7 @@ class SetupController < ApplicationController
       redirect_to next_wizard_path
 
     when :mailer
-      config = parmas.require(:settings).permit(:server, :port, :username,
+      config = params.require(:settings).permit(:server, :port, :username,
         :password, :email, :name)
       SettingsHelper.set(:email_server, config[:server])
       SettingsHelper.set(:email_port, config[:port])
