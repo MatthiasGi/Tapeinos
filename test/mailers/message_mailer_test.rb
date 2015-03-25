@@ -13,9 +13,9 @@ class MessageMailerTest < ActionMailer::TestCase
     mail = MessageMailer.global_mail(server, message)
     assert_equal 'Testsubject 1', mail.subject
     assert_equal [server.email], mail.to
-    assert_equal [ENV['GMAIL_USERNAME']], mail.from
+    assert_equal [SettingsHelper.get(:email_email)], mail.from
     assert_match server.firstname, mail.body.encoded
-    url = ENV['BASE_URL'] + '/login/' + server.seed
+    url = SettingsHelper.get(:domain) + '/login/' + server.seed
     assert_match url, mail.body.encoded
   end
 
@@ -24,7 +24,7 @@ class MessageMailerTest < ActionMailer::TestCase
     message = messages(:one)
     mail = MessageMailer.global_mail(server, message)
     assert_match server.firstname, mail.body.encoded
-    url = ENV['BASE_URL'] + '/login/' + server.user.email
+    url = SettingsHelper.get(:domain) + '/login/' + server.user.email
     assert_match url, mail.body.encoded
   end
 

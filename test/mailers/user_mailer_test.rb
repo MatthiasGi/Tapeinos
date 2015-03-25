@@ -8,8 +8,8 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.forgot_password_mail(user)
     assert_equal I18n.t('user_mailer.forgot_password_mail.subject'), mail.subject
     assert_equal [user.email], mail.to
-    assert_equal [ENV['GMAIL_USERNAME']], mail.from
-    url = ENV['BASE_URL'] + '/forgot-password/' + user.password_reset_token
+    assert_equal [SettingsHelper.get(:email_email)], mail.from
+    url = SettingsHelper.get(:domain) + '/forgot-password/' + user.password_reset_token
     assert_match url, mail.body.encoded
   end
 
@@ -18,7 +18,7 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.password_changed_mail(user)
     assert_equal I18n.t('user_mailer.password_changed_mail.subject'), mail.subject
     assert_equal [user.email], mail.to
-    assert_equal [ENV['GMAIL_USERNAME']], mail.from
+    assert_equal [SettingsHelper.get(:email_email)], mail.from
   end
 
   test "user created mail" do
@@ -26,7 +26,7 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.user_created_mail(user, 'testen')
     assert_equal I18n.t('user_mailer.user_created_mail.subject'), mail.subject
     assert_equal [user.email], mail.to
-    assert_equal [ENV['GMAIL_USERNAME']], mail.from
+    assert_equal [SettingsHelper.get(:email_email)], mail.from
   end
 
   test "user destroyed mail" do
@@ -35,8 +35,8 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.user_deleted_mail(server)
     assert_equal I18n.t('user_mailer.user_deleted_mail.subject'), mail.subject
     assert_equal [user.email], mail.to
-    assert_equal [ENV['GMAIL_USERNAME']], mail.from
-    assert_match ENV['BASE_URL'] + '/login/' + server.seed, mail.body.encoded
+    assert_equal [SettingsHelper.get(:email_email)], mail.from
+    assert_match SettingsHelper.get(:domain) + '/login/' + server.seed, mail.body.encoded
   end
 
 end

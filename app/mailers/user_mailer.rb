@@ -5,7 +5,7 @@ class UserMailer < ApplicationMailer
   # Sends an email to a user, that wants to reset his password. The subject is
   #    set via de.user_mailer.forgot_password_mail.subject.
   def forgot_password_mail(user)
-    @forgot_password_link = ENV['BASE_URL'] + '/forgot-password/' +
+    @forgot_password_link = SettingsHelper.get(:domain) + '/forgot-password/' +
       user.password_reset_token
     mail to: user.email
   end
@@ -25,7 +25,7 @@ class UserMailer < ApplicationMailer
 
   # Send a server from a newly deleted account an email containing a login-link.
   def user_deleted_mail(server)
-    @login_link = ENV['BASE_URL'] + '/login/' + server.seed
+    @login_link = SettingsHelper.get(:domain) + '/login/' + server.seed
     mail to: server.email
   end
 

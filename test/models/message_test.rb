@@ -42,7 +42,7 @@ class MessageTest < ActiveSupport::TestCase
     server = servers(:heinz)
     html = message.as_html(server)
     assert_match server.firstname, html
-    url = ENV['BASE_URL'] + '/login/' + server.seed
+    url = SettingsHelper.get(:domain) + '/login/' + server.seed
     assert_match url, html
   end
 
@@ -51,7 +51,7 @@ class MessageTest < ActiveSupport::TestCase
     server = servers(:heinz)
     text = message.as_text(server)
     assert_match server.firstname, text
-    url = ENV['BASE_URL'] + '/login/' + server.seed
+    url = SettingsHelper.get(:domain) + '/login/' + server.seed
     assert_match url, text
   end
 
@@ -60,7 +60,7 @@ class MessageTest < ActiveSupport::TestCase
     server = servers(:max)
     html = message.as_html(server)
     assert_match server.firstname, html
-    url = ENV['BASE_URL'] + '/login/' + server.user.email
+    url = SettingsHelper.get(:domain) + '/login/' + server.user.email
     assert_match url, html
   end
 
@@ -69,7 +69,7 @@ class MessageTest < ActiveSupport::TestCase
     server = servers(:max)
     html = message.as_text(server)
     assert_match server.firstname, html
-    url = ENV['BASE_URL'] + '/login/' + server.user.email
+    url = SettingsHelper.get(:domain) + '/login/' + server.user.email
     assert_match url, html
   end
 
