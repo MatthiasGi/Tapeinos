@@ -7,17 +7,17 @@ events. It was developed on Ruby 2 and Rails 4.2.
 
 This system requires three running servers:
 
- 1. A redis-database (once installed started with `redis-server`)
+1. A redis-database (once installed started with <code>redis-server</code>)
 
- 2. A sidekiq-server (To deliver mails: `bundle exec sidekiq -q default -q mailers`)
+2. A sidekiq-server (To deliver mails: <code>bundle exec sidekiq -q default -q mailers</code>)
 
- 3. The application itself (`rails server`)
+3. The application itself (<code>rails server</code>)
 
 === Configuration
 
-All configuration is saved in `config/local_env.yml`. Please refer to the
-provided `local_env.demo.yml` for information about all available settings.
+All configuration is saved in <code>config/local_env.yml</code>. Please refer to the
+provided <code>local_env.demo.yml</code> for information about all available settings.
 
 === Tests
 
-Just hit `rake test` and you're done.
+Just hit <code>rake test</code> and you're done.
