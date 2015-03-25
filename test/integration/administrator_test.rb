@@ -29,4 +29,10 @@ class AdministratorTest < ActionDispatch::IntegrationTest
     assert_template layout: 'layouts/application'
   end
 
+  test "Automatically launch setup on accessing any path" do
+    User.destroy_all
+    get login_path
+    assert_redirected_to setup_path(:authenticate)
+  end
+
 end

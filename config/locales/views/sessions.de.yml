@@ -7,7 +7,6 @@ de:
       forgot_password: Passwort vergessen
       logout: Du wurdest erfolgreich ausgeloggt. Bis zum nächsten Mal!
       blocked: Dein Benutzeraccount wurde gesperrt. Jemand hat zu oft versucht, sich mit einem falschen Passwort einzuloggen. Falls Du das nicht selber warst, schützt Dich diese Funktion vor Angriffen. Um Deinen Account zu entsperren, klicke unten bitte auf „Passwort vergessen“.
-      submit: Einloggen
       server_has_account: Du hast offenbar bereits einen Account, weshalb Du nicht mehr über die personalisierten Links auf die Pläne zugreifen kannst. Logge Dich im Folgenden bitte mit Deinem Account ein.
       invalid_seed: Der angegebene, personalisierte Link ist leider ungültig. Ist er vielleicht schon sehr veraltet?
       no_server_available: Dein Benutzer verwaltet keine Messdiener, deshalb ist ein Login nicht wirklich sinnvoll. Setze Dich doch bitte mit dem Leiterteam in Verbindung.

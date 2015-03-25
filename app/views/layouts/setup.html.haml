@@ -1,0 +1,7 @@
+= render layout: 'layouts/master' do
+  = page_header t('setup.title'), t("setup.#{step}.title")
+
+  = yield
+
+  %hr/
+  = progress_bar percentage: @current_percentage, label: t('setup.step') % { current: @current_step, of: @current_steps }

@@ -1,0 +1,20 @@
+%p.lead= t '.lead'
+:markdown
+  #{t '.description'}
+
+= simple_horizontal_form_for :settings, url: wizard_path, method: :put do |f|
+  = f.input :server, required: false, label: t('.server'), input_html: { value: @server, autofocus: true }
+  = f.input :port, as: :integer, required: false, label: t('.port'), input_html: { value: @port }
+  = f.input :username, required: false, label: t('.username'), input_html: { value: @username }
+  = f.input :password, required: false, label: t('.password'), input_html: { value: @password }
+  = f.input :email, required: false, label: t('.email'), input_html: { value: @email }
+  .form-group
+    .help-block.col-sm-9.col-sm-offset-3= t '.name_help'
+  = f.input :name, required: false, label: t('.name'), input_html: { value: @name }
+  .row
+    .col-xs-6.col-sm-4.col-sm-offset-3
+      = btn_link_to t('defaults.back'), previous_wizard_path, icon: :triangle_left
+    .col-xs-6.col-sm-5.text-right
+      = f.button :button do
+        = t 'defaults.forward'
+        = icon :triangle_right

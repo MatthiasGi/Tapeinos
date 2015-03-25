@@ -1,0 +1,13 @@
+%p.lead= t '.lead'
+:markdown
+  #{t '.description'}
+
+= flash_message :invalid_token, context: :danger
+
+= form_tag wizard_path, method: :put, class: 'form-inline text-center' do |f|
+  .form-group
+    .input-group.input-group-lg
+      .input-group-addon= icon :lock
+      = text_field_tag :token, nil, placeholder: t('.token'), class: 'form-control', autofocus: true
+      .input-group-btn
+        = submit_tag t('defaults.submit'), class: 'btn btn-primary'

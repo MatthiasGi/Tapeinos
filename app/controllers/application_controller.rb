@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   # Get information about the currently selected user/server
   before_action :parse_session
 
+  # Fire up the setup, if it should be needed (see below).
+  before_action :require_setup
+
   # ============================================================================
 
   protected
@@ -45,6 +48,11 @@ class ApplicationController < ActionController::Base
   def require_server
     @current_server and return true
     render 'sessions/new', layout: 'application' and false
+  end
+
+  # If no user is found, the setup should be initiated. This is handled here.
+  def require_setup
+    User.any? or redirect_to setup_path(:authenticate)
   end
 
 end

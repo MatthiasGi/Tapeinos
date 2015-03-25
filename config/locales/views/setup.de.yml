@@ -1,0 +1,55 @@
+de:
+  setup:
+    title: Einrichtungsassistent
+    step: Schritt %{current} von %{of}
+
+    authenticate:
+      title: Authentifizierung
+      lead: Herzlich Willkommen bei Tapeinos
+      description: |
+        Der vorliegende Assistent wird bei der Einrichtung der Software behilflich sein.
+
+        Zunächst musst Du jedoch belegen, dass Du tatsächlich Administrator dieses Servers bist. Es wurde eine Datei Namens `SETUP-CODE` erstellt. Kopiere den dort stehenden Schlüssel bitte in folgendes Eingabefeld:
+      token: Sicherheitsschlüssel
+      invalid_token: Der angegebene Sicherheitsschlüssel war ungültig.
+
+    domain:
+      title: Domaineinstellungen
+      lead: Gib an, auf welcher Domain Tapeinos läuft.
+      description: |
+        Beachte, dass Tapeinos **nicht** in einer verschachtelten Struktur, also bspw. unter `tapeinos.de/tapeinos/` laufen kann. Gib bitte nur den reinen Stammpfad, also bspw. `tapeinos.messdiener.de` an.
+
+        Ferner wird der Redis-Server benötigt, um Hintergrundarbeiten zu ermöglichen. Die Produktivdaten selbst werden in einer SQLite-Datenbank gespeichert. Darum musst Du Dich also nicht kümmern.
+      domain: Domain
+      redis: Redis-Server
+
+    mailer:
+      title: Maileinstellungen
+      lead: Lege die Einstellungen fest, mit denen E-Mails versandt werden.
+      description: |
+        Tapeinos versendet E-Mails, um Messdiener zu informieren und Benutzeraccounts abzuwickeln. Dazu wird ein SMTP-Zugang benötigt.
+      server: Server
+      port: Port
+      username: Benutzername
+      password: Passwort
+      email: E-Mail-Adresse
+      name: Name des Absenders
+      name_help: Die automatisch generierten E-Mails schließen mit einer Grußformel ab, deren Unterzeichnender hier angegeben werden kann.
+
+    server:
+      title: Messdienererstellung
+      lead: Erstelle den ersten Messdiener.
+      description: |
+        Lege den ersten Messdiener an, dem dann ein Administratorenkonto zugeteilt wird. Es wird ein Passwort automatisch für Dich erstellt.
+
+    finish:
+      title: Fertig!
+      lead: Der Einrichtungsassistent ist abgeschlossen.
+      description: |
+        Dein generiertes Passwort lautet: `%{password}`
+
+        Denke bitte daran, den Server neuzustarten.
+
+        Falls irgendwas schief gelaufen sein sollte, sind die Einstellungen unter `config/settings.yml` einsehbar.
+
+        Beachte bitte, dass dieser Assistent nur ausgeführt wird, wenn keine Nutzer in der Datenbank gefunden wurde – das hat sich hiermit also erledigt. Willst Du die erneute Ausführung erzwingen, musst Du alle Benutzer manuell aus der Datenbank löschen.

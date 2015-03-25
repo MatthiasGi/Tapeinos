@@ -1,0 +1,18 @@
+%p.lead= t '.lead'
+:markdown
+  #{t '.description'}
+
+= simple_horizontal_form_for @server, url: wizard_path, method: :put do |f|
+
+  = f.input :firstname
+  = f.input :lastname
+  = f.input :email
+  = f.input :sex, collection: Server.sexes.symbolize_keys.keys, as: :radio_buttons, item_wrapper_class: 'col-sm-4'
+
+  .row
+    .col-xs-6.col-sm-4.col-sm-offset-3
+      = btn_link_to t('defaults.back'), previous_wizard_path, icon: :triangle_left
+    .col-xs-6.col-sm-5.text-right
+      = f.button :button do
+        = t 'defaults.forward'
+        = icon :triangle_right

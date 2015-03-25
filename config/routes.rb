@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  # Setup wizard
+  resources :setup
+
   # Session-management
   get '/login/as/:id' => 'sessions#update', as: 'change_server'
   get '/login/:seed' => 'sessions#temporary', \

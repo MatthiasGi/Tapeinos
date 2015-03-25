@@ -1,0 +1,11 @@
+%p.lead= t '.lead'
+:markdown
+  #{t '.description'}
+
+= simple_horizontal_form_for :settings, url: wizard_path, method: :put do |f|
+  = f.input :domain, required: false, label: t('.domain'), input_html: { value: @domain, autofocus: true }
+  = f.input :redis, required: false, label: t('.redis'), input_html: { value: @redis }
+  .text-right
+    = f.button :button do
+      = t 'defaults.forward'
+      = icon :triangle_right

@@ -41,6 +41,9 @@ gem 'cocoon'
 # Sidekiq handles delayed jobs (e.g. sending mails later)
 gem 'sidekiq'
 
+# Wicked allows easy creation of multi-step wizards.
+gem 'wicked'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
