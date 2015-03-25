@@ -39,7 +39,7 @@ class MessageTest < ActiveSupport::TestCase
 
   test "parse as html" do
     message = messages(:two)
-    server = servers(:max)
+    server = servers(:heinz)
     html = message.as_html(server)
     assert_match server.firstname, html
     url = ENV['BASE_URL'] + '/login/' + server.seed
@@ -48,11 +48,29 @@ class MessageTest < ActiveSupport::TestCase
 
   test "parse as text" do
     message = messages(:two)
-    server = servers(:max)
+    server = servers(:heinz)
     text = message.as_text(server)
     assert_match server.firstname, text
     url = ENV['BASE_URL'] + '/login/' + server.seed
     assert_match url, text
+  end
+
+  test "parse as html with user login" do
+    message = messages(:two)
+    server = servers(:max)
+    html = message.as_html(server)
+    assert_match server.firstname, html
+    url = ENV['BASE_URL'] + '/login/' + server.user.email
+    assert_match url, html
+  end
+
+  test "parse as text with user login" do
+    message = messages(:two)
+    server = servers(:max)
+    html = message.as_text(server)
+    assert_match server.firstname, html
+    url = ENV['BASE_URL'] + '/login/' + server.user.email
+    assert_match url, html
   end
 
 end

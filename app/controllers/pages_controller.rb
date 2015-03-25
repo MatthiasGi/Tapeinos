@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   #    the authentication dialog.
   before_action :require_server
   
-  #=============================================================================
+  # ============================================================================
   
   # Displays the about page. It contains a version number and the changelog.
   def about

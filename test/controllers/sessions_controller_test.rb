@@ -229,4 +229,28 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal server.id, session[:server_id]
   end
 
+  test "Calling user login by email" do
+    user = users(:max)
+    get :new, { email: user.email }
+    assert_response :success
+    assert_template :new
+    assert_equal user, assigns(:user)
+  end
+
+  test "Calling login with email of server" do
+    server = servers(:heinz)
+    get :new, { email: server.email }
+    assert_response :success
+    assert_template :new
+    assert_not assigns(:user)
+    assert_select '.alert.alert-warning', I18n.t('sessions.new.server_has_no_account')
+  end
+
+  test "Calling login with invalid email" do
+    get :new, { email: 'testen@invalid.notexisting.de' }
+    assert_response :success
+    assert_template :new
+    assert_not assigns(:user)
+  end
+
 end

@@ -8,7 +8,7 @@ class MessageMailerTest < ActionMailer::TestCase
   end
 
   test "global_mail" do
-    server = servers(:max)
+    server = servers(:heinz)
     message = messages(:one)
     mail = MessageMailer.global_mail(server, message)
     assert_equal 'Testsubject 1', mail.subject
@@ -16,6 +16,15 @@ class MessageMailerTest < ActionMailer::TestCase
     assert_equal [ENV['GMAIL_USERNAME']], mail.from
     assert_match server.firstname, mail.body.encoded
     url = ENV['BASE_URL'] + '/login/' + server.seed
+    assert_match url, mail.body.encoded
+  end
+
+  test "global mail for user" do
+    server = servers(:max)
+    message = messages(:one)
+    mail = MessageMailer.global_mail(server, message)
+    assert_match server.firstname, mail.body.encoded
+    url = ENV['BASE_URL'] + '/login/' + server.user.email
     assert_match url, mail.body.encoded
   end
 

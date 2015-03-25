@@ -11,8 +11,13 @@ class SessionsController < ApplicationController
 
   # ============================================================================
 
-  # Display a login form.
-  def new; end
+  # Display a login form. If an email is provided, try to get the user or assume
+  #    which server tried to login by this way.
+  def new
+    email = params[:email] or return
+    @user = User.find_by(email: email) and return
+    Server.find_by(email: email) and flash.now[:server_has_no_account] = true
+  end
 
   # Actually create the new session.
   def create
