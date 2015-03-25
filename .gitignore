@@ -19,3 +19,9 @@ dump.rdb
 
 # Enviroment-variables with sensitive information.
 /config/local_env.yml
+
+# Ignore built documentation
+/doc
+
+# This file stores the current version but is created on launch.
+/config/version

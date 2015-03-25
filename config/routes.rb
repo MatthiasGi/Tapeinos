@@ -38,6 +38,9 @@ Rails.application.routes.draw do
     get '/messages/:id/mail' => 'messages#mail', as: 'message_mail'
   end
 
+  # Static pages
+  get '/about' => 'pages#about'
+
   # Example resource route with options:
   #   resources :products do
   #     member do

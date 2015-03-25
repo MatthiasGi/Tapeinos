@@ -1,0 +1,16 @@
+.row
+  .col-sm-3
+    .about-logo.img-circle.center-block.text-center
+      %strong τ
+
+  .col-sm-9
+    = page_header '<span class="tap-tau">τ</span>apeinos', t('.version') % { version: Rails.configuration.version, locale: I18n.locale }
+    %p.lead= t '.description'
+
+%hr/
+:markdown
+  #{File.read(@changelog)}
+%hr/
+
+%p
+  %small.text-muted © #{DateTime.now.year}, #{mail_to 'matthias@gianfelice.de', 'Matthias Gianfelice'}
