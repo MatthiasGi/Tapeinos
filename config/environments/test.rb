@@ -4,6 +4,21 @@ Rails.application.configure do
   # Path to the Tapeinos-specific settings-file for this enviroment.
   config.settings_file = 'config/settings.test.yml'
 
+  # Prefill the test-settings-file with configurations.
+  settings = {
+    domain: 'http://localhost:3000',
+    redis: 'redis://localhost:6379',
+    email_server: 'smtp.gmail.com',
+    email_port: '587',
+    email_username: 'tapeinos@gianfelice.de',
+    email_password: 'testen',
+    email_email: 'tapeinos@gianfelice.de',
+    email_name: 'Matthias'
+  }
+  settings.each do |key, value|
+    SettingsHelper.set(key, value)
+  end
+
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
