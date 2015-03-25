@@ -24,6 +24,7 @@ class PagesControllerTest < ActionController::TestCase
     I18n.locale = 'en'
     get :about, nil, { server_id: Server.first.id }
     assert_equal 'CHANGELOG.md', assigns(:changelog)
+    I18n.locale = 'de'
   end
   
 end
