@@ -13,4 +13,8 @@
 %hr/
 
 %p
-  %small.text-muted © #{DateTime.now.year}, #{mail_to 'matthias@gianfelice.de', 'Matthias Gianfelice'}
+  %small.text-muted
+    = icon :copyright_mark
+    = DateTime.now.year
+    ,
+    = mail_to 'matthias@gianfelice.de', 'Matthias Gianfelice'
