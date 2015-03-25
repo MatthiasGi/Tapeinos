@@ -9,8 +9,9 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   protected
 
-    # Converts a string with HTML to a "real" document
-    def node(html)
-      Nokogiri::HTML(html)
-    end
+  # Converts a string with HTML to a "real" document
+  def node(html)
+    Nokogiri::HTML(html)
+  end
+
 end

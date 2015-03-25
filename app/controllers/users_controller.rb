@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     # Link all associated servers to the new user.
     servers = @current_server.siblings << @current_server
     servers.each do |server|
-      server.update({ user: @user })
+      server.update(user: @user)
     end
 
     # Notify the user by email and visual

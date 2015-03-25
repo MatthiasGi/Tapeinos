@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  require 'sidekiq/testing'
+  Sidekiq::Testing.inline!
 
   def setup
     user = users(:max)
