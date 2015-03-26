@@ -73,4 +73,21 @@ class MessageTest < ActiveSupport::TestCase
     assert_match url, html
   end
 
+  test "message can be adressed to specific server" do
+    message = messages(:two)
+    servs = [ servers(:heinz), servers(:max) ]
+    message.update(servers: servs)
+    assert_equal servs, message.servers
+    assert_equal servs, message.to
+  end
+
+  test "message is not sent to same server multiple times" do
+    message = messages(:two)
+    servs = [ servers(:heinz), servers(:heinz2), servers(:max), servers(:max2) ]
+    to = [ servers(:heinz), servers(:max) ]
+    assert message.update(servers: servs)
+    assert_equal to, message.to
+    assert_equal servs, message.servers
+  end
+
 end

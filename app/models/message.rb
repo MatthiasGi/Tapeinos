@@ -14,6 +14,10 @@ class Message < ActiveRecord::Base
   enum state: [ :draft, :sent ]
   validates :state, presence: true
 
+  # This message is sent to a set number of servers which can be specified by
+  #    the sender.
+  has_and_belongs_to_many :servers
+
   # ============================================================================
 
   # Renders the content of the message as html.
@@ -24,6 +28,16 @@ class Message < ActiveRecord::Base
   # Renders the content of the message as plain text.
   def as_text(server)
     Nokogiri::HTML(as_html(server)).text
+  end
+
+  # Retrieve a list of servers where duplicated emails (siblings) are removed.
+  def to
+    servs = servers
+    servs.size.times do |i|
+      break if i >= servs.size
+      servs -= servs[i].siblings
+    end
+    servs
   end
 
   # :nodoc:
@@ -37,7 +51,8 @@ class Message < ActiveRecord::Base
 
   # Replaces keywords in the message with usable substitutes.
   def parse_text(server)
-    url = "#{SettingsHelper.get(:domain)}/login/#{server.user ? server.email : server.seed}"
+    url = "#{SettingsHelper.get(:domain)}/login/" +
+      "#{server.user ? server.email : server.seed}"
     login = '[%{url}](%{url})' % { url: url }
     text % { firstname: server.firstname, login: login }
   end

@@ -10,6 +10,9 @@ class Server < ActiveRecord::Base
   # The servers can enroll to many events.
   has_and_belongs_to_many :events
 
+  # The server may be subscribed to multiple messages.
+  has_and_belongs_to_many :messages
+
   # Absolutley mandatory are first- and lastname, as well as sex to identify the
   #    server.
   validates :firstname, :lastname, :sex, presence: true

@@ -224,4 +224,12 @@ class ServerTest < ActiveSupport::TestCase
     end
   end
 
+  test "The server can be subscribed to multiple messages" do
+    msgs = [ messages(:one), messages(:two) ]
+    server = servers(:max)
+    assert server.update(messages: msgs)
+    assert server.valid?
+    assert_equal msgs, server.messages
+  end
+
 end
