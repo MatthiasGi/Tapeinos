@@ -12,7 +12,7 @@
 
   %hr/
   %h2= Server.human_attribute_name(:user)
-  = f.association :user
+  = f.association :user, input_html: { class: 'chosen-select' }
   %hr/
 
   .form-group

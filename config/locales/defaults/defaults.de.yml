@@ -24,3 +24,8 @@ de:
 
         Dieser Vorgang lässt sich jederzeit rückgängig machen. Klicke auf folgenden Knopf, um weitere Informationen zu erhalten:
       submit: Account erstellen
+
+    chosen:
+      no_results_text: Keine Ergebnisse gefunden
+      placeholder_text_multiple: Wähle mehrere Optionen
+      placeholder_text_single: Wähle eine Option

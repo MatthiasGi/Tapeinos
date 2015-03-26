@@ -34,9 +34,10 @@ gem 'rdiscount'
 gem 'bootstrap-sass'
 gem 'bh'
 
-# Use Simple Form to create simple forms and cocoon for complex associations
+# Use Simple Form to create simple forms and chosen for simple, cocoon for complex associations
 gem 'simple_form'
 gem 'cocoon'
+gem 'chosen-rails'
 
 # Sidekiq handles delayed jobs (e.g. sending mails later)
 gem 'sidekiq'

@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require chosen-jquery
 //
 //= require_tree .
 //
@@ -82,6 +83,15 @@ var ready = function() {
     }
   });
   $table.wrap('<div class="table-responsive"></div>');
+
+  // Load the custom locale for the chosen-plugin.
+  $('.chosen-select').chosen({
+    allow_single_deselect: true,
+    no_results_text: chosen_locale['no_results_text'],
+    placeholder_text_multiple: chosen_locale['placeholder_text_multiple'],
+    placeholder_text_single: chosen_locale['placeholder_text_single']
+  });
+
 };
 
 $(document).ready(ready);

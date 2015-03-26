@@ -25,5 +25,8 @@ module Tapeinos
 
     # Use sidekiq as ActiveJob-Backend.
     config.active_job.queue_adapter = :sidekiq
+
+    # Loads images from the vendor-folder into the assets-pipeline.
+    config.assets.paths << Rails.root.join("vendor", "assets", "images")
   end
 end

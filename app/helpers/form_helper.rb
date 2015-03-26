@@ -16,4 +16,16 @@ module FormHelper
     simple_form_for resource, options, &block
   end
 
+  # Loads the locales for the chosen-plugin and makes them available in handy
+  #    JSON-format.
+  def chosen_locale
+    strings = [ :no_results_text, :placeholder_text_multiple,
+      :placeholder_text_single ]
+    locale = {}
+    strings.each do |string|
+      locale.merge!(string => t("defaults.chosen.#{string}"))
+    end
+    locale.to_json.html_safe
+  end
+
 end
