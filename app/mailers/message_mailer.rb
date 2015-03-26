@@ -10,4 +10,11 @@ class MessageMailer < ApplicationMailer
     mail to: server.email, subject: message.subject
   end
 
+  # Sends a message to all registred receivers.
+  def self.send_message(message)
+    message.to.each do |server|
+      global_mail(server, message).deliver_later
+    end
+  end
+
 end
