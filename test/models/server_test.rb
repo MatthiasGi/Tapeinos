@@ -232,4 +232,9 @@ class ServerTest < ActiveSupport::TestCase
     assert_equal msgs, server.messages
   end
 
+  test "Receive login token of server" do
+    assert_equal users(:max).email, servers(:max).login_token
+    assert_equal servers(:heinz).seed, servers(:heinz).login_token
+  end
+
 end

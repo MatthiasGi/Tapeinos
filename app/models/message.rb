@@ -51,8 +51,7 @@ class Message < ActiveRecord::Base
 
   # Replaces keywords in the message with usable substitutes.
   def parse_text(server)
-    url = "#{SettingsHelper.get(:domain)}/login/" +
-      "#{server.user ? server.email : server.seed}"
+    url = "#{SettingsHelper.get(:domain)}/login/#{server.login_token}"
     login = '[%{url}](%{url})' % { url: url }
     text % { firstname: server.firstname, login: login }
   end

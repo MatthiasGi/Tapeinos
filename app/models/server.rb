@@ -109,6 +109,11 @@ class Server < ActiveRecord::Base
     last == lastname ? "#{firstname} #{lastname}" : "#{firstname} #{last}."
   end
 
+  # Generates a login-token for a personal login-link (see sessions-controller).
+  def login_token
+    user ? email : seed
+  end
+
   # :nodoc:
   def to_s
     "#{firstname} #{lastname}"
