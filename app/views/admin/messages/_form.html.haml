@@ -1,7 +1,20 @@
 = simple_horizontal_form_for [ :admin, @message ] do |f|
 
   = f.input :subject
-  = f.input :text
+  = f.association :servers, input_html: { class: 'chosen-select' }
+  .form-group
+    .col-sm-9.col-sm-offset-3
+      - Server.ranks.keys.each do |rank|
+        .col-md-4.col-xs-6
+          %button.btn.btn-default.btn-block.chosen-prefill.small-gutter{ data: { target: '.message_servers .chosen-select', values: Server.where(rank: Server.ranks[rank]).map(&:id).join(',') }}
+            = rank_icon rank
+            = Server.human_attribute_name("rank.#{rank}")
+      .col-md-8
+        %button.btn.btn-default.btn-block.chosen-prefill.small-gutter{ data: { target: '.message_servers .chosen-select', values: Server.all.map(&:id).join(',') }}
+          = icon :option_vertical
+          = t '.server_all'
+
+  = f.input :text, input_html: { class: 'input-code', rows: 12 }
 
   .form-group
     .col-sm-9.col-sm-offset-3

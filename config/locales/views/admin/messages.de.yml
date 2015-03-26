@@ -15,6 +15,10 @@ de:
           Soll die Nachricht wirklich gelöscht werden?
 
           Dies lässt sich nicht rückgängig machen!
+        no_servers: Keine Empfänger
 
       edit:
         title: Nachricht bearbeiten
+
+      form:
+        server_all: Alle

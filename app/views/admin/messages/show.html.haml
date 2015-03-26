@@ -1,5 +1,8 @@
 = page_header t('.title'), @message
 
+%p
+  %strong= "#{Message.human_attribute_name(:servers)}:"
+  = @message.servers.any? ? @message.servers.join(', ') : t('.no_servers')
 = panel @message.as_html(@current_server), title: t('.html')
 = panel title: t('.text') do
   .panel-body

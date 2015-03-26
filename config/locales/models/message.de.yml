@@ -12,6 +12,7 @@ de:
         date: Datum
         user: Autor
         state: Status
+        servers: Empfänger
 
       message/state:
         draft: Entwurf

@@ -89,7 +89,19 @@ var ready = function() {
     allow_single_deselect: true,
     no_results_text: chosen_locale['no_results_text'],
     placeholder_text_multiple: chosen_locale['placeholder_text_multiple'],
-    placeholder_text_single: chosen_locale['placeholder_text_single']
+    placeholder_text_single: chosen_locale['placeholder_text_single'],
+    width: '100%'
+  });
+
+  // Allows filling the chosen-selects by triggering a click-event.
+  $('.chosen-prefill').click(function () {
+    var values = $(this).data('values').toString().split(',');
+    var $target = $($(this).data('target'));
+    $.each(values, function (i, e) {
+      $('option[value="' + e + '"]', $target).prop('selected', true);
+    });
+    $('.chosen-select').trigger('chosen:updated');
+    return false;
   });
 
 };
