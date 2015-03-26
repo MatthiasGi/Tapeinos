@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::MessagesControllerTest < ActionController::TestCase
+  require 'sidekiq/testing'
+  Sidekiq::Testing.inline!
 
   def setup
     user = users(:admin)
@@ -102,6 +104,19 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     assert_equal assigns(:current_user), message.user
   end
 
+  test "update invalid receivers" do
+    message = messages(:one)
+    patch :update, { id: message.id, message: { server_ids: [1, 2] }}
+    assert Message.find(message.id).servers.empty?
+  end
+
+  test "update valid receivers" do
+    message = messages(:one)
+    servs = [ servers(:max), servers(:max2), servers(:heinz) ]
+    patch :update, { id: message.id, message: { server_ids: servs.map(&:id) }}
+    assert_equal servs, Message.find(message.id).servers.to_a
+  end
+
   test "update with invalid parameters" do
     old = messages(:one)
     date = 2.minutes.ago
@@ -145,6 +160,23 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     assert_select '.message_text.has-error .help-block'
   end
 
+  test "create with invalid receivers" do
+    assert_no_difference 'Message.all.count' do
+      post :create, { message: { subject: 'test', text: 'bla', server_ids: [1, 2] }}
+    end
+    message = Message.all.last
+    assert message.servers.empty?
+  end
+
+  test "create with valid receivers" do
+    servs = [ servers(:heinz), servers(:heinz2), servers(:max3) ]
+    assert_difference 'Message.all.count', +1 do
+      post :create, { message: { subject: 'test', text: 'bla', server_ids: servs.map(&:id) }}
+    end
+    message = Message.all.last
+    assert_equal servs, message.servers.to_a
+  end
+
   test "deleting message" do
     message = messages(:one)
     delete :destroy, { id: message.id }
@@ -168,7 +200,10 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "sending sent email" do
     message = messages(:two)
-    get :mail, { id: message.id }
+    assert message.update(servers: [ servers(:max) ])
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      get :mail, { id: message.id }
+    end
     assert_response :success
     assert_template :show
     assert_equal message, assigns(:message)
@@ -181,9 +216,10 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "sending valid email" do
     message = messages(:one)
+    assert message.update(servers: Server.all)
 
     emails = Server.all.map(&:email).uniq
-    assert_difference 'ActionMailer::Base.deliveries.size', +emails.size do
+    assert_difference 'ActionMailer::Base.deliveries.size', emails.size do
       get :mail, { id: message.id }
     end
     ActionMailer::Base.deliveries.each do |mail|
@@ -196,6 +232,21 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     assert_equal message, assigns(:message)
     assert message.sent?
     assert_not message.draft?
+  end
+
+  test "sending valid mail but with no receiver" do
+    message = messages(:one)
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      get :mail, { id: message.id }
+    end
+
+    message = Message.find(message.id)
+    assert_not message.sent?
+    assert message.draft?
+    assert_equal message, assigns(:message)
+    assert_response :success
+    assert_template :edit
+    assert_select '.alert.alert-info', I18n.t('admin.messages.edit.no_server')
   end
 
 end

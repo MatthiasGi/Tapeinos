@@ -18,9 +18,13 @@ class Admin::MessagesController < Admin::AdminController
 
   # Actually creates the new message.
   def create
-    @message = Message.new(message_params)
-    @message.update(date: DateTime.now, user: @current_user) and
-      return redirect_to admin_message_path(@message)
+    begin
+      @message = Message.new(message_params)
+      @message.update(date: DateTime.now, user: @current_user) and
+        return redirect_to admin_message_path(@message)
+    rescue ActiveRecord::RecordNotFound
+      @message ||= Message.new
+    end
     render :new
   end
 
@@ -37,7 +41,11 @@ class Admin::MessagesController < Admin::AdminController
 
   # Saves updates on the given message.
   def update
-    @message.update(message_params) or return render :edit
+    begin
+      @message.update(message_params) or return render :edit
+    rescue ActiveRecord::RecordNotFound
+      return render :edit
+    end
     @message.update(date: DateTime.now, user: @current_user)
     render :show
   end
@@ -48,23 +56,15 @@ class Admin::MessagesController < Admin::AdminController
     redirect_to admin_messages_path
   end
 
-  # Actually sends a message, which requires quite a few steps.
+  # Actually sends a message, which [old version: requires quite a few steps] is
+  #    now simpler than ever!
   def mail
-
-    # Determine all servers which get an email but subtract similar ones, so one
-    #    address does not get five emails.
-    servers = Server.all
-    servers.size.times do |i|
-      break if i >= servers.size
-      servers -= servers[i].siblings
+    if @message.to.empty?
+      flash.now[:no_server] = true
+      return render :edit
     end
 
-    # Now sent a message to each server.
-    servers.each do |server|
-      MessageMailer.global_mail(server, @message).deliver_later
-    end
-
-    # Mark the message as sent and display the updated show-enviroment.
+    MessageMailer.send_message(@message)
     @message.sent!
     render :show
   end
@@ -86,7 +86,7 @@ class Admin::MessagesController < Admin::AdminController
 
   # Strong-parameters strong at work.
   def message_params
-    params.require(:message).permit(:subject, :text)
+    params.require(:message).permit(:subject, :text, server_ids: [])
   end
 
 end

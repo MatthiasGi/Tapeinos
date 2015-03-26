@@ -19,6 +19,7 @@ de:
 
       edit:
         title: Nachricht bearbeiten
+        no_server: Es wurde bisher kein Empfänger zugewiesen, hole dies bitte erst nach.
 
       form:
         server_all: Alle
