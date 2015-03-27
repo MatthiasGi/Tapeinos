@@ -53,6 +53,7 @@ class PlansControllerTest < ActionController::TestCase
     assert_template :show
     assert_equal evts, @server.events(true)
     evts.each { |event|  assert_includes event.servers(true), @server }
+    assert_select '.alert.alert-success', I18n.t('plans.show.enrolled')
   end
 
   test "saving with empty plan list" do
@@ -60,6 +61,7 @@ class PlansControllerTest < ActionController::TestCase
     patch :update, { id: plan.id, events: nil }, @session
     assert_response :success
     assert_template :show
+    assert_select '.alert.alert-success', I18n.t('plans.show.enrolled')
   end
 
   test "invalid plan shows overview" do
@@ -79,6 +81,7 @@ class PlansControllerTest < ActionController::TestCase
 
     patch :update, { id: plan.id, events: posts }, @session
     assert_equal events, @server.events(true)
+    assert_select '.alert.alert-success', I18n.t('plans.show.enrolled')
   end
 
 end

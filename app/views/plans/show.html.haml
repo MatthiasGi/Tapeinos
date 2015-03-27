@@ -1,5 +1,7 @@
 = page_header t('.title'), @plan.title
 
+= flash_message :enrolled, context: :success
+
 .row
 
   .col-md-3.col-md-push-9
@@ -11,16 +13,22 @@
       %thead
         %tr
           %th
-          %th{ colspan: 2 }= Event.human_attribute_name(:date)
+          %th.hidden-xs{ colspan: 2 }= Event.human_attribute_name(:date)
+          %th.visible-xs= Event.human_attribute_name(:date)
           %th= Event.human_attribute_name(:title)
           %th= Event.human_attribute_name(:location)
-          %th= Event.human_attribute_name(:servers)
+          %th
+            %span.hidden-xs= Event.human_attribute_name(:servers)
       %tbody
         - @plan.events.each do |event|
           %tr
             %td= check_box_tag 'events[]', event.id, @current_server.events.include?(event)
-            %th.text-nowrap= l event.date.to_date, format: :long
-            %th.text-nowrap= l event.date, format: :time_only
+            %th.text-nowrap.hidden-xs= l event.date.to_date, format: :long
+            %th.text-nowrap.hidden-xs= l event.date, format: :time_only
+            %td.text-nowrap.visible-xs
+              = l event.date.to_date, format: :mobile
+              %br/
+              = l event.date, format: :time_only
             %td= event.title
             %td.text-nowrap= event.location
             %td.text-nowrap= [ event.enrolled, event.needed ].join(' / ')

@@ -34,6 +34,7 @@ de:
       default: ! '%d.%m.%Y'
       long: ! '%a, %e. %B %Y'
       short: ! '%e. %b'
+      mobile: ! '%a, %e.%m.'
       incl_day: ! '%d.'
       incl_month: ! '%d.%m.'
       incl_year: ! '%d.%m.%Y'

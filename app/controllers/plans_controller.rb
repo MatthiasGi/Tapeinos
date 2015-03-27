@@ -23,7 +23,7 @@ class PlansController < ApplicationController
     evts_param = params[:events].map { |id| Event.find_by(id: id) }
     evts_param = evts_param.compact
     events = @current_server.events - @plan.events + evts_param
-    @current_server.update(events: events)
+    flash.now[:enrolled] = @current_server.update(events: events)
     render :show
   end
 
