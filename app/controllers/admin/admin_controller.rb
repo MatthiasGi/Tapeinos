@@ -17,7 +17,7 @@ class Admin::AdminController < ApplicationController
   # This function checks, whether the currently logged in user is also an
   #    administrator and makes sure that only then he is able to access.
   def require_admin
-    @current_user.admin or redirect_to root_path
+    @admin = @current_user.admin or redirect_to root_path
   end
 
 end
