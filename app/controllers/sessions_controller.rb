@@ -73,20 +73,28 @@ class SessionsController < ApplicationController
 
   # Allows changing the currently selected server.
   def update
-    server = Server.find_by(id: params[:id])
 
-    # The change is allowed, if new and old server are the same, or the current
-    #    server is allowed to change to the new one (checked by the model).
-    if server and @current_server and @current_server == server or
-        @current_server.siblings.include?(server)
-      session[:server_id] = server.id
-      @current_user and session[:user_id] = @current_user.id
+    # Determine the new server and user if possible. If that isn't allowed it
+    #    will be reset later (below).
+    server = Server.find_by(id: params[:id])
+    session[:server_id] = server.try(:id)
+    session[:user_id] = @current_user.try(:id)
+
+    if server and @current_user.try(:admin) and
+        @current_user.try(:servers).try(:exclude?, server)
+      # An administrator is changing to a server that doesn't belong to him.
+      redirect_to root_path
+    elsif @current_server == server or
+        @current_server.try(:siblings).try(:include?, server) or
+        @current_user.try(:servers).try(:include?, server)
+      # The server is the same or a server is changing to another server that is
+      #    related to him.
       server.used
       redirect_to :back
     else
-      flash.now[:invalid_server_change] = true
-      @user = @current_user
-      destroy_currents
+      # The change is not allowed, abort everything
+      flash.now[:invalid_server_change] = true and logout
+      @user = @current_user and destroy_currents
       render :new
     end
   end

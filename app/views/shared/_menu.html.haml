@@ -12,8 +12,8 @@
         -# The css ensures that this button is rounded, if the %button.collapsed below is not shown on large screens.
         - html = [icon(:user), @current_server.firstname].join(' ')
         = dropdown html, button: { class: 'navbar-btn serverchanger-btn' }, align: :right do
-          - if @current_server.siblings.any?
-            - @current_server.siblings.each do |other|
+          - if @other_servers.any?
+            - @other_servers.each do |other|
               = link_to change_server_path(other.id) do
                 = icon :user
                 = other.firstname

@@ -35,4 +35,48 @@ class AdministratorTest < ActionDispatch::IntegrationTest
     assert_redirected_to setup_path(:authenticate)
   end
 
+  test "other servers saved in array" do
+    user = users(:max)
+    post_via_redirect login_path, { user: { email: user.email, password: 'testen' }}
+    assert_template 'plans/index'
+    assert_equal assigns(:current_server).siblings, assigns(:other_servers)
+  end
+
+  test "admin is allowed to change to other servers" do
+    user = users(:admin)
+    post_via_redirect login_path, { user: { email: user.email, password: 'testtest' }}
+
+    server = servers(:heinz)
+    last_used = server.last_used
+    get_via_redirect change_server_path(server.id), {}, { HTTP_REFERER: admin_servers_path }
+    assert_template 'plans/index'
+    assert_equal server.id, session[:server_id]
+    assert_equal server, assigns(:current_server)
+    get_via_redirect plans_path
+    assert_equal last_used, Server.find(server.id).last_used # Should not change by simulation
+    assert_equal user.servers.to_a, assigns(:other_servers)
+    assert_select '.dropdown-menu li', user.servers.count + 4
+
+    # Reselect
+    get_via_redirect change_server_path(server.id), {}, { HTTP_REFERER: admin_servers_path }
+    assert_template 'plans/index'
+    assert_equal server.id, session[:server_id]
+    assert_equal server, assigns(:current_server)
+    get_via_redirect plans_path
+    assert_equal last_used, Server.find(server.id).last_used # Should not change by simulation
+    assert_equal user.servers.to_a, assigns(:other_servers)
+    assert_select '.dropdown-menu li', user.servers.count + 4
+
+    # Change back
+    server = Server.find(user.servers.first.id)
+    last_used = server.last_used
+    get_via_redirect change_server_path(server.id), {}, { HTTP_REFERER: admin_servers_path }
+    assert_template 'admin/servers/index'
+    assert_equal server.id, session[:server_id]
+    assert_equal server, assigns(:current_server)
+    get_via_redirect plans_path
+    assert_not_equal last_used, Server.find(server.id).last_used
+    assert_equal server.siblings, assigns(:other_servers)
+  end
+
 end

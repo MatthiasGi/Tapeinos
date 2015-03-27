@@ -32,10 +32,20 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # Get the currently logged in user and server by their saved id.
+  # Get the currently logged in user and server by their saved id and also
+  #    determine all servers that the server can change to "on the fly".
   def parse_session
     @current_user ||= User.find_by(id: session[:user_id])
     @current_server ||= Server.find_by(id: session[:server_id])
+
+    # As default: all siblings of the server are allowed. But if the user is an
+    #    administrator and happen to simulate another server, display the
+    #    servers assigned to that (administrative) user so he can switch back
+    #    easily.
+    @other_servers ||= @current_server.try(:siblings)
+    @current_user.try(:servers).try do |servers|
+      @other_servers = servers.to_a unless servers.include?(@current_server)
+    end
   end
 
   # Only allow registered users past this point. Stronger than allowing only

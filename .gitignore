@@ -15,7 +15,6 @@
 /log/*
 !/log/.keep
 /tmp
-dump.rdb
 
 # Configuration files, created on setup.
 config/settings.*.yml
@@ -25,3 +24,9 @@ config/settings.*.yml
 
 # This file stores the current version but is created on launch.
 /config/version
+
+# This file is sometines created on tests. Clutter.
+/SETUP_CODE
+
+# Ignore the redis-server-dump.
+dump.rdb

@@ -3,7 +3,7 @@ require 'test_helper'
 class SessionsControllerTest < ActionController::TestCase
 
   def setup
-    request.env["HTTP_REFERER"] = root_path
+    request.env["HTTP_REFERER"] = plans_path
   end
 
   test "new session stub" do
@@ -170,7 +170,7 @@ class SessionsControllerTest < ActionController::TestCase
     user = users(:max)
     used = user.servers.second.last_used
     get :update, { id: user.servers.second }, { user_id: user.id, server_id: user.servers.first.id }
-    assert_redirected_to root_path
+    assert_redirected_to plans_path
     assert_equal user.servers.second.id, session[:server_id]
     assert_not_equal used, user.servers(true).second.last_used
   end
@@ -179,7 +179,7 @@ class SessionsControllerTest < ActionController::TestCase
     server = servers(:heinz)
     used = server.last_used
     get :update, { id: server.id }, { server_id: servers(:heinz2).id }
-    assert_redirected_to root_path
+    assert_redirected_to plans_path
     server = Server.find(server.id)
     assert_not_equal used, server.last_used
     assert_equal server.id, session[:server_id]
@@ -225,7 +225,7 @@ class SessionsControllerTest < ActionController::TestCase
   test "changing server to itself" do
     server = servers(:heinz)
     get :update, { id: server.id }, { server_id: server.id }
-    assert_redirected_to root_path
+    assert_redirected_to plans_path
     assert_equal server.id, session[:server_id]
   end
 
