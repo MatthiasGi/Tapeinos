@@ -26,14 +26,14 @@
 var ready = function() {
 
   // If a user clicks on a table-row with a link contained in it, the link should be triggered.
-  $('.table-rows-link tr').click(function(event) {
+  $('.table-rows-link tbody tr').click(function(event) {
     if (event.target instanceof HTMLAnchorElement) return;
     $('a', this)[0].click();
   });
 
   // If a user clicks on an table-row with a checkbox, the checkbox should be activated.
   // The row kind of reacts like a big label for the checkbox.
-  $('.table-rows-checkbox tr').click(function(event) {
+  $('.table-rows-checkbox tbody tr').click(function(event) {
     if (event.target.type == 'checkbox') return;
     $(':checkbox', this).trigger('click');
   });
@@ -52,12 +52,20 @@ var ready = function() {
 
   // Adds super-duper table-functionality to tables with the class `.table-data`.
   var $table = $('.table-data');
-  var sort_column = $table.data('sort-column') || 0;
-  var sort_order = $table.data('sort-order');
+  var sort_column = $table.data('sortcol') || 0;
+  var sort_order = $table.data('order');
+  var paging = $table.data('paging') != undefined;
+  var scroll = $table.data('scroll') != undefined;
   if (sort_order != 'desc') sort_order = 'asc';
-  $table.DataTable({
-    columnDefs: [{ orderable: false, searchable: false, targets: -1 }],
-    order: [[sort_column, sort_order]],
+  var table = $table.DataTable({
+    order: [[ sort_column, sort_order ]],
+    paging: paging,
+    info: paging,
+    columnDefs: [
+      { targets: 'no-sort', orderable: false },
+      { targets: 'no-search', searchable: false },
+      { targets: 'no-data', searchable: false, orderable: false }
+    ],
     language: {
       "sEmptyTable":   	"Keine Daten in der Tabelle vorhanden",
       "sInfo":         	"_START_ bis _END_ von _TOTAL_ Einträgen",
@@ -82,7 +90,7 @@ var ready = function() {
       }
     }
   });
-  $table.wrap('<div class="table-responsive"></div>');
+  if (scroll) $table.wrap('<div class="table-responsive"></div>');
 
   // Load the custom locale for the chosen-plugin.
   $('.chosen-select').chosen({
@@ -103,6 +111,9 @@ var ready = function() {
     $('.chosen-select').trigger('chosen:updated');
     return false;
   });
+
+  // Activates Bootstrap's tooltip-plugin.
+  $('[data-toggle="tooltip"]').tooltip()
 
 };
 

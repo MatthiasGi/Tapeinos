@@ -100,3 +100,9 @@ input[type="number"]
 /* Add a small top- and bottom-margin to elements. Mainly practical for grids that change column-number on different sizes. */
 .small-gutter
   margin: 7px 0
+
+/* Prevents data-tables without sorting to add the space for the sorting-button. */
+th
+  &.no-data,
+  &.no-sort
+    padding: $table-cell-padding !important
