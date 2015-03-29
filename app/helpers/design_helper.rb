@@ -54,4 +54,10 @@ module DesignHelper
     [l(start_date, format: start_format), l(end_date)].join(' – ')
   end
 
+  # Localizes a date and displays an empty string if localization is not
+  #    possible. Doesn't mess up the UI.
+  def locale(date, format = nil)
+    I18n.l date, format rescue ''
+  end
+
 end

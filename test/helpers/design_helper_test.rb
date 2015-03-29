@@ -75,4 +75,11 @@ class DesignHelperTest < ActionView::TestCase
     assert_equal '08.10.2015 – 05.01.2016', range
   end
 
+  test "date locale" do
+    date = DateTime.now
+    assert_equal I18n.l(date), locale(date)
+    assert_equal I18n.l(date, format: :long), locale(date, format: :long)
+    assert_equal '', locale(nil)
+  end
+
 end
