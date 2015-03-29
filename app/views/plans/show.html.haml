@@ -29,8 +29,9 @@
               %br/
               = l event.date, format: :time_only
             %td
-              %strong= event.title
-              %br/
+              - if event.title.present?
+                %strong= event.title
+                %br/
               %span.visible-xs
                 = event.location
                 = "(#{event.enrolled}/#{event.needed})"
