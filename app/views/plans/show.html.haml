@@ -16,9 +16,8 @@
           %th.hidden-xs{ colspan: 2 }= Event.human_attribute_name(:date)
           %th.visible-xs= Event.human_attribute_name(:date)
           %th= Event.human_attribute_name(:title)
-          %th= Event.human_attribute_name(:location)
-          %th
-            %span.hidden-xs= Event.human_attribute_name(:servers)
+          %th.hidden-xs= Event.human_attribute_name(:location)
+          %th.hidden-xs= Event.human_attribute_name(:servers)
       %tbody
         - @plan.events.each do |event|
           %tr
@@ -29,9 +28,14 @@
               = l event.date.to_date, format: :mobile
               %br/
               = l event.date, format: :time_only
-            %td= event.title
-            %td.text-nowrap= event.location
-            %td.text-nowrap= [ event.enrolled, event.needed ].join(' / ')
+            %td
+              %strong= event.title
+              %br/
+              %span.visible-xs
+                = event.location
+                = "(#{event.enrolled}/#{event.needed})"
+            %td.text-nowrap.hidden-xs= event.location
+            %td.text-nowrap.hidden-xs= [ event.enrolled, event.needed ].join(' / ')
 
     .text-right
       = btn_link_to t('defaults.cancel'), plans_path, context: :link

@@ -7,13 +7,16 @@
     %thead
       %tr
         %th= Plan.human_attribute_name(:title)
-        %th= Plan.human_attribute_name(:events)
+        %th.hidden-xs= Plan.human_attribute_name(:events)
         %th= Plan.human_attribute_name(:remark)
     %tbody
       - @plans.each do |plan|
         %tr
-          %th.text-nowrap= link_to plan, plan_path(plan)
-          %td.text-nowrap= date_range(plan.first_date, plan.last_date)
+          %td
+            %strong= link_to plan, plan_path(plan)
+            %br/
+            %span.visible-xs= date_range(plan.first_date, plan.last_date)
+          %td.text-nowrap.hidden-xs= date_range(plan.first_date, plan.last_date)
           %td
             - if plan.remark
               :markdown
