@@ -50,47 +50,66 @@ var ready = function() {
   // Allow the CSS to react on javascript-enabled browsers.
   $(document.body).addClass('js-enabled');
 
+  // ---------------------------------------------------------------------------
+
   // Adds super-duper table-functionality to tables with the class `.table-data`.
   var $table = $('.table-data');
-  var sort_column = $table.data('sortcol') || 0;
-  var sort_order = $table.data('order');
+
+  // Read options
+  var order = [[ $table.data('column') || 0, $table.data('order') == 'desc' ? 'desc' : 'asc' ]];
   var paging = $table.data('paging') != undefined;
   var scroll = $table.data('scroll') != undefined;
-  if (sort_order != 'desc') sort_order = 'asc';
+  var search = $table.data('search') != undefined;
+  var $search_target = search ? $($table.data('search')) : null;
+
+  // I18n
+  var locale = {
+    "sEmptyTable":   	"Keine Daten in der Tabelle vorhanden",
+    "sInfo":         	"_START_ bis _END_ von _TOTAL_ Einträgen",
+    "sInfoEmpty":    	"0 bis 0 von 0 Einträgen",
+    "sInfoFiltered": 	"(gefiltert von _MAX_ Einträgen)",
+    "sInfoPostFix":  	"",
+    "sInfoThousands":  	".",
+    "sLengthMenu":   	"_MENU_ Einträge anzeigen",
+    "sLoadingRecords": 	"Wird geladen...",
+    "sProcessing":   	"Bitte warten...",
+    "sSearch":       	"Suchen",
+    "sZeroRecords":  	"Keine Einträge vorhanden.",
+    "oPaginate": {
+        "sFirst":    	"Erste",
+        "sPrevious": 	"Zurück",
+        "sNext":     	"Nächste",
+        "sLast":     	"Letzte"
+    },
+    "oAria": {
+        "sSortAscending":  ": aktivieren, um Spalte aufsteigend zu sortieren",
+        "sSortDescending": ": aktivieren, um Spalte absteigend zu sortieren"
+    }
+  };
+
+  // Load table
   var table = $table.DataTable({
-    order: [[ sort_column, sort_order ]],
+    language: locale,
+    order: order,
     paging: paging,
     info: paging,
+    dom: search ? 'lrtip' : 'lfrtip',
     columnDefs: [
       { targets: 'no-sort', orderable: false },
-      { targets: 'no-search', searchable: false },
-      { targets: 'no-data', searchable: false, orderable: false }
-    ],
-    language: {
-      "sEmptyTable":   	"Keine Daten in der Tabelle vorhanden",
-      "sInfo":         	"_START_ bis _END_ von _TOTAL_ Einträgen",
-      "sInfoEmpty":    	"0 bis 0 von 0 Einträgen",
-      "sInfoFiltered": 	"(gefiltert von _MAX_ Einträgen)",
-      "sInfoPostFix":  	"",
-      "sInfoThousands":  	".",
-      "sLengthMenu":   	"_MENU_ Einträge anzeigen",
-      "sLoadingRecords": 	"Wird geladen...",
-      "sProcessing":   	"Bitte warten...",
-      "sSearch":       	"Suchen",
-      "sZeroRecords":  	"Keine Einträge vorhanden.",
-      "oPaginate": {
-          "sFirst":    	"Erste",
-          "sPrevious": 	"Zurück",
-          "sNext":     	"Nächste",
-          "sLast":     	"Letzte"
-      },
-      "oAria": {
-          "sSortAscending":  ": aktivieren, um Spalte aufsteigend zu sortieren",
-          "sSortDescending": ": aktivieren, um Spalte absteigend zu sortieren"
-      }
-    }
+      { targets: 'no-search', searchable: false },
+      { targets: 'no-data', orderable: false, searchable: false }
+    ]
   });
+
+  // Optional scroll container
   if (scroll) $table.wrap('<div class="table-responsive"></div>');
+
+  // External search if available
+  if (search) $search_target.keyup(function () {
+    table.search($(this).val()).draw();
+  });
+
+  // ---------------------------------------------------------------------------
 
   // Load the custom locale for the chosen-plugin.
   $('.chosen-select').chosen({

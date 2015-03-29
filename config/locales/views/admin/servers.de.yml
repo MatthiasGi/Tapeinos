@@ -6,6 +6,11 @@ de:
 
       index:
         title: Messdiener verwalten
+        servers:
+          one: Es wird zur Zeit ein Messdiener verwaltet.
+          other: Es werden zur Zeit %{count} Messdiener verwaltet.
+        simulate: Messdiener simulieren
+        goto_user: Benutzer aufrufen
 
       edit:
         title: Messdiener bearbeiten

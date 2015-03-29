@@ -1,28 +1,54 @@
 = page_header
+%p.lead.clearfix
+  = t('.servers', count: @servers.count)
+  = btn_link_to t('defaults.add'), new_admin_server_path, icon: :plus, context: :success, class: 'pull-right'
 
-.table-responsive
-  %table.table.table-striped.table-hover
-    %thead
+.row
+  .search-group
+    .input-group
+      %span.input-group-addon= icon :search
+      %input#servers-searcher.form-control{ type: 'text', autofocus: true }
+
+%table.table.table-striped.table-hover.table-rows-link.table-data{ width: '100%', data: { scroll: true, search: '#servers-searcher' }}
+  %thead
+    %tr
+      %th{ rowspan: 2 }= Server.human_attribute_name(:name)
+      %th{ rowspan: 2 }= Server.human_attribute_name(:email)
+      %th{ rowspan: 2 }= Server.human_attribute_name(:rank)
+      %th{ rowspan: 2 }= Server.human_attribute_name(:last_used)
+      %th.no-data{ colspan: 2 }= Server.human_attribute_name(:sizes)
+      %th.no-data{ rowspan: 2 }
+    %tr.hidden
+      %th.no-data
+      %th.no-data
+
+  %tbody
+    - @servers.each do |server|
       %tr
-        %th{colspan: 2}= Server.human_attribute_name(:name)
-        %th{colspan: 2}= Server.human_attribute_name(:email)
-        %th= Server.human_attribute_name(:rank)
-        %th= Server.human_attribute_name(:last_used)
-        %th{colspan: 2}= Server.human_attribute_name(:sizes)
-        %th= btn_link_to t('defaults.add'), new_admin_server_path, icon: :plus, class: 'pull-right', size: :small, context: :success
-    %tbody
-      - @servers.each do |server|
-        %tr
-          %td= server.firstname
-          %th= server.lastname
-          %td= btn_link_to nil, edit_admin_user_path(server.user), icon: :user, size: :small if server.user
-          %td.col-expand= mail_to server.email
-          %td
-            = rank_icon server.rank
-            = Server.human_attribute_name("rank.#{server.rank}")
-          %td= l server.last_used, format: :short if server.last_used
-          %td= server.size_talar
-          %td= server.size_rochet
-          %td.btn-group.btn-group-sm.text-nowrap
-            = btn_link_to t('defaults.edit'), edit_admin_server_path(server), icon: :pencil
-            = btn_link_to '', change_server_path(server.id), icon: :eye_open
+        -# Name
+        %td.text-nowrap{ data: { order: "#{server.lastname} #{server.firstname}" }}
+          = link_to edit_admin_server_path(server) do
+            = server.firstname
+            %strong= server.lastname
+
+        -# Email and user
+        %td.text-nowrap
+          - target = server.user ? edit_admin_user_path(server.user) : '#'
+          - classes = server.user ? nil : 'invisible'
+          = btn_link_to nil, target, icon: :user, size: :xs, class: classes, title: t('.goto_user'), data: { toggle: 'tooltip' }
+          = server.email
+
+        -# Rank
+        - rank = Server.human_attribute_name("rank.#{server.rank}")
+        %td.text-center{ title: rank, data: { toggle: 'tooltip', container: 'body', order: rank, search: rank }}
+          = rank_icon server.rank
+
+        -# Last-used timestamp
+        %td.text-nowrap= locale server.last_used, format: :short
+
+        -# Sizes
+        %td= server.size_talar
+        %td= server.size_rochet
+
+        -# Simulation
+        %td= btn_link_to '', change_server_path(server.id), icon: :eye_open, title: t('.simulate'), size: :small, data: { toggle: 'tooltip', placement: 'left' }
