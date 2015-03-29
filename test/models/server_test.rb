@@ -117,7 +117,7 @@ class ServerTest < ActiveSupport::TestCase
   end
 
   test "seed should be generated on user-creation" do
-    server = Server.new(**@all)
+    server = Server.create(**@all)
     seed = server.seed
     assert_not_nil seed, "server seed shouldn't be empty"
     assert_not_empty seed, "server seed shouldn't be empty"
@@ -133,8 +133,7 @@ class ServerTest < ActiveSupport::TestCase
   test "seed should be unique" do
     seed = servers(:max).seed
     server = servers(:heinz)
-    server.seed = seed
-    assert_not server.valid?, "seed should be unique"
+    assert_not server.update(seed: seed), "seed should be unique"
   end
 
   test "seed length 16" do
@@ -235,6 +234,11 @@ class ServerTest < ActiveSupport::TestCase
   test "Receive login token of server" do
     assert_equal users(:max).email, servers(:max).login_token
     assert_equal servers(:heinz).seed, servers(:heinz).login_token
+  end
+
+  test "Should not receive any errors directly after creation" do
+    server = Server.new
+    assert_empty server.errors
   end
 
 end

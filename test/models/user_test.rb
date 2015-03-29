@@ -115,10 +115,10 @@ class UserTest < ActiveSupport::TestCase
   test "deleting the user should update the user by getting the old email" do
     servers = []
     email = 'testen@testen.testen.de'
-    user = User.new(email: email, password: 'testen')
+    user = User.create(email: email, password: 'testen')
     assert user.valid?
     3.times do |i|
-      servers << Server.new(firstname: "first_#{i}", lastname: "last_#{i}", email: "test@bla#{i}.de", sex: :male, user: user)
+      servers << Server.create(firstname: "first_#{i}", lastname: "last_#{i}", email: "test@bla#{i}.de", sex: :male, user: user)
     end
 
     user.destroy

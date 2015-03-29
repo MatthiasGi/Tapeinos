@@ -55,7 +55,7 @@ class Server < ActiveRecord::Base
     format: { with: /\A[0-9a-f]{32}\z/ }
 
   # The seed should be generated automagically if it does not exist already.
-  after_initialize :generate_seed, unless: :seed
+  before_validation :generate_seed, unless: :seed
 
   # ============================================================================
 

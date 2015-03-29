@@ -4,18 +4,21 @@ max:
   email: max@mustermann.de
   user: max
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefab
 
 max2:
   firstname: Max2
   lastname: Mustermann
   user: max
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefaa
 
 max3:
   firstname: Max3
   lastname: Mustermann
   user: max
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefac
 
 max4:
   firstname: Max4
@@ -23,51 +26,60 @@ max4:
   email: heinz@gianfelice.de
   user: max
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefad
 
 heinz:
   firstname: Heinz
   lastname: Müller
   email: heinz@gianfelice.de
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefae
 
 heinz2:
   firstname: Heinz2
   lastname: Müller
   email: heinz@gianfelice.de
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefaf
 
 heinz3:
   firstname: Heinz3
   lastname: Müller
   email: heinz@gianfelice.de
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefa1
 
 kunz:
   firstname: Kunz
   lastname: Hinz
   email: hinz@kunz.com
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefa2
 
 admin:
   firstname: Admin
   lastname: Istrator
   user: admin
   sex: 1
+  seed: abcdefabcdefabcdefabcdefabcdefa3
 
 shortkunz:
   firstname: Kunz
   lastname: Hinderlich
   email: kunz@heinrich.de
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefa4
 
 shortmax:
   firstname: Max
   lastname: Schiller
   email: max@schiller.de
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefa5
 
 maxcopy:
   firstname: Max
   lastname: Mustermann
   email: max@mustermann2.de
   sex: 0
+  seed: abcdefabcdefabcdefabcdefabcdefa6
