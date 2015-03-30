@@ -6,6 +6,10 @@ de:
 
       index:
         title: Pläne verwalten
+        plans:
+          zero: Es werden zur Zeit keine Pläne verwaltet.
+          one: Es wird zur Zeit ein Plan verwaltet.
+          other: Es werden zur Zeit %{count} Pläne verwaltet.
 
       show:
         title: Plan verwalten

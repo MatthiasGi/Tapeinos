@@ -1,6 +1,6 @@
 = page_header
 %p.lead.clearfix
-  = t('.servers', count: @servers.count)
+  = t '.servers', count: @servers.count
   = btn_link_to t('defaults.add'), new_admin_server_path, icon: :plus, context: :success, class: 'pull-right'
 
 = render 'shared/table_search', id: 'servers-searcher'
