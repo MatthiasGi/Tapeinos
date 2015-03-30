@@ -1,16 +1,17 @@
 = render layout: 'layouts/master' do
+  .row
 
-  -# Menu
-  .col-md-2
-    - list = { servers: admin_servers_path,
-               users: admin_users_path,
-               plans: admin_plans_path,
-               messages: admin_messages_path }
-    %ul.nav.nav-pills.nav-stacked
-      - list.each do |key, value|
-        %li{class: ('active' if controller_name == key.to_s) }
-          = link_to key.to_s.classify.constantize.model_name.human(count: :many), value
+    -# Menu
+    .col-md-2
+      - list = { servers: admin_servers_path,
+                 users: admin_users_path,
+                 plans: admin_plans_path,
+                 messages: admin_messages_path }
+      %ul.nav.nav-pills.nav-stacked
+        - list.each do |key, value|
+          %li{class: ('active' if controller_name == key.to_s) }
+            = link_to key.to_s.classify.constantize.model_name.human(count: :many), value
 
-  -# Content
-  .col-md-10
-    = yield
+    -# Content
+    .col-md-10
+      = yield
