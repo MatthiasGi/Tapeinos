@@ -87,4 +87,11 @@ class PlanTest < ActiveSupport::TestCase
     assert_nil plan.last_date
   end
 
+  test "Multiple servers can enroll for a plan" do
+    plan = plans(:easter)
+    servers = Server.all
+    assert plan.update(servers: servers)
+    assert_equal servers, plan.servers(true)
+  end
+
 end

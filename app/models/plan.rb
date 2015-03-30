@@ -9,6 +9,10 @@ class Plan < ActiveRecord::Base
   has_many :events, dependent: :destroy
   accepts_nested_attributes_for :events, allow_destroy: true
 
+  # Multiple servers can enroll for a plan without really attending to an event.
+  #    This allows server to simply say: "I don't have time for **any** event."
+  has_and_belongs_to_many :servers
+
   # ============================================================================
 
   # Returns the earliest event-date associated to the plan

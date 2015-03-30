@@ -60,6 +60,14 @@ ActiveRecord::Schema.define(version: 51) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "plans_servers", id: false, force: :cascade do |t|
+    t.integer "plan_id"
+    t.integer "server_id"
+  end
+
+  add_index "plans_servers", ["plan_id"], name: "index_plans_servers_on_plan_id"
+  add_index "plans_servers", ["server_id"], name: "index_plans_servers_on_server_id"
+
   create_table "servers", force: :cascade do |t|
     t.string   "firstname",               null: false
     t.string   "lastname",                null: false

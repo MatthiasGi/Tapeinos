@@ -241,4 +241,11 @@ class ServerTest < ActiveSupport::TestCase
     assert_empty server.errors
   end
 
+  test "Servers can enroll for mutiple plans" do
+    plans = Plan.all
+    server = servers(:max)
+    assert server.update(plans: plans)
+    assert_equal plans, server.plans(true)
+  end
+
 end

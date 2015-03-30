@@ -7,8 +7,9 @@ class Server < ActiveRecord::Base
   #    to one or more servers.
   belongs_to :user
 
-  # The servers can enroll to many events.
+  # The servers can enroll to many events (contained in plans).
   has_and_belongs_to_many :events
+  has_and_belongs_to_many :plans
 
   # The server may be subscribed to multiple messages.
   has_and_belongs_to_many :messages
