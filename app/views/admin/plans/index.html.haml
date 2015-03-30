@@ -29,7 +29,7 @@
           -# Remarks
           %td{ data: { search: plan.remark }}
             :markdown
-              #{plan.remark.truncate_words(10)}
+              #{plan.remark.try(:truncate_words, 10)}
 
           -# Servers
           %td.text-center= "#{plan.servers.count} / #{Server.count}"

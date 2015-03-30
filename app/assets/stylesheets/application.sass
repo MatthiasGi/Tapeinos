@@ -97,7 +97,7 @@ input[type="datetime"]
   margin: 40px auto 20px
 
 /* Simple class to make elements monospaced. */
-.input-code
+.text-code
   font-family: $font-family-monospace
 
 /* Add a small top- and bottom-margin to elements. Mainly practical for grids that change column-number on different sizes. */
@@ -123,3 +123,11 @@ th.sorting_disabled
     width: 100% !important
     background: none
     box-shadow: none
+
+/* This position is needed for the bootstrap-datetimepicker to display properly. */
+#events-table-parent
+  position: relative
+
+/* The text-inputs in that table get really small on mobile if not fixed like this. */
+#events-table input[type=text]
+  width: auto

@@ -12,7 +12,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template :index
-    assert_equal User.all.order(:email), assigns(:users)
+    assert_equal User.all, assigns(:users)
   end
 
   test "edit invalid user" do

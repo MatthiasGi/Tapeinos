@@ -1,32 +1,36 @@
 = simple_horizontal_form_for [ :admin, @plan ] do |f|
 
+  -# Basic settings
   = f.input :title
-  = f.input :remark
-
+  = f.input :remark, input_html: { class: 'text-code', rows: 12 }
   %hr/
+
+  -# Events introduction
   %h2= Plan.human_attribute_name(:events)
-
-  .table-responsive
-    %table.table.table-striped.table-hover
-      %thead
-        %tr
-          %th= Event.human_attribute_name(:date)
-          %th= Event.human_attribute_name(:title)
-          %th= Event.human_attribute_name(:location)
-          %th= t '.needed'
-          %th= t 'defaults.actions'
-
-      %tbody#events-table
-        = f.simple_fields_for :events do |event|
-          = render 'event_fields', f: event
-
-  .text-right
-    = link_to_add_association f, :events, data: { association_insertion_node: '#events-table', association_insertion_method: 'append' }, class: 'btn btn-success' do
+  %p.lead.clearfix
+    = t '.lead'
+    = link_to_add_association f, :events, data: { association_insertion_node: '#events-table', association_insertion_method: 'append' }, class: 'btn btn-success pull-right' do
       = icon :plus
       = t '.new_event'
 
-  %hr/
+  -# Table with all events (parent needed for bootstrap-datetimepicker-positioning)
+  #events-table-parent
+    .table-responsive
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th= Event.human_attribute_name(:date)
+            %th= Event.human_attribute_name(:title)
+            %th= Event.human_attribute_name(:location)
+            %th= t '.needed' # Model-Translation is too long
+            %th
 
+        %tbody#events-table.cocoon-container
+          = f.simple_fields_for :events do |event|
+            = render 'event_fields', f: event
+
+  -# Action-Buttons
+  %hr/
   .form-group
     .col-sm-9.col-sm-offset-3
       = f.button :submit

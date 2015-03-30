@@ -138,17 +138,52 @@ var ready = function() {
   // Activates Bootstrap's tooltip-plugin.
   $('[data-toggle="tooltip"]').tooltip()
 
-  // Creates a datepicker for all browsers that can't handle it (yet).
-  if ($('input[type=date]')[0] && $('input[type=date]')[0].type != 'date') {
-    $('input[type="date"]').each(function () {
-      var date = $(this).datetimepicker({
-        format: 'L',
-        showClear: true,
-        minDate: $(this).prop('min') || false,
-        maxDate: $(this).prop('max') || false
-      })
-    });
+  // This function intialises ALL used datepickers throughout the app.
+  var datepicker = function () {
+
+    // Simple dates
+    if ($('input[type=date]')[0] && $('input[type=date]')[0].type != 'date') {
+      $('input[type=date]').each(function () {
+        $(this).datetimepicker({
+          format: 'L',
+          showClear: true,
+          minDate: $(this).prop('min') || false,
+          maxDate: $(this).prop('max') || false
+        });
+      });
+    }
+
+    // Dates and times
+    if ($('input[type=datetime-local]')[0] && $('input[type=datetime-local]')[0].type != 'datetime-local') {
+
+      // Inputs inside a table are somewhat special. At least we're not using them that much…
+      $('#events-table input[type=datetime-local]').each(function () {
+        $(this).datetimepicker({
+          format: 'L LT',
+          showClear: true,
+          minDate: $(this).prop('min') || false,
+          maxDate: $(this).prop('max') || false,
+          widgetParent: $('#events-table-parent'),
+          widgetPositioning: { vertical: 'top' }
+        }).on('dp.show', function () {
+          var pos = $(this).position()
+          $picker = $('.bootstrap-datetimepicker-widget')
+          height = $picker.height()
+          console.log(height)
+          $picker
+            .css('position', 'absolute')
+            .css('left', pos.left)
+            .css('top', pos.top - height - 20)
+            .css('bottom', 'auto')
+        });
+      });
+    }
+
   }
+
+  // Load the initialization for datepickers now and everytime cocoon adds to the #plans-table
+  datepicker();
+  $('.cocoon-container').on('cocoon:after-insert', datepicker);
 
 };
 

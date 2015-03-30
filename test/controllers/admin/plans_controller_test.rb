@@ -12,9 +12,7 @@ class Admin::PlansControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template :index
-    plans = Plan.all
-    expected = plans.reject(&:first_date) + plans.select(&:first_date).sort_by(&:first_date)
-    assert_equal expected, assigns(:plans)
+    assert_equal Plan.all, assigns(:plans)
   end
 
   test "show invalid plan" do
@@ -111,6 +109,13 @@ class Admin::PlansControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :new
     assert_select '.plan_title.has-error .help-block'
+  end
+
+  test "new plan has a default event without date" do
+    get :new
+    plan = assigns(:plan)
+    assert_equal 1, plan.events.to_a.count
+    assert_nil plan.events.first.date
   end
 
 end

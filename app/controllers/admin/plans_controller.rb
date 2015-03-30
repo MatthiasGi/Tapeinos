@@ -7,9 +7,10 @@ class Admin::PlansController < Admin::AdminController
 
   # ============================================================================
 
-  # Shows a form for creating new plans.
+  # Shows a form for creating new plans. An empty event is included to prefill
+  #    the events-table.
   def new
-    @plan = Plan.new
+    @plan = Plan.new(events: [ Event.new ])
   end
 
   # Actuall creates the new plan
