@@ -46,6 +46,7 @@ class PlansControllerTest < ActionController::TestCase
 
   test "saving enrollement" do
     plan = plans(:easter)
+    assert_not_includes plan.servers, @server
     evts = [ events(:easter), events(:goodfriday) ]
     ids = evts.map(&:id)
     patch :update, { id: plan.id, events: ids }, @session
@@ -54,14 +55,26 @@ class PlansControllerTest < ActionController::TestCase
     assert_equal evts, @server.events(true)
     evts.each { |event|  assert_includes event.servers(true), @server }
     assert_select '.alert.alert-success', I18n.t('plans.show.enrolled')
+    assert_includes plan.servers, @server
   end
 
   test "saving with empty plan list" do
     plan = plans(:easter)
+    assert_not_includes plan.servers, @server
     patch :update, { id: plan.id, events: nil }, @session
     assert_response :success
     assert_template :show
     assert_select '.alert.alert-success', I18n.t('plans.show.enrolled')
+    assert_includes plan.servers, @server
+  end
+
+  test "saving plan-enrollement only if not already saved" do
+    plan = plans(:easter)
+    assert_not_includes plan.servers, @server
+    patch :update, { id: plan.id, events: nil }, @session
+    assert_includes plan.servers, @server
+    patch :update, { id: plan.id, events: nil }, @session
+    assert_equal 1, plan.servers.to_a.count(@server)
   end
 
   test "invalid plan shows overview" do
