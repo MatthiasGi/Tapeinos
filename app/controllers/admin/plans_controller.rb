@@ -26,8 +26,7 @@ class Admin::PlansController < Admin::AdminController
   # Lists all available plans and sorts them: first those without events, than
   #    the most recents
   def index
-    parts = Plan.all.partition { |plan| plan.first_date }
-    @plans = parts.last + parts.first.sort_by(&:first_date)
+    @plans = Plan.all
   end
 
   # Displays a single plan.

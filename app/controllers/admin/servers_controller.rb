@@ -21,7 +21,7 @@ class Admin::ServersController < Admin::AdminController
 
   # Lists all available servers.
   def index
-    @servers = Server.all.order(:lastname)
+    @servers = Server.all
   end
 
   # Edit every saved attribute for a server.

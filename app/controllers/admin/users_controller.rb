@@ -10,7 +10,7 @@ class Admin::UsersController < Admin::AdminController
 
   # Lists all available users for the administrator.
   def index
-    @users = User.all.order(:email)
+    @users = User.all
   end
 
   # Shows a form for editing users.
