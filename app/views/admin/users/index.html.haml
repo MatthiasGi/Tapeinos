@@ -28,4 +28,4 @@
           %small= user.servers.to_a.map(&:shortname).join(', ')
 
         -# Last-used date
-        %td.text-nowrap= locale user.last_used, format: :short
+        %td.text-nowrap{ data: { order: user.last_used }}= locale user.last_used, format: :short

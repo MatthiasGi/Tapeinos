@@ -3,12 +3,18 @@ de:
     messages:
       new:
         title: Nachricht erstellen
+        lead: Die Nachricht wird beim Speichern nicht gesendet, sondern als Entwurf gespeichert.
 
       index:
         title: Nachrichten verwalten
+        messages:
+          zero: Bisher wurde keine einzige Nachricht geschrieben.
+          one: Es wurde bisher nur eine Nachricht geschrieben.
+          other: Es wurden bisher schon %{count} Nachrichten geschrieben.
 
       show:
         title: Nachricht verwalten
+        lead: Die Nachricht ist zur Zeit als Entwurf gespeichert. Das Senden kann jetzt angewiesen werden.
         html: HTML-Ansicht
         text: Reintextansicht
         confirm_delete: |
@@ -19,6 +25,7 @@ de:
 
       edit:
         title: Nachricht bearbeiten
+        lead: Die Nachricht wird beim Speichern nicht gesendet, sondern als Entwurf gespeichert.
         no_server: Es wurde bisher kein Empfänger zugewiesen, hole dies bitte erst nach.
 
       form:

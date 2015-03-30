@@ -28,7 +28,7 @@
     %tbody
       - @plan.events.each do |event|
         %tr
-          %td.text-nowrap= l event.date
+          %td.text-nowrap{ data: { order: event.date }}= l event.date
           %td.text-nowrap= event.location
           %th.text-nowrap= event.title
           %td.col-expand

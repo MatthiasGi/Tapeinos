@@ -40,7 +40,7 @@
           = rank_icon server.rank
 
         -# Last-used timestamp
-        %td.text-nowrap= locale server.last_used, format: :short
+        %td.text-nowrap{ data: { order: server.last_used }}= locale server.last_used, format: :short
 
         -# Sizes
         %td= server.size_talar

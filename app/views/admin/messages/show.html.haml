@@ -1,16 +1,19 @@
 = page_header t('.title'), @message
+%p.lead.clearfix
+  = t '.lead'
+  = btn_link_to t('defaults.send'), admin_message_mail_path(@message), icon: :send, context: :primary, class: 'pull-right' if @message.draft?
 
 %p
   %strong= "#{Message.human_attribute_name(:servers)}:"
-  = @message.servers.any? ? @message.servers.join(', ') : t('.no_servers')
+  = @message.servers.any? ? @message.servers.map(&:shortname).join(', ') : t('.no_servers')
+
 = panel @message.as_html(@current_server), title: t('.html')
 = panel title: t('.text') do
-  .panel-body
-    %pre= @message.as_text(@current_server)
+  %pre.panel-body= @message.as_text(@current_server)
 
-.text-right
-  = btn_link_to t('defaults.cancel'), admin_messages_path, icon: :triangle_left
-  - if @message.draft?
-    = btn_link_to t('defaults.delete'), admin_message_path(@message), method: :delete, context: :danger, icon: :trash, data: { confirm: t('.confirm_delete') }
-    = btn_link_to t('defaults.edit'), edit_admin_message_path(@message), icon: :pencil
-    = btn_link_to t('defaults.send'), admin_message_mail_path(@message), icon: :send, context: :primary
+.form-group
+  .col-sm-9.col-sm-offset-3
+    = btn_link_to t('defaults.cancel'), admin_messages_path, icon: :triangle_left
+    - if @message.draft?
+      = btn_link_to t('defaults.delete'), admin_message_path(@message), method: :delete, context: :danger, icon: :trash, data: { confirm: t('.confirm_delete') }
+      = btn_link_to t('defaults.edit'), edit_admin_message_path(@message), icon: :pencil, context: :primary
