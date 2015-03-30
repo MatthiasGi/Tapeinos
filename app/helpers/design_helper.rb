@@ -45,9 +45,11 @@ module DesignHelper
   end
 
   # This helper prints a beautiful representation of the span between two dates.
-  # It dry's up the year- and month-overhead, if not needed.
+  # It dries up the year- and month-overhead, if not needed.
   # E.g. 03.06.2014 – 07.06.2014 becomes 03. – 07.06.2014
   def date_range(start_date, end_date)
+    start_date.nil? and return (l end_date rescue '')
+    end_date.nil? or start_date == end_date and return l start_date
     start_format = :incl_day
     start_format = :incl_month unless start_date.month == end_date.month
     start_format = :incl_year unless start_date.year == end_date.year

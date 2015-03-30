@@ -65,14 +65,38 @@ class DesignHelperTest < ActionView::TestCase
   end
 
   test "date range" do
-    range = date_range(Date.new(2015, 10, 8), Date.new(2015, 10, 10))
-    assert_equal '08. – 10.10.2015', range
+    date = Date.new(2015, 10, 8)
+    tester = {
+      incl_day: Date.new(2015, 10, 10),
+      incl_month: Date.new(2015, 11, 12),
+      incl_year: Date.new(2016, 10, 1)
+    }
 
-    range = date_range(Date.new(2015, 10, 8), Date.new(2015, 11, 12))
-    assert_equal '08.10. – 12.11.2015', range
+    tester.each do |key, value|
+      range = date_range(date, value)
+      str1 = I18n.l(date, format: key)
+      str2 = I18n.l(value)
+      assert_equal "#{str1} – #{str2}", range
+    end
+  end
 
-    range = date_range(Date.new(2015, 10, 8), Date.new(2016, 1, 5))
-    assert_equal '08.10.2015 – 05.01.2016', range
+  test "date range for nil" do
+    date = Date.new(2015, 10, 8)
+    range = date_range(date, nil)
+    assert_equal I18n.l(date), range
+
+    date = Date.new(2015, 10, 9)
+    range = date_range(nil, date)
+    assert_equal I18n.l(date), range
+
+    range = date_range(nil, nil)
+    assert_equal '', range
+  end
+
+  test "first = last date range" do
+    date = Date.new(2015, 10, 8)
+    range = date_range(date, date)
+    assert_equal I18n.l(date), range
   end
 
   test "date locale" do
