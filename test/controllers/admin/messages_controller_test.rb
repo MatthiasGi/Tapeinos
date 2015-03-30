@@ -34,8 +34,8 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     message = messages(:one)
     get :show, { id: message.id }
     assert_template :show
-    assert_select '.btn.btn-primary'
-    assert_select '.btn.btn-default .glyphicon-pencil'
+    assert_select '.btn.btn-primary .glyphicon-send'
+    assert_select '.btn.btn-primary .glyphicon-pencil'
     assert_select '.btn.btn-danger'
   end
 
@@ -43,8 +43,8 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     message = messages(:two)
     get :show, { id: message.id }
     assert_template :show
-    assert_select '.btn.btn-primary', false
-    assert_select '.btn.btn-default .glyphicon-pencil', false
+    assert_select '.btn.btn-primary .glyphicon-send', false
+    assert_select '.btn.btn-primary .glyphicon-pencil', false
     assert_select '.btn.btn-danger', false
   end
 
