@@ -82,4 +82,24 @@ class DesignHelperTest < ActionView::TestCase
     assert_equal '', locale(nil)
   end
 
+  test "percentage of enrolled servers" do
+    plan = Plan.first
+    servers = User.first.servers + [ servers(:heinz) ]
+    assert plan.update(servers: servers)
+    plan = Plan.find(plan.id)
+
+    html = enrollement(plan)
+    assert_select node(html), '.progress .progress-bar.empty', 0
+    assert_select node(html), '.progress .progress-bar', plan.servers.count.to_s + ' / ' + Server.count.to_s
+    percentage = 100 * servers.count / Server.count
+    assert_match /width: #{percentage}%/, html
+  end
+
+  test "percentage of empty plan" do
+    plan = plans(:easter)
+    html = enrollement(plan)
+    assert_select node(html), '.progress .progress-bar.empty', '0 / ' + Server.count.to_s
+    assert_match /width: 0%/, html
+  end
+
 end

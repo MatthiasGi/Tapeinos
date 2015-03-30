@@ -113,3 +113,15 @@ th
 /* Simple style for search-fields. */
 .search-group
   margin-bottom: 10px
+
+/* Empty progressbar should display a centered label, non-empty one should always display it. */
+.progress-bar
+  &:not(.empty)
+    min-width: 3em
+
+  &.empty
+    color: inherit
+    text-align: center
+    width: 100% !important
+    background: none
+    box-shadow: none

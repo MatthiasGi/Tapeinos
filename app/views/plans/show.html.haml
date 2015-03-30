@@ -38,6 +38,8 @@
             %td.text-nowrap.hidden-xs= event.location
             %td.text-nowrap.hidden-xs= [ event.enrolled, event.needed ].join(' / ')
 
+    = enrollement(@plan)
+
     .text-right
       = btn_link_to t('defaults.cancel'), plans_path, context: :link
       = f.button :submit

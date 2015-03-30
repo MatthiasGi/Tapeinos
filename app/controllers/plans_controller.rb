@@ -24,7 +24,8 @@ class PlansController < ApplicationController
     evts_param = evts_param.compact
     events = @current_server.events - @plan.events + evts_param
     flash.now[:enrolled] = @current_server.update(events: events)
-    @plan.servers.include?(@current_server) or @plan.servers.push(@current_server)
+    @plan.servers.include?(@current_server) or
+      @plan.servers.push(@current_server)
     render :show
   end
 

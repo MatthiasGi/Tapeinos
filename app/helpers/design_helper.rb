@@ -60,4 +60,13 @@ module DesignHelper
     I18n.l date, format rescue ''
   end
 
+  # Displays a neat progressbar with the number of servers that are already
+  #    enrolled for the current plan.
+  def enrollement(plan)
+    label = [plan.servers.count, Server.count].join(' / ')
+    percentage = 100 * plan.servers.count / Server.count
+    progress_bar percentage: percentage, label: label,
+                 class: ('empty' unless plan.servers.any?)
+  end
+
 end
