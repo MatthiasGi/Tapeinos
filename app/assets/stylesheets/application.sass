@@ -32,18 +32,10 @@ body
   padding: 70px 0
 
 /*
- * If only a specific amount of columns should expand automagically, this is the way to go:
- * .table-cols-contract is applied to the containing table, .col-expand to the expanding column.
+ * Expands a column in a table to maximize taken space. All other columns should be set to nowrap.
  */
-.table-cols-contract
-  td,
-  th
-    width: 1%
-    white-space: nowrap
-
-  .col-expand
-    width: 100%
-    white-space: normal
+.col-expand
+  width: 100%
 
 /*
  * If java-script is enabled, .table-rows-checkbox toggles checkboxes by clicking on the row and .table-rows-link triggers a contained link.

@@ -16,8 +16,12 @@ de:
         title: Plan verwalten
         enrolled:
           zero: In den Plan haben sich bisher keine Messdiener eingetragen.
-          one: 'In den Plan hat sich bisher der folgende Messdiener eingetragen:'
-          other: 'In den Plan haben sich bisher die folgenden %{count} Messdiener eingetragen:'
+          one: In den Plan hat sich bisher ein Messdiener eingetragen.
+          other: In den Plan haben sich bisher %{count} Messdiener eingetragen.
+        missing:
+          zero: Das sind alle Messdiener!
+          one: 'Weiterhin fehlt noch der folgende Messdiener:'
+          other: 'Weiterhin fehlen noch die folgenden %{count} Messdiener:'
 
       edit:
         title: Plan bearbeiten

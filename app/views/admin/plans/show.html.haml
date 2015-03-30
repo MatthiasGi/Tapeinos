@@ -1,28 +1,42 @@
 = page_header t('.title'), @plan
 
+-# Introduction
+%p.lead= t '.enrolled', count: @plan.servers.count
+- missing = Server.all.to_a - @plan.servers.to_a
+%p
+  = t '.missing', count: missing.count
+  = safe_join missing.map { |s| mail_to s.email, s.shortname }, ', '
+= enrollement(@plan)
+%hr/
+
+-# Content
 :markdown
   #{@plan.remark}
 
-.table-responsive
-  %table.table.table-striped.table-hover.table-cols-contract
+- if @plan.events.any?
+
+  = render 'shared/table_search', id: 'events-searcher'
+
+  %table.table.table-striped.table-hover.table-data.table-cols-contract{ width: '100%', data: { scroll: true, search: '#events-earcher' }}
     %thead
       %tr
-        %th{ colspan: 2 }= Event.human_attribute_name(:date)
+        %th= Event.human_attribute_name(:date)
         %th= Event.human_attribute_name(:location)
-        %th= Event.human_attribute_name(:title)
-        %th.col-expand= Event.human_attribute_name(:servers)
-        %th
+        %th.no-sort= Event.human_attribute_name(:title)
+        %th.no-sort= Event.human_attribute_name(:servers)
+        %th.no-search
     %tbody
       - @plan.events.each do |event|
         %tr
-          %td= l event.date.to_date, format: :long
-          %td= l event.date, format: :time_only
-          %td= event.location
-          %th= event.title
-          %td
+          %td.text-nowrap= l event.date
+          %td.text-nowrap= event.location
+          %th.text-nowrap= event.title
+          %td.col-expand
             %small= event.list_servers
-          %td= [ event.enrolled, '/', event.needed ].join(' ')
+          %td.text-nowrap= [ event.enrolled, '/', event.needed ].join(' ')
 
-  .text-right
-    = btn_link_to t('defaults.back'), admin_plans_path, icon: :triangle_left
+.form-group
+  .col-sm-9.col-sm-offset-3
     = btn_link_to t('defaults.edit'), edit_admin_plan_path(@plan), icon: :pencil, context: :primary
+    = btn_link_to t('defaults.cancel'), admin_plans_path, context: :link
+
