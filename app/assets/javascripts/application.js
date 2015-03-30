@@ -60,7 +60,7 @@ var ready = function() {
   var $table = $('.table-data');
 
   // Read options
-  var order = [[ $table.data('column') || 0, $table.data('order') == 'desc' ? 'desc' : 'asc' ]];
+  var order = [[ $table.data('column') || 0, $table.data('reverse') == undefined ? 'asc' : 'desc' ]];
   var paging = $table.data('paging') != undefined;
   var scroll = $table.data('scroll') != undefined;
   var search = $table.data('search') != undefined;
@@ -139,7 +139,7 @@ var ready = function() {
   $('[data-toggle="tooltip"]').tooltip()
 
   // Creates a datepicker for all browsers that can't handle it (yet).
-  if ($('input[type=date]')[0].type != 'date') {
+  if ($('input[type=date]')[0] && $('input[type=date]')[0].type != 'date') {
     $('input[type="date"]').each(function () {
       var date = $(this).datetimepicker({
         format: 'L',
