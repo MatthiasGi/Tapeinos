@@ -3,6 +3,7 @@ de:
     servers:
       new:
         title: Messdiener hinzufügen
+        lead: Du erstellst gerade einen neuen Messdiener. Er wird darüber nicht per E-Mail informiert.
 
       index:
         title: Messdiener verwalten
@@ -14,6 +15,7 @@ de:
 
       edit:
         title: Messdiener bearbeiten
+        lead: Passe alle Einstellungen für den Messdiener an. Beachte, dass Du die E-Mail nicht verändern kannst, wenn der Messdiener mit einem Account verknüpft ist.
 
       form:
         confirm_delete: |

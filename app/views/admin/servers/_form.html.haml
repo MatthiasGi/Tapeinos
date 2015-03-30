@@ -3,11 +3,11 @@
   = f.input :firstname
   = f.input :lastname
   = f.input :email unless @server.user
-  = f.input :birthday, start_year: 1950, end_year: Date.today.year, include_blank: true
+  = f.input :birthday, html5: true, input_html: { min: Date.new(1950), max: Date.today }
   = f.input :sex, collection: Server.sexes.symbolize_keys.keys, as: :radio_buttons, item_wrapper_class: 'col-sm-4'
   = f.input :size_talar
   = f.input :size_rochet
-  = f.input :since, start_year: 1950, end_year: Date.today.year, include_blank: true
+  = f.input :since, html5: true, input_html: { min: Date.new(1950), max: 1.year.from_now.end_of_year }
   = f.input :rank, collection: Server.ranks.symbolize_keys.keys, include_blank: false, as: :radio_buttons, item_wrapper_class: 'col-sm-2'
 
   %hr/

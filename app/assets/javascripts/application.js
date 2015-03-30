@@ -21,6 +21,10 @@
 //= require jquery.dataTables.js
 //= require dataTables.bootstrap.js
 //
+//= require moment
+//= require moment/de
+//= require bootstrap-datetimepicker
+//
 //= require cocoon
 
 var ready = function() {
@@ -133,6 +137,18 @@ var ready = function() {
 
   // Activates Bootstrap's tooltip-plugin.
   $('[data-toggle="tooltip"]').tooltip()
+
+  // Creates a datepicker for all browsers that can't handle it (yet).
+  if ($('input[type=date]')[0].type != 'date') {
+    $('input[type="date"]').each(function () {
+      var date = $(this).datetimepicker({
+        format: 'L',
+        showClear: true,
+        minDate: $(this).prop('min') || false,
+        maxDate: $(this).prop('max') || false
+      })
+    });
+  }
 
 };
 

@@ -39,6 +39,10 @@ gem 'simple_form'
 gem 'cocoon'
 gem 'chosen-rails'
 
+# This provides a custom datetimepicker for fallack reasons
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
+
 # Sidekiq handles delayed jobs (e.g. sending mails later)
 gem 'sidekiq'
 
