@@ -3,15 +3,16 @@ de:
     users:
       index:
         title: Benutzer verwalten
-        failed_authentications: Logins
+        users:
+          one: Es ist zur Zeit ein Benutzer registriert.
+          other: Es sind zur Zeit %{count} Benutzer registriert.
+        no_creation: Da sich die Messdiener ihre Accounts selber erstellen, ist das Hinzufügen über das Administrationsinterface nicht möglich.
+        failed_authentications: Loginversuche
 
       edit:
         title: Benutzer bearbeiten
-        no_servers: Dieser Benutzer verwaltet keine Messdiener.
+        lead: Der Benutzer wird über Änderungen nicht automatisch per E-Mail informiert.
         confirm_delete: |
           Soll der Benutzer wirklich gelöscht werden?
 
           Dies lässt sich nicht wieder rückgängig machen!
-        confirm_server: |
-          Wirklich den ausgewählten Messdiener bearbeiten? Alle Änderungen gehen dadurch verloren!
-

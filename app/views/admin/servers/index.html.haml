@@ -3,11 +3,7 @@
   = t('.servers', count: @servers.count)
   = btn_link_to t('defaults.add'), new_admin_server_path, icon: :plus, context: :success, class: 'pull-right'
 
-.row
-  .search-group
-    .input-group
-      %span.input-group-addon= icon :search
-      %input#servers-searcher.form-control{ type: 'text' }
+= render 'shared/table_search', id: 'servers-searcher'
 
 %table.table.table-striped.table-hover.table-rows-link.table-data{ width: '100%', data: { scroll: true, search: '#servers-searcher' }}
   %thead
@@ -15,7 +11,7 @@
       %th{ rowspan: 2 }= Server.human_attribute_name(:name)
       %th{ rowspan: 2 }= Server.human_attribute_name(:email)
       %th{ rowspan: 2 }= Server.human_attribute_name(:rank)
-      %th{ rowspan: 2 }= Server.human_attribute_name(:last_used)
+      %th.no-search{ rowspan: 2 }= Server.human_attribute_name(:last_used)
       %th.no-data{ colspan: 2 }= Server.human_attribute_name(:sizes)
       %th.no-data{ rowspan: 2 }
     %tr.hidden

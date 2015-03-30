@@ -1,25 +1,31 @@
 = page_header
+%p.lead= t '.users', count: @users.count
+%p= t '.no_creation'
 
-.table-responsive
-  %table.table.table-striped.table-hover.table-cols-contract
-    %thead
+= render 'shared/table_search', id: 'users-searcher'
+
+%table.table.table-striped.table-hover.table-rows-link.table-data{ width: '100%', data: { scroll: true, search: '#users-searcher' }}
+  %thead
+    %tr
+      %th= User.human_attribute_name(:email)
+      %th.no-order= User.human_attribute_name(:servers)
+      %th.no-search= User.human_attribute_name(:last_used)
+
+  %tbody
+    - @users.each do |user|
       %tr
-        %th= User.human_attribute_name(:email)
-        %th{colspan: 2}= User.human_attribute_name(:servers)
-        %th= User.human_attribute_name(:admin)
-        %th= User.human_attribute_name(:last_used)
-        %th= t '.failed_authentications'
-        %th
-    %tbody
-      - @users.each do |user|
-        %tr
-          %td= user.email
-          %td= user.servers.count if user.servers.any?
-          %td.col-expand
-            - if user.servers.any?
-              %small= user.servers.to_a.join(', ')
-          %td.text-center= icon :ok if user.admin
-          %td= l user.last_used, format: :short if user.last_used
-          %td= user.failed_authentications if user.failed_authentications > 0
-          %td= btn_link_to t('defaults.edit'), edit_admin_user_path(user), icon: :pencil, size: :small
+        -# Identification-email and administrative status
+        %td.text-nowrap
+          - classes = user.admin ? '' : 'invisible'
+          %span{ class: classes, title: User.human_attribute_name(:admin), data: { toggle: 'tooltip', placement: 'right' }}
+            = icon :certificate
+          = link_to user.email, edit_admin_user_path(user)
+          - if user.failed_authentications > 0
+            %span{ title: t('.failed_authentications'), data: { toggle: 'tooltip' }}= "(#{user.failed_authentications})"
 
+        -# Registered servers
+        %td
+          %small= user.servers.to_a.map(&:shortname).join(', ')
+
+        -# Last-used date
+        %td.text-nowrap= locale user.last_used, format: :short

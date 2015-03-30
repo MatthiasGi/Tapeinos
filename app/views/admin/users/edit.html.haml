@@ -1,4 +1,5 @@
 = page_header t('.title'), @user
+%p.lead= t '.lead'
 
 = simple_horizontal_form_for [ :admin, @user ] do |f|
 
@@ -6,31 +7,7 @@
   = f.input :password
   = f.input :password_confirmation
   = f.input :admin
-
-  %hr/
-  %h2= User.human_attribute_name(:servers)
-
-  - if @user.servers
-    .table-responsive
-      %table.table.table-striped.table-hover.table-cols-contract
-        %thead
-          %th.col-expand= Server.human_attribute_name(:name)
-          %th= Server.human_attribute_name(:rank)
-          %th= Server.human_attribute_name(:last_used)
-          %th
-        %tbody
-          - @user.servers.each do |server|
-            %tr
-              %th= server
-              %td
-                = rank_icon server.rank
-                = Server.human_attribute_name("rank.#{server.rank}")
-              %td= l server.last_used, format: :short if server.last_used
-              %td= btn_link_to t('defaults.edit'), edit_admin_server_path(server), icon: :pencil, size: :small, data: { confirm: t('.confirm_server') }
-  - else
-    %p.lead= t '.no_servers'
-
-  %hr/
+  = f.association :servers, input_html: { class: 'chosen-select' }
 
   .form-group
     .col-sm-9.col-sm-offset-3
