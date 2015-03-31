@@ -1,13 +1,11 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Path to the Tapeinos-specific settings-file for this enviroment.
-  config.settings_file = 'config/settings.test.yml'
-
   # Prefill the test-settings-file with configurations.
   settings = {
     domain: 'http://localhost:3000',
     redis: 'redis://localhost:6379',
+    timezone: 'Berlin',
     email_server: 'smtp.gmail.com',
     email_port: '587',
     email_username: 'tapeinos@gianfelice.de',

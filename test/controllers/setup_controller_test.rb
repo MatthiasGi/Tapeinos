@@ -76,26 +76,36 @@ class SetupControllerTest < ActionController::TestCase
     assert_template :domain
   end
 
-  test "Saving redis-server and domain creates file with data" do
+  test "Saving redis-server, domain and time-zone creates file with data" do
     domain = SettingsHelper.get(:domain)
     redis = SettingsHelper.get(:redis)
+    timezone = SettingsHelper.get(:timezone)
 
-    put :update, { id: :domain, settings: { domain: 'test', redis: 'bla' }}
+    put :update, { id: :domain, settings: { domain: 'test', redis: 'bla', timezone: 'Berlin' }}
     assert_redirected_to '/setup/mailer'
     assert_equal 'test', SettingsHelper.get(:domain)
     assert_equal 'bla', SettingsHelper.get(:redis)
+    assert_equal 'Berlin', SettingsHelper.get(:timezone)
+
+    get :show, { id: :domain }, @authenticated
+    assert_equal 'test', assigns(:domain)
+    assert_equal 'bla', assigns(:redis)
+    assert_equal 'Berlin', assigns(:timezone)
 
     SettingsHelper.set(:domain, domain)
     SettingsHelper.set(:redis, redis)
+    SettingsHelper.set(:timezone, timezone)
   end
 
   test "Display already saved things" do
     domain = SettingsHelper.get(:domain)
     redis = SettingsHelper.get(:redis)
+    timezone = SettingsHelper.get(:timezone)
 
     get :show, { id: :domain }, @authenticated
     assert_equal domain, assigns(:domain)
     assert_equal redis, assigns(:redis)
+    assert_equal timezone, assigns(:timezone)
   end
 
   test "mailer only if authenticated" do

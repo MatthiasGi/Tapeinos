@@ -30,7 +30,7 @@ module SettingsHelper
 
   # Shortcut for using the settings-file.
   def self.file
-    Rails.application.config.settings_file
+    "config/settings.#{Rails.env}.yml"
   end
 
 end

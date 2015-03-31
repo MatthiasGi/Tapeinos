@@ -1,9 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Path to the Tapeinos-specific settings-file for this enviroment.
-  config.settings_file = 'config/settings.production.yml'
-
   # Code is not reloaded between requests.
   config.cache_classes = true
 

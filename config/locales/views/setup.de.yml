@@ -22,6 +22,7 @@ de:
         Ferner wird der Redis-Server benötigt, um Hintergrundarbeiten zu ermöglichen. Die Produktivdaten selbst werden in einer SQLite-Datenbank gespeichert. Darum musst Du Dich also nicht kümmern.
       domain: Domain
       redis: Redis-Server
+      timezone: Zeitzone
 
     mailer:
       title: Maileinstellungen

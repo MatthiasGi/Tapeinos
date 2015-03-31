@@ -42,6 +42,7 @@ class SetupController < ApplicationController
     when :domain
       @domain = SettingsHelper.get(:domain, request.base_url)
       @redis = SettingsHelper.get(:redis, 'redis://localhost:6379')
+      @timezone = SettingsHelper.get(:timezone, 'UTC')
     when :mailer
       @server = SettingsHelper.get(:email_server, 'smtp.gmail.com')
       @port = SettingsHelper.get(:email_port, 587)
@@ -80,9 +81,10 @@ class SetupController < ApplicationController
       end
 
     when :domain
-      config = params.require(:settings).permit(:domain, :redis)
+      config = params.require(:settings).permit(:domain, :redis, :timezone)
       SettingsHelper.set(:domain, config[:domain])
       SettingsHelper.set(:redis, config[:redis])
+      SettingsHelper.set(:timezone, config[:timezone])
       redirect_to next_wizard_path
 
     when :mailer
