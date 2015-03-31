@@ -105,7 +105,7 @@ class SetupController < ApplicationController
 
       # Create a password and an assigned administrative user
       @password = SecureRandom.base64(12)
-      user = User.new({ email: @server.email, password: @password, admin: true })
+      user = User.new(email: @server.email, password: @password, role: :root)
       @server.update(user: user)
 
       # Render the last template but also update the steps.

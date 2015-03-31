@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-user = User.create({email: 'matthias@gianfelice.de', password: 'testen', admin: true})
+user = User.create({email: 'matthias@gianfelice.de', password: 'testen', role: :root})
 User.create({email: 'heinz@gianfelice.de', password: 'testen'})
 
 ['Max', 'Heinz'].each do |name|

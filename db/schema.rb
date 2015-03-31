@@ -89,15 +89,15 @@ ActiveRecord::Schema.define(version: 51) do
   add_index "servers", ["user_id"], name: "index_servers_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                  null: false
-    t.string   "password_digest",                        null: false
+    t.string   "email",                              null: false
+    t.string   "password_digest",                    null: false
     t.datetime "last_used"
-    t.boolean  "admin",                  default: false, null: false
+    t.integer  "role",                   default: 0, null: false
     t.string   "password_reset_token"
     t.datetime "password_reset_expire"
-    t.integer  "failed_authentications", default: 0,     null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.integer  "failed_authentications", default: 0, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email"

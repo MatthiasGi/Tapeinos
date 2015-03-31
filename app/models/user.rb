@@ -31,6 +31,13 @@ class User < ActiveRecord::Base
     length: { minimum: 6 },
     if: :password
 
+  # The role sets the user's rights.
+  #    - A user can only access the non-administrative interface.
+  #    - The admin has access to the administrative interface but not to the
+  #      core configuration and isn't also able to manage users.
+  #    - Root has access to everything.
+  enum role: [ :user, :admin, :root ]
+
   # ============================================================================
 
   # This updates the time the server was last used. Should be called by
@@ -72,6 +79,13 @@ class User < ActiveRecord::Base
   # The user has failed authenticating too many times, block him.
   def blocked?
     failed_authentications >= 5
+  end
+
+  # Two roles are qualified for general administration: admin and root. This
+  #    function checks whether one of these roles is present. More general than
+  #    just simply `admin?`.
+  def administrator
+    admin? or root?
   end
 
   # :nodoc:

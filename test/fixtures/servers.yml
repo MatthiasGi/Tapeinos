@@ -83,3 +83,11 @@ maxcopy:
   email: max@mustermann2.de
   sex: 0
   seed: abcdefabcdefabcdefabcdefabcdefa6
+
+root:
+  firstname: Root
+  lastname: Sudo
+  sex: 0
+  seed: 13245678901324567890132456789012
+  user: root
+

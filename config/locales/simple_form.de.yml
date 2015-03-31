@@ -10,6 +10,13 @@ de:
 
     options:
       defaults:
+        # Users
+        role:
+          user: Benutzer
+          admin: Administrator
+          root: Superadmin
+
+        # Servers
         sex:
           male: Männlich
           female: Weiblich
@@ -19,6 +26,7 @@ de:
           veteran: Leiterkandidat
           master: Leiter
 
+        # Messages
         state:
           draft: Entwurf
           sent: Gesendet

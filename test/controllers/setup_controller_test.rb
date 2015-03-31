@@ -164,7 +164,7 @@ class SetupControllerTest < ActionController::TestCase
 
     assert server.user
     user = User.all.first
-    assert user.admin?
+    assert user.root?
     assert_equal server.user, user
     assert_equal 'test@bla.de', user.email
 

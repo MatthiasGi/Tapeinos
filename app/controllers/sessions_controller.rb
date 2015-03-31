@@ -80,7 +80,7 @@ class SessionsController < ApplicationController
     session[:server_id] = server.try(:id)
     session[:user_id] = @current_user.try(:id)
 
-    if server and @current_user.try(:admin) and
+    if server and @current_user.try(:administrator) and
         @current_user.try(:servers).try(:exclude?, server)
       # An administrator is changing to a server that doesn't belong to him.
       redirect_to root_path

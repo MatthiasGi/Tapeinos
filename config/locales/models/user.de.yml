@@ -8,11 +8,16 @@ de:
         email: E-Mail-Adresse
         password: Passwort
         password_confirmation: Password (wiederholen)
-        admin: Administrator
         last_used: Zuletzt benutzt
         servers: Messdiener
+        role: Berechtigungen
 
       user/servers:
         size_talar: Talargröße
         size_rochet: Rochettgröße
+
+      user/roles:
+        user: Benutzer
+        admin: Administrator
+        root: Superadmin
 

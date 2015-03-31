@@ -148,4 +148,32 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 0, user.failed_authentications
   end
 
+  test "role accepts only valid roles" do
+    user = users(:max)
+    User.roles.keys.each do |role|
+      assert user.update(role: role)
+    end
+    assert_raises(ArgumentError) { user.update(role: 3) }
+  end
+
+  test ":root and :admin are administrators" do
+    user = users(:max)
+    assert user.user?
+    assert_not user.admin?
+    assert_not user.root?
+    assert_not user.administrator
+
+    assert user.update(role: :admin)
+    assert_not user.user?
+    assert user.admin?
+    assert_not user.root?
+    assert user.administrator
+
+    assert user.update(role: :root)
+    assert_not user.user?
+    assert_not user.admin?
+    assert user.root?
+    assert user.administrator
+  end
+
 end

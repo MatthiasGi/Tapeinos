@@ -4,42 +4,25 @@ class Admin::ServersControllerTest < ActionController::TestCase
 
   def setup
     user = users(:admin)
-    @session = { user_id: user.id, server_id: user.servers.first.id }
+    session[:user_id] = user.id
+    session[:server_id] = user.servers.first.id
   end
 
-  test "user must be logged in" do
-    get :index, nil, nil
-    assert_response :success
-    assert_template 'sessions/new'
-  end
-
-  test "user and server must be admin" do
-    user = users(:max)
-    get :index, nil, { user_id: user.id, server_id: user.servers.first.id }
-    assert_redirected_to root_path
-  end
-
-  test "user must be logged in, not only server" do
-    server = servers(:max)
-    get :index, nil, { server_id: server.id }
-    assert_redirected_to root_path
-  end
-
-  test "index shows to administrators" do
-    get :index, nil, @session
+  test "index shows" do
+    get :index
     assert_response :success
     assert_template :index
     assert_equal Server.all, assigns(:servers)
   end
 
   test "edit invalid server" do
-    get :edit, { id: 1 }, @session
+    get :edit, id: 1
     assert_redirected_to admin_servers_path
   end
 
   test "edit valid server" do
     server = servers(:max)
-    get :edit, { id: server.id }, @session
+    get :edit, id: server.id
     assert_response :success
     assert_template :edit
     assert_equal server, assigns(:server)
@@ -47,19 +30,19 @@ class Admin::ServersControllerTest < ActionController::TestCase
 
   test "show email on server without user" do
     server = servers(:heinz)
-    get :edit, { id: server.id }, @session
+    get :edit, id: server.id
     assert_select '.server_email'
   end
 
   test "don't show email on server with user" do
     server = servers(:max)
-    get :edit, { id: server.id }, @session
+    get :edit, id: server.id
     assert_select '.server_email', false
   end
 
   test "update with wrong parameters" do
     server = servers(:heinz)
-    patch :update, { id: server.id, server: { firstname: '', lastname: '', email: 'testbla.de', sex: nil, size_talar: 200, size_rochet: 20, rank: nil }}, @session
+    patch :update, id: server.id, server: { firstname: '', lastname: '', email: 'testbla.de', sex: nil, size_talar: 200, size_rochet: 20, rank: nil }
     assert_response :success
     assert_template :edit
     assert_equal server, assigns(:server)
@@ -76,7 +59,7 @@ class Admin::ServersControllerTest < ActionController::TestCase
     server = servers(:heinz)
     used = server.last_used
     seed = server.seed
-    patch :update, { id: server.id, server: { last_used: DateTime.now, seed: '12345678901234567890af1234567890' }}, @session
+    patch :update, id: server.id, server: { last_used: DateTime.now, seed: '12345678901234567890af1234567890' }
     assert_redirected_to admin_servers_path
     server = Server.find(server.id)
     assert_equal used, server.last_used
@@ -85,7 +68,7 @@ class Admin::ServersControllerTest < ActionController::TestCase
 
   test "update valid parameters" do
     old = servers(:heinz)
-    patch :update, { id: old.id, server: { firstname: 'test', lastname: 'teste', email: 'test@blablabla.de', birthday: 2.days.ago, sex: :female, size_talar: 150, size_rochet: 90, since: 1.day.ago, rank: :master }}, @session
+    patch :update, id: old.id, server: { firstname: 'test', lastname: 'teste', email: 'test@blablabla.de', birthday: 2.days.ago, sex: :female, size_talar: 150, size_rochet: 90, since: 1.day.ago, rank: :master }
     assert_redirected_to admin_servers_path
     new = Server.find(old.id)
     assert_not_equal old.firstname, new.firstname
@@ -111,20 +94,20 @@ class Admin::ServersControllerTest < ActionController::TestCase
   test "update user" do
     server = servers(:heinz)
     user = users(:max)
-    patch :update, { id: server.id, server: { user_id: user.id }}, @session
+    patch :update, id: server.id, server: { user_id: user.id }
     assert_redirected_to admin_servers_path
     assert_includes user.servers(true), server
   end
 
   test "deleting server" do
     server = servers(:heinz)
-    delete :destroy, { id: server.id }, @session
+    delete :destroy, id: server.id
     assert_redirected_to admin_servers_path
     assert_not Server.find_by(id: server.id)
   end
 
   test "show new server form" do
-    get :new, nil, @session
+    get :new
     assert_response :success
     assert_template :new
     assert assigns(:server)
@@ -132,14 +115,14 @@ class Admin::ServersControllerTest < ActionController::TestCase
 
   test "create server" do
     assert_difference 'Server.all.count', +1 do
-      post :create, { server: { firstname: 'test', lastname: 'bla', email: 'test@bla.de', sex: :male }}, @session
+      post :create, server: { firstname: 'test', lastname: 'bla', email: 'test@bla.de', sex: :male }
     end
     assert_redirected_to admin_servers_path
   end
 
   test "create server with error" do
     assert_no_difference 'Server.all.count' do
-      post :create, { server: { firstname: 'test', lastname: 'bla', email: 'testbla.de', sex: :male }}, @session
+      post :create, server: { firstname: 'test', lastname: 'bla', email: 'testbla.de', sex: :male }
     end
     assert_response :success
     assert_template :new

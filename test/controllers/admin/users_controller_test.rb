@@ -3,7 +3,7 @@ require 'test_helper'
 class Admin::UsersControllerTest < ActionController::TestCase
 
   def setup
-    user = users(:admin)
+    user = users(:root)
     session[:user_id] = user.id
     session[:server_id] = user.servers.first.id
   end
@@ -53,12 +53,12 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test "update valid parameters" do
     old = users(:max)
-    patch :update, { id: old.id, user: { email: 'test@blabla.de', password: 'testtest', password_confirmation: 'testtest', admin: true }}
+    patch :update, { id: old.id, user: { email: 'test@blabla.de', password: 'testtest', password_confirmation: 'testtest', role: :admin }}
     assert_redirected_to admin_users_path
     new = User.find(old.id)
     assert_equal 'test@blabla.de', new.email
     assert new.authenticate('testtest')
-    assert new.admin
+    assert new.admin? and new.administrator
   end
 
   test "deleting user" do

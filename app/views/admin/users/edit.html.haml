@@ -6,7 +6,7 @@
   = f.input :email
   = f.input :password
   = f.input :password_confirmation
-  = f.input :admin
+  = f.input :role, collection: User.roles.symbolize_keys.keys, include_blank: false, as: :radio_buttons, item_wrapper_class: 'col-sm-2'
   = f.association :servers, input_html: { class: 'chosen-select' }
 
   .form-group

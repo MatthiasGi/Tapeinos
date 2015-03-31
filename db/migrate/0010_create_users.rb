@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
 
       t.datetime :last_used
 
-      t.boolean :admin, null: false, default: false
+      t.integer :role, null: false, default: 0
 
       t.string :password_reset_token, unique: true
       t.datetime :password_reset_expire

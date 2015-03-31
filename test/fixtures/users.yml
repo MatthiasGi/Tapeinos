@@ -9,4 +9,9 @@ monika:
 admin:
   email: admin@gianfelice.de
   password_digest: <%= BCrypt::Password.create('testtest', cost: 4) %>
-  admin: true
+  role: <%= User.roles[:admin] %>
+
+root:
+  email: root@gianfelice.de
+  password_digest: <%= BCrypt::Password.create('testen', cost: 4) %>
+  role: <%= User.roles[:root] %>

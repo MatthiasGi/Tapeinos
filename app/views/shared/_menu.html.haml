@@ -36,7 +36,6 @@
       -# The actual menu is displayed here.
       .collapse.navbar-collapse#navbar-collapse
         %ul.nav.navbar-nav
-          %li{class: ('active' if controller_name == 'plans' && !@admin)}
-            = link_to Plan.model_name.human(count: :many), plans_path
-          %li{class: ('active' if @admin)}
-            = link_to t('defaults.administration'), admin_servers_path if @current_user.try(:admin)
+          %li{class: ('active' if controller_name == 'plans' && !@admin)}= link_to Plan.model_name.human(count: :many), plans_path
+          - if @current_user.try(:administrator)
+            %li{class: ('active' if @admin)}= link_to t('defaults.administration'), admin_servers_path

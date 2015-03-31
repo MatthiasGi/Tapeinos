@@ -2,6 +2,58 @@ require 'test_helper'
 
 class AdministratorTest < ActionDispatch::IntegrationTest
 
+  test "Server can't access anything" do
+    server = servers(:heinz)
+    get_via_redirect login_seed_path(server.seed)
+    get_via_redirect admin_plans_path
+    assert_template 'plans/index'
+    get_via_redirect admin_servers_path
+    assert_template 'plans/index'
+    get_via_redirect admin_users_path
+    assert_template 'plans/index'
+    get_via_redirect admin_messages_path
+    assert_template 'plans/index'
+  end
+
+  test "User can't access administrative interface" do
+    user = users(:max)
+    post_via_redirect login_path, { user: { email: user.email, password: 'testen' }}
+    get_via_redirect admin_plans_path
+    assert_template 'plans/index'
+    get_via_redirect admin_servers_path
+    assert_template 'plans/index'
+    get_via_redirect admin_users_path
+    assert_template 'plans/index'
+    get_via_redirect admin_messages_path
+    assert_template 'plans/index'
+  end
+
+  test "Admin can't access root-interface" do
+    user = users(:admin)
+    post_via_redirect login_path, { user: { email: user.email, password: 'testtest' }}
+    get_via_redirect admin_plans_path
+    assert_template 'admin/plans/index'
+    get_via_redirect admin_servers_path
+    assert_template 'admin/servers/index'
+    get_via_redirect admin_users_path
+    assert_template 'admin/servers/index'
+    get_via_redirect admin_messages_path
+    assert_template 'admin/messages/index'
+  end
+
+  test "Root can access everything" do
+    user = users(:root)
+    post_via_redirect login_path, user: { email: user.email, password: 'testen' }
+    get_via_redirect admin_plans_path
+    assert_template 'admin/plans/index'
+    get_via_redirect admin_servers_path
+    assert_template 'admin/servers/index'
+    get_via_redirect admin_users_path
+    assert_template 'admin/users/index'
+    get_via_redirect admin_messages_path
+    assert_template 'admin/messages/index'
+  end
+
   test "No menu-item for non-administrators" do
     user = users(:max)
     post_via_redirect login_path, { user: { email: user.email, password: 'testen' }}
@@ -45,7 +97,10 @@ class AdministratorTest < ActionDispatch::IntegrationTest
   test "admin is allowed to change to other servers" do
     user = users(:admin)
     post_via_redirect login_path, { user: { email: user.email, password: 'testtest' }}
+    _simulation_test(user)
+  end
 
+  def _simulation_test(user)
     server = servers(:heinz)
     last_used = server.last_used
     get_via_redirect change_server_path(server.id), {}, { HTTP_REFERER: admin_servers_path }
@@ -77,6 +132,12 @@ class AdministratorTest < ActionDispatch::IntegrationTest
     get_via_redirect plans_path
     assert_not_equal last_used, Server.find(server.id).last_used
     assert_equal server.siblings, assigns(:other_servers)
+  end
+
+  test "Also root is allowed to simulate servers" do
+    user = users(:root)
+    post_via_redirect login_path, { user: { email: user.email, password: 'testen' }}
+    _simulation_test(user)
   end
 
 end

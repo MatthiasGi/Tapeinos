@@ -2,6 +2,9 @@
 
 class Admin::UsersController < Admin::AdminController
 
+  # Managing users is only available to superadministrators.
+  before_action :require_root
+
   # Ensures that actions, that need a user provided by parameters get a user
   #    provided by parameters.
   before_action :get_user, only: [ :edit, :update, :destroy ]
@@ -40,7 +43,7 @@ class Admin::UsersController < Admin::AdminController
   # Strong-parameters ftw.
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation,
-      :admin)
+      :role)
   end
 
 end

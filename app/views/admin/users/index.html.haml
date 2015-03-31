@@ -16,9 +16,9 @@
       %tr
         -# Identification-email and administrative status
         %td.text-nowrap
-          - classes = user.admin ? '' : 'invisible'
+          - classes = user.administrator ? '' : 'invisible'
           %span{ class: classes, title: User.human_attribute_name(:admin), data: { toggle: 'tooltip', placement: 'right' }}
-            = icon :certificate
+            = icon user.root? ? :star : :star_empty
           = link_to user.email, edit_admin_user_path(user)
           - if user.failed_authentications > 0
             %span{ title: t('.failed_authentications'), data: { toggle: 'tooltip' }}= "(#{user.failed_authentications})"
