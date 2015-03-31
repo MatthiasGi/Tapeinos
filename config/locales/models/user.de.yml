@@ -16,8 +16,8 @@ de:
         size_talar: Talargröße
         size_rochet: Rochettgröße
 
-      user/roles:
+      user/role:
         user: Benutzer
         admin: Administrator
-        root: Superadmin
+        root: Superadministrator
 
