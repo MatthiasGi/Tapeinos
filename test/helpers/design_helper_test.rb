@@ -126,4 +126,22 @@ class DesignHelperTest < ActionView::TestCase
     assert_match /width: 0%/, html
   end
 
+  test "test server-error-helper" do
+    set_sidekiq = SettingsHelper.get(:sidekiq_up)
+    set_redis = SettingsHelper.get(:redis_up)
+
+    SettingsHelper.set(:sidekiq_up, false)
+    # ( error-condition, message )
+    html = server_error(:sidekiq_up, :sidekiq_down)
+    assert_select node(html), '.alert.alert-danger'
+    assert_match I18n.t('errors.sidekiq_down'), html
+
+    SettingsHelper.set(:redis_up, true)
+    html = server_error(:redis_up, :redis_down)
+    assert_nil html
+
+    SettingsHelper.set(:sidekiq_up, set_sidekiq)
+    SettingsHelper.set(:redis_up, set_redis)
+  end
+
 end

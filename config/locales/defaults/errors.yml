@@ -1,0 +1,10 @@
+de:
+  errors:
+    preface: |
+      Dies ist eine interne Tapeinos-Fehlermeldung, die Du **nicht sehen solltest**.
+
+      Irgendetwas ist gehörig schief gelaufen, bitte melde Dich bei dem Administrator und gebe den Zeitstempel **%{time}** unbedingt mit an!
+    postface: Der Server muss in jedem Falle nach Korrektur der Fehler neu gestartet werden, damit die automatische Fehlererkennung neu ausgeführt wird.
+    redis_down: Der Redis-Server konnte nicht erkannt werden. Entweder er läuft nicht, oder die Kommunikationseinstellungen sind falsch.
+    sidekiq_down: Der Sidekiq-Server konnte nicht erkannt werden. Damit werden verzögerte Hintergrund-Jobs nicht ausgeführt.
+    sidekiq_mailer_down: Die Mailer-Queue wird nicht durch den Hintergrund-Job-Manager Sidekiq abgearbeitet. Das bedeutet, dass Tapeinos keine E-Mails versenden kann.

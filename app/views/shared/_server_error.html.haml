@@ -1,0 +1,5 @@
+= alert_box context: :danger do
+  :markdown
+    #{t('errors.preface') % { time: DateTime.now }}
+  %p.lead= t "errors.#{message}"
+  %p= t 'errors.postface'

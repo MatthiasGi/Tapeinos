@@ -71,4 +71,12 @@ module DesignHelper
                  class: ('empty' unless plan.servers.any?)
   end
 
+  # Displays an internal server error if appropriate. The condition is read from
+  #    the SettingsHelper. If it evaluates to false, the message is displayed.
+  def server_error(condition, message)
+    unless SettingsHelper.get(condition, false)
+      render partial: 'shared/server_error', locals: { message: message }
+    end
+  end
+
 end

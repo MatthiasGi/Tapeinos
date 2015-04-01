@@ -14,4 +14,10 @@
   %body
     = render 'shared/menu'
     .container
+
+      -# Server error messages
+      = server_error(:redis_up, :redis_down)
+      = server_error(:sidekiq_up, :sidekiq_down)
+      = server_error(:sidekiq_queue_mailer, :sidekiq_mailer_down)
+
       = yield
