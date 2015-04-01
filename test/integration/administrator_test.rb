@@ -13,6 +13,8 @@ class AdministratorTest < ActionDispatch::IntegrationTest
     assert_template 'plans/index'
     get_via_redirect admin_messages_path
     assert_template 'plans/index'
+    get_via_redirect admin_settings_path
+    assert_template 'plans/index'
   end
 
   test "User can't access administrative interface" do
@@ -25,6 +27,8 @@ class AdministratorTest < ActionDispatch::IntegrationTest
     get_via_redirect admin_users_path
     assert_template 'plans/index'
     get_via_redirect admin_messages_path
+    assert_template 'plans/index'
+    get_via_redirect admin_settings_path
     assert_template 'plans/index'
   end
 
@@ -39,6 +43,8 @@ class AdministratorTest < ActionDispatch::IntegrationTest
     assert_template 'admin/servers/index'
     get_via_redirect admin_messages_path
     assert_template 'admin/messages/index'
+    get_via_redirect admin_settings_path
+    assert_template 'admin/servers/index'
   end
 
   test "Root can access everything" do
@@ -52,6 +58,8 @@ class AdministratorTest < ActionDispatch::IntegrationTest
     assert_template 'admin/users/index'
     get_via_redirect admin_messages_path
     assert_template 'admin/messages/index'
+    get_via_redirect admin_settings_path
+    assert_template 'admin/settings/index'
   end
 
   test "No menu-item for non-administrators" do

@@ -6,13 +6,15 @@
       - list = { servers: admin_servers_path,
                  users: admin_users_path,
                  plans: admin_plans_path,
-                 messages: admin_messages_path }
-      - root = [ :users ]
+                 messages: admin_messages_path,
+                 settings: admin_settings_path }
+      - root = [ :users, :settings ]
       %ul.nav.nav-pills.nav-stacked
         - list.each do |key, value|
           - if root.exclude?(key) or @current_user.root?
             %li{class: ('active' if controller_name == key.to_s) }
-              = link_to key.to_s.classify.constantize.model_name.human(count: :many), value
+              - label = key == :settings ? t('defaults.settings') : key.to_s.classify.constantize.model_name.human(count: :many)
+              = link_to label, value
 
     -# Content
     .col-md-10

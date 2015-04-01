@@ -44,10 +44,10 @@ class NavigationTest < ActionDispatch::IntegrationTest
     assert_select '.nav-pills.nav-stacked li', 3
   end
 
-  test "root has visible servers, plans, users and messages" do
+  test "root has visible servers, plans, users, settings and messages" do
     post_via_redirect login_path, user: { email: users(:root).email, password: 'testen' }
     get_via_redirect admin_plans_path
-    assert_select '.nav-pills.nav-stacked li', 4
+    assert_select '.nav-pills.nav-stacked li', 5
   end
 
 end

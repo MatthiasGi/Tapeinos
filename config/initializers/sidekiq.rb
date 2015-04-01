@@ -5,7 +5,7 @@ redis = SettingsHelper.get(:redis, 'redis://localhost:6379')
 Sidekiq.configure_server { |config| config.redis = { url: redis } }
 Sidekiq.configure_client { |config| config.redis = { url: redis } }
 
-unless Rails.env.test?
+if Rails.env.production?
   # Check, if redis is up.
   redis_up = nil
   info = Sidekiq.redis { |conn| conn.info } rescue redis_up = false

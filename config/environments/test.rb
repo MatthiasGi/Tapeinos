@@ -11,7 +11,10 @@ Rails.application.configure do
     email_username: 'tapeinos@gianfelice.de',
     email_password: 'testen',
     email_email: 'tapeinos@gianfelice.de',
-    email_name: 'Matthias'
+    email_name: 'Matthias',
+    redis_up: true,
+    sidekiq_up: true,
+    sidekiq_queue_mailer: true
   }
   settings.each do |key, value|
     SettingsHelper.set(key, value)

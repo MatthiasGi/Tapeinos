@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
     resources :messages
     get '/messages/:id/mail' => 'messages#mail', as: 'message_mail'
+
+    resources :settings, only: [ :index, :update ]
   end
 
   # Static pages
