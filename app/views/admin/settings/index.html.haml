@@ -1,0 +1,27 @@
+= page_header
+%p.lead= t '.lead'
+
+= simple_horizontal_form_for :settings do |f|
+
+  %hr/
+
+  %h2= t '.server'
+  = f.input :domain
+  = f.input :redis
+  = f.input :timezone, collection: ActiveSupport::TimeZone.all.map(&:name), input_html: { class: 'chosen-select' }
+
+  %hr/
+
+  %h2= t '.email'
+  = f.input :email_server
+  = f.input :email_port, as: :integer
+  = f.input :email_username
+  = f.input :email_password, input_html: { value: @settings[:email_password] }
+  = f.input :email_email
+  = f.input :email_name
+
+  %hr/
+
+  .form-group
+    .col-sm-9.col-sm-offset-3
+      = f.button :submit, t('.submit')

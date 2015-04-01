@@ -1,0 +1,27 @@
+de:
+  admin:
+    settings:
+      index:
+        title: Einstellungen
+        lead: Im Folgenden werden alle Server-Einstellungen angezeigt, die nur Superadministratoren zugänglich sind. Nach Bearbeitung muss der Server neu gestartet werden!
+        server: Server-Einstellungen
+        email: E-Mail-Einstellungen
+        submit: Einstellungen speichern
+
+  simple_form:
+
+    labels:
+      settings:
+        domain: Domain
+        redis: Redis-Server
+        timezone: Zeitzone
+        email_server: SMTP-Server
+        email_port: SMTP-Port
+        email_username: SMTP-Benutzername
+        email_password: SMTP-Passwort
+        email_email: E-Mail-Adresse
+        email_name: Name des Absenders
+
+    hints:
+      settings:
+        email_name: Die automatisch generierten E-Mails schließen mit einer Grußformel ab, deren Unterzeichnender hier angegeben werden kann.
