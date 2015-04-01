@@ -19,6 +19,14 @@ module SettingsHelper
     end
   end
 
+  def self.getHash
+    settings
+  end
+
+  def self.setHash(hash)
+    hash.each { |key, value| set(key, value) }
+  end
+
   # ============================================================================
 
   private

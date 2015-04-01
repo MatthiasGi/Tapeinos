@@ -16,4 +16,18 @@ class SettingsHelperTest < ActionView::TestCase
     assert_not SettingsHelper.get(:test, true)
   end
 
+  test "Get hashes" do
+    SettingsHelper.set(:blubb, 'bla')
+    SettingsHelper.set(:testing, 5)
+    hash = SettingsHelper.getHash
+    assert_equal 'bla', hash[:blubb]
+    assert_equal 5, hash[:testing]
+  end
+
+  test "Set hashes" do
+    SettingsHelper.setHash({ 'test42' => 42, testenen: 35 })
+    assert_equal 42, SettingsHelper.get('test42')
+    assert_equal 35, SettingsHelper.get(:testenen)
+  end
+
 end
