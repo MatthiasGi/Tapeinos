@@ -14,7 +14,8 @@ de:
 
       show:
         title: Nachricht verwalten
-        lead: Die Nachricht ist zur Zeit als Entwurf gespeichert. Das Senden kann jetzt angewiesen werden.
+        lead_draft: Die Nachricht ist zur Zeit als Entwurf gespeichert. Das Senden kann jetzt angewiesen werden.
+        lead_sent: Diese Nachricht wurde bereits versandt.
         html: HTML-Ansicht
         text: Reintextansicht
         confirm_delete: |

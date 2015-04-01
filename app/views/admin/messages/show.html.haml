@@ -1,6 +1,6 @@
 = page_header t('.title'), @message
 %p.lead.clearfix
-  = t '.lead'
+  = t @message.sent? ? '.lead_sent' : '.lead_draft'
   = btn_link_to t('defaults.send'), admin_message_mail_path(@message), icon: :send, context: :primary, class: 'pull-right' if @message.draft?
 
 %p
