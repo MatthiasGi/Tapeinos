@@ -7,7 +7,7 @@ module SettingsHelper
   #    could not be found.
   def self.get(key, default = nil)
     value = getHash[key.to_sym]
-    value.nil? ? default : nil
+    value.nil? ? default : value
   end
 
   # Sets a setting and saves it to the settings-file. If the file-content was
