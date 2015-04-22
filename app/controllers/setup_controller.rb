@@ -1,7 +1,14 @@
 # This controller handles the initial setup for the software.
 
 class SetupController < ApplicationController
+
+  # The setup-controller provides a wizard-like overview to not overwhelm the
+  #    user with to many options at once.
   include Wicked::Wizard
+
+  # The user is able to setup all general settings, thus this controller is able
+  #    to modify them and is provided with the default methods.
+  include AdjustsSettings
 
   # The setup has its own layout, which includes a nifty progressbar.
   layout 'layouts/setup'
@@ -26,35 +33,41 @@ class SetupController < ApplicationController
 
   # Shows the currently available step to the user.
   def show
-
-    # The first step authenticates the user as server-administrator. All
-    #    following steps should only be allowed, if the user has already
-    #    authenticated to prevent any external harm.
-    if step == :authenticate
-      token = SecureRandom.base64(32)
-      File.write('SETUP_CODE', token)
-    else
-      session[:authenticated] or return redirect_to wizard_path(:authenticate)
-    end
+    # If not authenticating/-ed: block all further action.
+    step == :authenticate or session[:authenticated] or
+      return redirect_to wizard_path(:authenticate)
 
     # Differ the current step to load the current settings for display.
     case step
-    when :domain
-      @domain = SettingsHelper.get(:domain, request.base_url)
-      @redis = SettingsHelper.get(:redis, 'redis://localhost:6379')
-      @timezone = SettingsHelper.get(:timezone, 'UTC')
-    when :mailer
-      @server = SettingsHelper.get(:email_server, 'smtp.gmail.com')
-      @port = SettingsHelper.get(:email_port, 587)
-      @username = SettingsHelper.get(:email_username)
-      @password = SettingsHelper.get(:email_password)
-      @email = SettingsHelper.get(:email_email)
-      @name = SettingsHelper.get(:email_name)
-    when :server
-      @server = Server.new
-    when :finish
+
+      # The first step authenticates the server-root-user. Generate a token that
+      #    he can read from the file-system.
+      when :authenticate
+        File.write('SETUP_CODE', SecureRandom.base64(32))
+
+      # Domain- and mailer-steps alter global server configuration via the
+      #    SettingsHelper. They are provided with current settings.
+      when :domain, :mailer
+        get_settings
+
+        # If no setting is set, provide the user with default settings.
+        defaults = {
+          domain: request.base_url,
+          redis: 'redis://localhost:6379',
+          timezone: 'UTC',
+          email_server: 'smtp.gmail.com',
+          email_port: 587
+        }
+        defaults.each { |k, v| @settings[k] ||= v }
+
+      # Here a new server is generated. Create an empty one to not let the form
+      #    screw up.
+      when :server
+        @server = Server.new
+
       # Something went wrong: Nobody should be here.
-      return redirect_to root_path
+      when :finish
+        return redirect_to root_path
     end
 
     # Finally let wicked decide what to render.
@@ -73,33 +86,20 @@ class SetupController < ApplicationController
       if File.exists?('SETUP_CODE') and
           params[:token] == File.read('SETUP_CODE')
         session[:authenticated] = true
-        redirect_to next_wizard_path
         File.delete('SETUP_CODE')
+        redirect_to next_wizard_path
       else
         flash.now[:invalid_token] = true
         render_wizard
       end
 
-    when :domain
-      config = params.require(:settings).permit(:domain, :redis, :timezone)
-      SettingsHelper.set(:domain, config[:domain])
-      SettingsHelper.set(:redis, config[:redis])
-      SettingsHelper.set(:timezone, config[:timezone])
+    # The user provided global settings. Save them.
+    when :domain, :mailer
+      save_settings
       redirect_to next_wizard_path
 
-    when :mailer
-      config = params.require(:settings).permit(:server, :port, :username,
-        :password, :email, :name)
-      SettingsHelper.set(:email_server, config[:server])
-      SettingsHelper.set(:email_port, config[:port])
-      SettingsHelper.set(:email_username, config[:username])
-      SettingsHelper.set(:email_password, config[:password])
-      SettingsHelper.set(:email_email, config[:email])
-      SettingsHelper.set(:email_name, config[:name])
-      redirect_to next_wizard_path
-
+    # The last data is inserted: generate a server
     when :server
-      # The last data is inserted: generate a server
       server_params = params.require(:server).permit(:firstname, :lastname,
         :email, :sex)
       @server = Server.new(server_params)

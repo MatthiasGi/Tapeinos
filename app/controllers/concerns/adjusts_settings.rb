@@ -23,7 +23,7 @@ module AdjustsSettings
   # Generates a string consisting only of spaces with the length of the
   #    currently saved password. This is used to mask the password.
   def password_placeholder
-    " " * SettingsHelper.get(:email_password).size
+    " " * SettingsHelper.get(:email_password, '').size
   end
 
   # Saves the transmitted settings by the user.

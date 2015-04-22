@@ -20,22 +20,12 @@ de:
         Beachte, dass Tapeinos **nicht** in einer verschachtelten Struktur, also bspw. unter `tapeinos.de/tapeinos/` laufen kann. Gib bitte nur den reinen Stammpfad, also bspw. `tapeinos.messdiener.de` an.
 
         Ferner wird der Redis-Server benötigt, um Hintergrundarbeiten zu ermöglichen. Die Produktivdaten selbst werden in einer SQLite-Datenbank gespeichert. Darum musst Du Dich also nicht kümmern.
-      domain: Domain
-      redis: Redis-Server
-      timezone: Zeitzone
 
     mailer:
       title: Maileinstellungen
       lead: Lege die Einstellungen fest, mit denen E-Mails versandt werden.
       description: |
         Tapeinos versendet E-Mails, um Messdiener zu informieren und Benutzeraccounts abzuwickeln. Dazu wird ein SMTP-Zugang benötigt.
-      server: Server
-      port: Port
-      username: Benutzername
-      password: Passwort
-      email: E-Mail-Adresse
-      name: Name des Absenders
-      name_help: Die automatisch generierten E-Mails schließen mit einer Grußformel ab, deren Unterzeichnender hier angegeben werden kann.
 
     server:
       title: Messdienererstellung
