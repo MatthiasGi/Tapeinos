@@ -29,4 +29,7 @@ if Rails.env.production?
   end
   SettingsHelper.set(:sidekiq_queue_mailer, sidekiq_queue_mailer)
   puts 'ERROR! Sidekiq-server has no active mailer-queue!' unless sidekiq_queue_mailer
+
+  # Reset restart-controller
+  SettingsHelper.set(:restart, false)
 end

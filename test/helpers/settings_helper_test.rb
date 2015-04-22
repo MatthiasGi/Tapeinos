@@ -30,4 +30,19 @@ class SettingsHelperTest < ActionView::TestCase
     assert_equal 35, SettingsHelper.get(:testenen)
   end
 
+  test "Feedback only if something changed" do
+    SettingsHelper.set(:changed, nil)
+    SettingsHelper.set(:testing, nil)
+    assert SettingsHelper.set(:changed, '123')
+    assert_not SettingsHelper.set(:changed, '123')
+    assert SettingsHelper.set(:changed, '1234')
+
+    assert_not SettingsHelper.setHash({ changed: '1234' })
+    assert SettingsHelper.setHash({ changed: '123' })
+
+    assert SettingsHelper.setHash({ changed: '123', testing: 'changed' })
+    assert_not SettingsHelper.setHash({ changed: '123', testing: 'changed' })
+    assert SettingsHelper.setHash({ changed: '1234', testing: 'changed' })
+  end
+
 end

@@ -28,15 +28,15 @@ module AdjustsSettings
 
   # Saves the transmitted settings by the user.
   def save_settings
-    # Save general settings at once.
+    # Save general settings at once and require restart on any changes.
     settings = params[:settings].slice(:domain, :redis, :email_server,
       :email_port, :email_username, :email_email, :email_name, :timezone)
-    SettingsHelper.setHash(settings)
+    SettingsHelper.setHash(settings) and SettingsHelper.set(:restart, true)
 
     # Only save the new password if it isn't equal the masked string or not set.
     password = params[:settings][:email_password]
     password.nil? or password == password_placeholder or
-      SettingsHelper.set(:email_password, password)
+      SettingsHelper.setHash({ email_password: password, restart: true})
   end
 
 end

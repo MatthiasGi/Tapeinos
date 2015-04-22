@@ -46,6 +46,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     post :update, settings: {}
     assert_response :success
     assert_template :index
+    assert_not SettingsHelper.get(:restart)
     settings_tester
   end
 
@@ -67,8 +68,10 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     new_settings.each do |key, value|
       assert_equal value, SettingsHelper.get(key)
     end
+    assert SettingsHelper.get(:restart)
 
     SettingsHelper.setHash(old_settings)
+    SettingsHelper.set(:restart, false)
   end
 
   test "don't set password to blank with old length" do
@@ -77,6 +80,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     settings = assigns(:settings)
     post :update, settings: { email_password: settings[:email_password] }
     assert_equal old_pw, SettingsHelper.get(:email_password)
+    assert_not SettingsHelper.get(:restart)
   end
 
   test "don't set other settings" do

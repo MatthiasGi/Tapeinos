@@ -122,11 +122,14 @@ class SetupControllerTest < ActionController::TestCase
     redis = SettingsHelper.get(:redis)
     timezone = SettingsHelper.get(:timezone)
 
+    SettingsHelper.set(:restart, false)
     put :update, { id: :domain, settings: { domain: 'test', redis: 'bla', timezone: 'Berlin' }}
     assert_redirected_to '/setup/mailer'
     assert_equal 'test', SettingsHelper.get(:domain)
     assert_equal 'bla', SettingsHelper.get(:redis)
     assert_equal 'Berlin', SettingsHelper.get(:timezone)
+    assert SettingsHelper.get(:restart, false)
+    SettingsHelper.set(:restart, false)
 
     get :show, { id: :domain }, @authenticated
     settings_tester
@@ -155,6 +158,7 @@ class SetupControllerTest < ActionController::TestCase
     get :show, { id: :mailer }
     assert_redirected_to setup_path(:authenticate)
     assert_not assigns(:settings)
+    assert_not SettingsHelper.get(:restart)
 
     get :show, { id: :mailer }, @authenticated
     settings_tester
@@ -172,7 +176,10 @@ class SetupControllerTest < ActionController::TestCase
       email_name: SettingsHelper.get(:email_name),
     }
 
+    SettingsHelper.set(:restart, false)
     put :update, { id: :mailer, settings: { email_server: 'test', email_port: 3, email_username: 'bla', email_password: 'testen', email_email: 'blubb', email_name: 'heinz' }}, @authenticated
+    assert SettingsHelper.get(:restart, false)
+    SettingsHelper.set(:restart, false)
 
     assert_redirected_to setup_path(:server)
     assert_equal 'test', SettingsHelper.get(:email_server)
