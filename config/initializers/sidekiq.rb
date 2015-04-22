@@ -7,29 +7,29 @@ Sidekiq.configure_client { |config| config.redis = { url: redis } }
 
 if Rails.env.production?
   # Check, if redis is up.
-  redis_up = nil
-  info = Sidekiq.redis { |conn| conn.info } rescue redis_up = false
-  redis_up ||= info.present?
-  SettingsHelper.set(:redis_up, redis_up)
-  puts "ERROR! Redis is not running on set location #{redis}!" unless redis_up
+  redis_down = false
+  info = Sidekiq.redis { |conn| conn.info } rescue redis_down = true
+  redis_down ||= !info.present?
+  SettingsHelper.set(:redis_down, redis_down)
+  puts "ERROR! Redis is not running on set location #{redis}!" if redis_down
 
   # Check, if sidekiq is running.
   require 'sidekiq/api'
-  sidekiq_up = nil
-  sidekiq_up = Sidekiq::ProcessSet.new.size > 0 rescue sidekiq_up = false
-  SettingsHelper.set(:sidekiq_up, sidekiq_up)
-  puts 'ERROR! Sidekiq is not running!' unless sidekiq_up
+  sidekiq_down = false
+  sidekiq_down = Sidekiq::ProcessSet.new.size <= 0 rescue sidekiq_down = true
+  SettingsHelper.set(:sidekiq_down, sidekiq_down)
+  puts 'ERROR! Sidekiq is not running!' if sidekiq_down
 
   # Get active queues
-  sidekiq_queue_mailer = false
-  if sidekiq_up
+  sidekiq_mailer_up = false
+  unless sidekiq_down
     Sidekiq::ProcessSet.new.each do |process|
-      sidekiq_queue_mailer = process['queues'].include? 'mailer' unless sidekiq_queue_mailer
+      sidekiq_mailer_up = process['queues'].include? 'mailer' unless sidekiq_mailer_up
     end
   end
-  SettingsHelper.set(:sidekiq_queue_mailer, sidekiq_queue_mailer)
-  puts 'ERROR! Sidekiq-server has no active mailer-queue!' unless sidekiq_queue_mailer
-
-  # Reset restart-controller
-  SettingsHelper.set(:restart, false)
+  SettingsHelper.set(:sidekiq_mailer_down, !sidekiq_mailer_up)
+  puts 'ERROR! Sidekiq-server has no active mailer-queue!' unless sidekiq_mailer_up
 end
+
+# Reset restart-controller
+SettingsHelper.set(:restart_required, false)

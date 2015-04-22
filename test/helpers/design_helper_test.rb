@@ -126,22 +126,39 @@ class DesignHelperTest < ActionView::TestCase
     assert_match /width: 0%/, html
   end
 
-  test "test server-error-helper" do
-    set_sidekiq = SettingsHelper.get(:sidekiq_up)
-    set_redis = SettingsHelper.get(:redis_up)
+  test "display of error-helpers" do
+    old_settings = SettingsHelper.getHash
+    conditions = [ :restart_required, :redis_down, :sidekiq_down, :sidekiq_mailer_down ]
 
-    SettingsHelper.set(:sidekiq_up, false)
-    # ( error-condition, message )
-    html = server_error(:sidekiq_up, :sidekiq_down)
-    assert_select node(html), '.alert.alert-danger'
-    assert_match I18n.t('errors.sidekiq_down'), html
+    # No errors
+    conditions.each { |c| SettingsHelper.set(c, false) }
+    assert_nil server_errors
 
-    SettingsHelper.set(:redis_up, true)
-    html = server_error(:redis_up, :redis_down)
-    assert_nil html
+    # One error
+    conditions.each do |c|
+      SettingsHelper.set(c, true)
+      doc = node(server_errors)
+      assert_select doc, '.alert.alert-danger'
+      assert_match I18n.t("errors.#{c}"), doc
+      SettingsHelper.set(c, false)
+    end
 
-    SettingsHelper.set(:sidekiq_up, set_sidekiq)
-    SettingsHelper.set(:redis_up, set_redis)
+    # Multiple errors
+    SettingsHelper.setHash({ redis_down: true, sidekiq_down: true })
+    doc = node(server_errors)
+    assert_select doc, '.alert.alert-danger', 1
+    assert_match I18n.t("errors.redis_down"), doc
+    assert_match I18n.t("errors.sidekiq_down"), doc
+
+    # Multiple errors including restart
+    SettingsHelper.set(:restart_required, true)
+    doc = node(server_errors)
+    assert_select doc, '.alert.alert-danger', 1
+    assert_match I18n.t("errors.restart_required"), doc
+    assert_no_match I18n.t("errors.redis_down"), doc
+
+    # Reset to old settings
+    SettingsHelper.setHash(old_settings)
   end
 
 end

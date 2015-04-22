@@ -20,9 +20,10 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     assert_equal config[:email_email], settings.email_email
     assert_equal config[:email_name], settings.email_name
     assert_equal config[:timezone], settings.timezone
-    assert_nil settings.redis_up
-    assert_nil settings.sidekiq_up
-    assert_nil settings.sidekiq_queue_mailer
+    assert_nil settings.redis_down
+    assert_nil settings.sidekiq_down
+    assert_nil settings.sidekiq_mailer_down
+    assert_nil settings.required_restart
   end
 
   test "index sets all available settings" do
@@ -46,7 +47,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     post :update, settings: {}
     assert_response :success
     assert_template :index
-    assert_not SettingsHelper.get(:restart)
+    assert_not SettingsHelper.get(:restart_required)
     settings_tester
   end
 
@@ -68,10 +69,10 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     new_settings.each do |key, value|
       assert_equal value, SettingsHelper.get(key)
     end
-    assert SettingsHelper.get(:restart)
+    assert SettingsHelper.get(:restart_required)
 
     SettingsHelper.setHash(old_settings)
-    SettingsHelper.set(:restart, false)
+    SettingsHelper.set(:restart_required, false)
   end
 
   test "don't set password to blank with old length" do
@@ -80,7 +81,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     settings = assigns(:settings)
     post :update, settings: { email_password: settings[:email_password] }
     assert_equal old_pw, SettingsHelper.get(:email_password)
-    assert_not SettingsHelper.get(:restart)
+    assert_not SettingsHelper.get(:restart_required)
   end
 
   test "don't set other settings" do

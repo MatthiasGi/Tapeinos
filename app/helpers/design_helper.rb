@@ -71,12 +71,15 @@ module DesignHelper
                  class: ('empty' unless plan.servers.any?)
   end
 
-  # Displays an internal server error if appropriate. The condition is read from
-  #    the SettingsHelper. If it evaluates to false, the message is displayed.
-  def server_error(condition, message)
-    unless SettingsHelper.get(condition, false)
-      render partial: 'shared/server_error', locals: { message: message }
-    end
+  # Displays severe server-errors inside one consistent message with preference
+  #    for required restarts.
+  def server_errors()
+    conditions = [ :restart_required, :redis_down, :sidekiq_down,
+      :sidekiq_mailer_down ]
+    errors = conditions.select { |c| SettingsHelper.get(c) }
+    errors.empty? and return nil
+    errors.include? :restart_required and errors = [ :restart_required ]
+    render partial: 'shared/server_errors', locals: { messages: errors }
   end
 
 end

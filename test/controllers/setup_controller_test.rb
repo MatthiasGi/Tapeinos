@@ -22,9 +22,10 @@ class SetupControllerTest < ActionController::TestCase
     assert_equal config[:email_email], settings.email_email
     assert_equal config[:email_name], settings.email_name
     config[:timezone] and assert_equal config[:timezone], settings.timezone
-    assert_nil settings.redis_up
-    assert_nil settings.sidekiq_up
-    assert_nil settings.sidekiq_queue_mailer
+    assert_nil settings.redis_down
+    assert_nil settings.sidekiq_down
+    assert_nil settings.sidekiq_mailer_down
+    assert_nil settings.restart_required
   end
 
   test "provide default options for first run" do
@@ -122,14 +123,14 @@ class SetupControllerTest < ActionController::TestCase
     redis = SettingsHelper.get(:redis)
     timezone = SettingsHelper.get(:timezone)
 
-    SettingsHelper.set(:restart, false)
+    SettingsHelper.set(:restart_required, false)
     put :update, { id: :domain, settings: { domain: 'test', redis: 'bla', timezone: 'Berlin' }}
     assert_redirected_to '/setup/mailer'
     assert_equal 'test', SettingsHelper.get(:domain)
     assert_equal 'bla', SettingsHelper.get(:redis)
     assert_equal 'Berlin', SettingsHelper.get(:timezone)
-    assert SettingsHelper.get(:restart, false)
-    SettingsHelper.set(:restart, false)
+    assert SettingsHelper.get(:restart_required, false)
+    SettingsHelper.set(:restart_required, false)
 
     get :show, { id: :domain }, @authenticated
     settings_tester
@@ -158,7 +159,7 @@ class SetupControllerTest < ActionController::TestCase
     get :show, { id: :mailer }
     assert_redirected_to setup_path(:authenticate)
     assert_not assigns(:settings)
-    assert_not SettingsHelper.get(:restart)
+    assert_not SettingsHelper.get(:restart_required)
 
     get :show, { id: :mailer }, @authenticated
     settings_tester
@@ -176,10 +177,10 @@ class SetupControllerTest < ActionController::TestCase
       email_name: SettingsHelper.get(:email_name),
     }
 
-    SettingsHelper.set(:restart, false)
+    SettingsHelper.set(:restart_required, false)
     put :update, { id: :mailer, settings: { email_server: 'test', email_port: 3, email_username: 'bla', email_password: 'testen', email_email: 'blubb', email_name: 'heinz' }}, @authenticated
-    assert SettingsHelper.get(:restart, false)
-    SettingsHelper.set(:restart, false)
+    assert SettingsHelper.get(:restart_required, false)
+    SettingsHelper.set(:restart_required, false)
 
     assert_redirected_to setup_path(:server)
     assert_equal 'test', SettingsHelper.get(:email_server)

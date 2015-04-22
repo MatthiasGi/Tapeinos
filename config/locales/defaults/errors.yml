@@ -8,3 +8,4 @@ de:
     redis_down: Der Redis-Server konnte nicht erkannt werden. Entweder er läuft nicht, oder die Kommunikationseinstellungen sind falsch.
     sidekiq_down: Der Sidekiq-Server konnte nicht erkannt werden. Damit werden verzögerte Hintergrund-Jobs nicht ausgeführt.
     sidekiq_mailer_down: Die Mailer-Queue wird nicht durch den Hintergrund-Job-Manager Sidekiq abgearbeitet. Das bedeutet, dass Tapeinos keine E-Mails versenden kann.
+    restart_required: Der Server wurde nach einer Einstellungsänderung noch nicht neu gestartet. Bitte hole dies nach, damit alle geänderten Einstellungen geladen werden können. Bis dahin können einige Funktionen u.U. nicht korrekt funktionieren.
