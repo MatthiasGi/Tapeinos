@@ -21,3 +21,7 @@ de:
         admin: Administrator
         root: Superadministrator
 
+      user/errors:
+        role:
+          one_root_needed: Es wird mindestens ein Superadministrator benötigt!
+

@@ -176,4 +176,31 @@ class UserTest < ActiveSupport::TestCase
     assert user.administrator
   end
 
+  test "root can't be changed if only one root is available" do
+    # Ensure that only one root is available
+    User.where(role: User.roles[:root]).update_all(role: User.roles[:user])
+    user = users(:root)
+    assert user.update(role: :root) # Changing *TO* root should not cause problems
+
+    # Don't let him change his role
+    user.role = 1
+    assert_not user.update(role: :admin)
+    assert_not user.update(role: :user)
+    assert user.errors[:role] = I18n.t('activerecord.attributes.user/errors.role.one_root_needed')
+
+    # Let him change to same one
+    assert user.update(role: :root)
+  end
+
+  test "root can change if multiple roots available" do
+    assert users(:admin).update(role: :root)
+    assert users(:root).update(role: :admin)
+    assert users(:root).update(role: :root)
+    assert users(:root).update(role: :user)
+  end
+
+  test "new users are valid" do
+    assert User.new(email: 'test@testingisfun.de', password: 'testing').valid?
+  end
+
 end

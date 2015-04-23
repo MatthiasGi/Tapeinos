@@ -38,6 +38,20 @@ class User < ActiveRecord::Base
   #    - Root has access to everything.
   enum role: [ :user, :admin, :root ]
 
+  # There must be at least one root at any given time, this validation makes
+  #    sure of that.
+  validate do |user|
+    # The validation is not necessary:
+    #    - on creating an object (no id yet set or no current user found in db),
+    #    - if the role-changing user wasn't a root-user,
+    #    - if the user is not changing his role (root changing to root).
+    user.id and old = User.find(user.id) and old.root? and !user.root? or next
+
+    # If there aren't enough other root-users, set the error message.
+    msg = I18n.t('activerecord.attributes.user/errors.role.one_root_needed')
+    User.where(role: User.roles[:root]).count > 1 or user.errors[:role] << msg
+  end
+
   # ============================================================================
 
   # This updates the time the server was last used. Should be called by
@@ -86,7 +100,7 @@ class User < ActiveRecord::Base
   #    just simply `admin?`.
   def administrator
     admin? or root?
-  end
+  end #TODO: administrator?
 
   # :nodoc:
   def to_s
