@@ -31,5 +31,8 @@ module Tapeinos
 
     # Loads images from the vendor-folder into the assets-pipeline.
     config.assets.paths << Rails.root.join("vendor", "assets", "images")
+
+    # Loads the lib-folder which contains helper-classes that don't really fit into the app-folder.
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end

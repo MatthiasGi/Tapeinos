@@ -22,7 +22,7 @@ class Message < ActiveRecord::Base
 
   # Renders the content of the message as html.
   def as_html(server)
-    RDiscount.new(parse_text(server)).to_html.html_safe
+    HTMLWithPants.render(parse_text(server)).html_safe
   end
 
   # Renders the content of the message as plain text.
@@ -52,8 +52,7 @@ class Message < ActiveRecord::Base
   # Replaces keywords in the message with usable substitutes.
   def parse_text(server)
     url = "#{SettingsHelper.get(:domain)}/login/#{server.login_token}"
-    login = '[%{url}](%{url})' % { url: url }
-    text % { firstname: server.firstname, login: login }
+    text % { firstname: server.firstname, login: url }
   end
 
 end

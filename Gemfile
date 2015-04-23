@@ -28,7 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use Haml (with markdown-support) as template engine
 gem 'haml'
-gem 'rdiscount'
+gem 'redcarpet'
 
 # Bootstrap helpers make using Twitter's Bootstrap easier
 gem 'bootstrap-sass'
