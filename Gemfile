@@ -66,3 +66,7 @@ group :development, :test do
   gem 'spring'
 end
 
+group :development do
+  # ERD helps to visualize the models and their relations to keep track of them.
+  gem "rails-erd"
+end

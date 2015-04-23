@@ -21,6 +21,7 @@ config/settings.*.yml
 
 # Ignore built documentation.
 /doc
+erd.pdf
 
 # This file stores the current version but is created on launch.
 /config/version
