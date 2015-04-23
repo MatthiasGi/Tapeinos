@@ -161,19 +161,19 @@ class UserTest < ActiveSupport::TestCase
     assert user.user?
     assert_not user.admin?
     assert_not user.root?
-    assert_not user.administrator
+    assert_not user.administrator?
 
     assert user.update(role: :admin)
     assert_not user.user?
     assert user.admin?
     assert_not user.root?
-    assert user.administrator
+    assert user.administrator?
 
     assert user.update(role: :root)
     assert_not user.user?
     assert_not user.admin?
     assert user.root?
-    assert user.administrator
+    assert user.administrator?
   end
 
   test "root can't be changed if only one root is available" do

@@ -58,7 +58,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     new = User.find(old.id)
     assert_equal 'test@blabla.de', new.email
     assert new.authenticate('testtest')
-    assert new.admin? and new.administrator
+    assert new.admin? and new.administrator?
   end
 
   test "deleting user" do

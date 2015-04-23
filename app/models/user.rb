@@ -98,9 +98,9 @@ class User < ActiveRecord::Base
   # Two roles are qualified for general administration: admin and root. This
   #    function checks whether one of these roles is present. More general than
   #    just simply `admin?`.
-  def administrator
+  def administrator?
     admin? or root?
-  end #TODO: administrator?
+  end
 
   # :nodoc:
   def to_s
