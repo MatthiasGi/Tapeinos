@@ -43,7 +43,7 @@ class Admin::UsersController < Admin::AdminController
   # Strong-parameters ftw.
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation,
-      :role)
+      :role, server_ids: [])
   end
 
 end

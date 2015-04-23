@@ -73,4 +73,21 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_redirected_to admin_users_path
   end
 
+  test "updating servers" do
+    user = users(:max)
+    old_servs = user.servers.map(&:id)
+    new_servs = [ servers(:heinz), servers(:heinz2) ].map(&:id)
+    patch :update, { id: user.id, user: { email: 'test@bla.de', server_ids: new_servs, role: :admin }}
+    old_servs.each { |s| assert_not Server.find(s).user }
+    new_servs.each { |s| assert_equal(user, Server.find(s).user) }
+  end
+
+  test "removing all servers" do
+    user = users(:max)
+    assert_not user.servers.empty?
+    patch :update, { id: user.id, user: { server_ids: [] }}
+    assert user.servers.empty?
+    Server.all.each { |s| assert_not_equal(user, s.user) }
+  end
+
 end
