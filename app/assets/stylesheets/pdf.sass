@@ -1,0 +1,30 @@
+/*
+ * This is a manifest file that'll be compiled into pdf.css, which will include all the files
+ * listed below.
+ *
+ *= require_self
+ */
+
+@import 'bootstrap-sprockets'
+@import 'bootstrap'
+
+/* Plans are the main users of pdf-files. Display them properly! */
+.plan-table
+
+  /* Fixes bootstraps-shortcoming of last-has-no-border. */
+  tr:last-child
+    border-bottom: 1px solid $table-border-color
+
+  /* The horizontal headers are emphasized by color. */
+  th
+    background: $gray-lighter
+    width: 1px
+    white-space: nowrap
+
+    &:last-of-type
+      border-right: 1px solid #000
+
+  /* Size the content cells equally-wide. */
+  td
+    width: 10%
+    white-space: nowrap

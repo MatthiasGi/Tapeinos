@@ -30,8 +30,16 @@ class Admin::PlansController < Admin::AdminController
     @plans = Plan.all
   end
 
-  # Displays a single plan.
-  def show; end
+  # Displays a single plan, temporarly holds also pdf-creating functionality.
+  def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: @plan.title,
+          orientation: 'Landscape'
+      end
+    end
+  end
 
   # Allows editing of a single plan.
   def edit; end

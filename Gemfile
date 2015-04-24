@@ -49,6 +49,10 @@ gem 'sidekiq'
 # Wicked allows easy creation of multi-step wizards.
 gem 'wicked'
 
+# Creation of pdfs for plans.
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

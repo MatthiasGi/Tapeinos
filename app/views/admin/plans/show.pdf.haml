@@ -1,0 +1,23 @@
+%h1.text-center
+  = @plan
+  (#{date_range @plan.first_date, @plan.last_date})
+
+%table.table.table-striped.plan-table
+  - @plan.events.each do |event|
+    %tr
+      %th
+        = l event.date, format: :plan
+        %br/
+        %em= event.title
+      %th= event.location
+
+      - groups = []
+      - event.servers.order(:firstname, :lastname).in_groups_of(10).each { |g| groups << g }
+      - (0..9).each do |i|
+        %td
+          - groups.each do |group|
+            = group[i].try(:shortname)
+            %br/
+
+:markdown
+  #{@plan.remark}

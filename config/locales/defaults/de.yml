@@ -205,4 +205,5 @@ de:
       short: ! '%d. %B, %H:%M Uhr'
       time_only: ! '%H:%M Uhr'
       form: ! '%d.%m.%Y %H:%M'
+      plan: ! '%a, %d.%m. %H:%M Uhr'
     pm: nachmittags
