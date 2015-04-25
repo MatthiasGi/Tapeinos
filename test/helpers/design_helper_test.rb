@@ -67,14 +67,14 @@ class DesignHelperTest < ActionView::TestCase
   test "date range" do
     date = Date.new(2015, 10, 8)
     tester = {
-      incl_day: Date.new(2015, 10, 10),
-      incl_month: Date.new(2015, 11, 12),
-      incl_year: Date.new(2016, 10, 1)
+      day: Date.new(2015, 10, 10),
+      month: Date.new(2015, 11, 12),
+      year: Date.new(2016, 10, 1)
     }
 
     tester.each do |key, value|
       range = date_range(date, value)
-      str1 = I18n.l(date, format: key)
+      str1 = I18n.l(date, format: I18n.t("daterange.formats.default.#{key}"))
       str2 = I18n.l(value)
       assert_equal "#{str1} – #{str2}", range
     end
@@ -97,6 +97,22 @@ class DesignHelperTest < ActionView::TestCase
     date = Date.new(2015, 10, 8)
     range = date_range(date, date)
     assert_equal I18n.l(date), range
+  end
+
+  test "long-format" do
+    date = Date.new(2015, 10, 8)
+    tester = {
+      day: Date.new(2015, 10, 10),
+      month: Date.new(2015, 11, 12),
+      year: Date.new(2016, 10, 1)
+    }
+
+    tester.each do |key, value|
+      range = date_range(date, value, format: :long)
+      from = I18n.l(date, format: I18n.t("daterange.formats.long.#{key}"))
+      to = I18n.l(value, format: I18n.t('daterange.formats.long.year'))
+      assert_equal I18n.t('daterange.formats.long.range') % { from: from, to: to }, range
+    end
   end
 
   test "date locale" do

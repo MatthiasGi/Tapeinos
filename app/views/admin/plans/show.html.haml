@@ -1,6 +1,7 @@
 = page_header t('.title'), @plan
 
 -# Introduction
+= btn_link_to t('defaults.download'), admin_plan_path(@plan, format: :pdf), icon: :save_file, context: :primary, class: 'pull-right'
 %p.lead= t '.enrolled', count: @plan.servers.count
 - missing = Server.all.to_a - @plan.servers.to_a
 %p

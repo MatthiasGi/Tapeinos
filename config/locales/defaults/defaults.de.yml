@@ -1,4 +1,29 @@
 de:
+  date:
+    formats:
+      long: '%a, %e. %B %Y'
+      mobile: '%a, %e.%m.'
+
+  time:
+    formats:
+      default: '%a, %d. %B %Y, %H:%M Uhr'
+      time_only: '%H:%M Uhr'
+      form: '%d.%m.%Y %H:%M'
+      plan: '%a, %d.%m. %H:%M Uhr'
+
+  daterange:
+    formats:
+      default:
+        range: '%{from} – %{to}'
+        day: '%d.'
+        month: '%d.%m.'
+        year: '%d.%m.%Y'
+      long:
+        range: '%{from} bis %{to}'
+        day: '%e.'
+        month: '%e. %B'
+        year: '%e. %B %Y'
+
   defaults:
     submit: Absenden
     cancel: Abbrechen
@@ -16,6 +41,7 @@ de:
     about: Über
     forward: Weiter
     login: Einloggen
+    download: Herunterladen
 
     register:
       title: Account erstellen

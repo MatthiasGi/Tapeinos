@@ -30,13 +30,15 @@ class Admin::PlansController < Admin::AdminController
     @plans = Plan.all
   end
 
-  # Displays a single plan, temporarly holds also pdf-creating functionality.
+  # Displays a single plan: as default html or as a nifty pdf-file!
   def show
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: @plan.title,
-          orientation: 'Landscape'
+        render pdf:    @plan.title,
+          disposition: 'attachment',
+          orientation: 'Landscape',
+          title:       @plan.title
       end
     end
   end

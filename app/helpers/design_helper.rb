@@ -45,21 +45,30 @@ module DesignHelper
   end
 
   # This helper prints a beautiful representation of the span between two dates.
-  # It dries up the year- and month-overhead, if not needed.
-  # E.g. 03.06.2014 – 07.06.2014 becomes 03. – 07.06.2014
-  def date_range(start_date, end_date)
-    start_date.nil? and return (l end_date rescue '')
-    end_date.nil? or start_date == end_date and return l start_date
-    start_format = :incl_day
-    start_format = :incl_month unless start_date.month == end_date.month
-    start_format = :incl_year unless start_date.year == end_date.year
-    [l(start_date, format: start_format), l(end_date)].join(' – ')
+  #    It dries up the year- and month-overhead, if not needed.
+  #    E.g. 03.06.2014 – 07.06.2014 becomes 03. – 07.06.2014
+  #    The optional format can be set and correspondents to entries in
+  #    LANG.daterange.formats.FORMAT
+  def date_range(start_date, end_date, format: :default)
+    l = "daterange.formats.#{format}"
+    formats = [ :day, :month, :year ].map { |f| I18n.t("#{l}.#{f}") }
+
+    start_date.nil? and return locale(end_date, format: formats[2])
+    end_date.nil? or start_date == end_date and return locale(start_date, format: formats[2])
+
+    start_format = 0
+    start_format = 1 unless start_date.month == end_date.month
+    start_format = 2 unless start_date.year == end_date.year
+
+    from = l start_date, format: formats[start_format]
+    to = l end_date, format: formats[2]
+    I18n.t("#{l}.range") % { from: from, to: to }
   end
 
   # Localizes a date and displays an empty string if localization is not
   #    possible. Doesn't mess up the UI.
   def locale(date, format = nil)
-    I18n.l date, format rescue ''
+    l date, format rescue ''
   end
 
   # Displays a neat progressbar with the number of servers that are already

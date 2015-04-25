@@ -1,8 +1,8 @@
-%h1.text-center
-  = @plan
-  (#{date_range @plan.first_date, @plan.last_date})
+%h3.text-center
+  %strong= @plan
+  (#{date_range(@plan.first_date, @plan.last_date, format: :long).strip})
 
-%table.table.table-striped.plan-table
+%table.table.table-striped.table-condensed.plan-table
   - @plan.events.each do |event|
     %tr
       %th
