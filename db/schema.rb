@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 51) do
     t.datetime "date",                   null: false
     t.integer  "state",      default: 0, null: false
     t.integer  "user_id",                null: false
+    t.integer  "plan_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

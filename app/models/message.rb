@@ -18,6 +18,9 @@ class Message < ActiveRecord::Base
   #    the sender.
   has_and_belongs_to_many :servers
 
+  # The message can be linked to a plan to send the current plan as pdf.
+  belongs_to :plan
+
   # ============================================================================
 
   # Renders the content of the message as html.

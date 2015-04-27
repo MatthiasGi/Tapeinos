@@ -90,4 +90,14 @@ class MessageTest < ActiveSupport::TestCase
     assert_equal servs, message.servers
   end
 
+  test "message has optional plan" do
+    message = messages(:one)
+    assert_not message.plan
+    plan = plans(:easter)
+    message.update(plan: plan)
+    assert_equal plan, message.plan
+    message.update(plan: nil)
+    assert_not message.plan
+  end
+
 end

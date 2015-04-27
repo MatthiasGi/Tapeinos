@@ -7,6 +7,7 @@ class CreateMessages < ActiveRecord::Migration
       t.integer :state, null: false, default: 0
 
       t.integer :user_id, null: false
+      t.integer :plan_id
 
       t.timestamps null: false
     end
