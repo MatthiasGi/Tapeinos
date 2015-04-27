@@ -249,4 +249,46 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     assert_select '.alert.alert-info', I18n.t('admin.messages.edit.no_server')
   end
 
+  test "update the associated plan to a message" do
+    message = messages(:one)
+    plan = plans(:easter)
+    assert_not message.plan
+    patch :update, { id: message.id, message: { plan_id: plan.id }}
+    message = Message.find(message.id)
+    assert_equal plan, message.plan
+  end
+
+  test "create message with associated plan" do
+    plan = plans(:easter)
+    assert_difference 'Message.all.count', +1 do
+      post :create, { message: { subject: 'test', text: 'bla', plan_id: plan.id }}
+    end
+    message = Message.all.last
+    assert_equal plan, message.plan
+  end
+
+  test "don't update the plan for a message when already sent" do
+    message = messages(:two)
+    plan = plans(:easter)
+    patch :update, { id: message.id, message: { plan_id: plan.id }}
+    assert_not Message.find(message.id).plan
+  end
+
+  test "remove plan from message" do
+    message = messages(:with_plan)
+    assert message.plan
+    patch :update, { id: message.id, message: { plan_id: nil }}
+    assert_not Message.find(message.id).plan
+  end
+
+  test "don't remove plan from sent message" do
+    message = messages(:with_plan)
+    assert_not message.sent?
+    message.sent!
+    assert message.sent?
+    assert plan = message.plan
+    patch :update, { id: message.id, message: { plan_id: nil }}
+    assert_equal plan, message.plan
+  end
+
 end

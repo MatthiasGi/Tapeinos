@@ -10,3 +10,10 @@ two:
   date: <%= 1.day.ago %>
   state: 1
   user: max
+
+with_plan:
+  subject: This mail has a plan.
+  text: "Testen"
+  date: <%= 5.minutes.ago %>
+  user: max
+  plan: easter

@@ -13,6 +13,7 @@ de:
         user: Autor
         state: Status
         servers: Empfänger
+        plan: Verknüpfter Plan
 
       message/state:
         draft: Entwurf

@@ -86,7 +86,7 @@ class Admin::MessagesController < Admin::AdminController
 
   # Strong-parameters strong at work.
   def message_params
-    params.require(:message).permit(:subject, :text, server_ids: [])
+    params.require(:message).permit(:subject, :text, :plan_id, server_ids: [])
   end
 
 end

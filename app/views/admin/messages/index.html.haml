@@ -11,6 +11,7 @@
       %th= Message.human_attribute_name(:subject)
       %th= Message.human_attribute_name(:user)
       %th= Message.human_attribute_name(:date)
+      %th= Message.human_attribute_name(:plan)
       %th= Message.human_attribute_name(:state)
   %tbody
     - @messages.each do |message|
@@ -18,6 +19,7 @@
         %th.text-nowrap= link_to message, admin_message_path(message)
         %td.text-nowrap= message.user
         %td{ data: { order: message.date }}= l message.date
+        %td= p = message.plan and link_to p, admin_plan_path(p)
         %td{'data-order' => message[:state]}
           = state_icon(message.state)
           = Message.human_attribute_name("state.#{message.state}")

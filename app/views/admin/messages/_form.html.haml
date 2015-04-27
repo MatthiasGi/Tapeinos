@@ -15,6 +15,7 @@
           = t '.server_all'
 
   = f.input :text, input_html: { class: 'text-code', rows: 12 }
+  = f.association :plan, input_html: { class: 'chosen-select' }
 
   .form-group
     .col-sm-9.col-sm-offset-3
