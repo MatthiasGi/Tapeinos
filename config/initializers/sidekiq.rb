@@ -24,7 +24,7 @@ if Rails.env.production?
   sidekiq_mailer_up = false
   unless sidekiq_down
     Sidekiq::ProcessSet.new.each do |process|
-      sidekiq_mailer_up = process['queues'].include? 'mailer' unless sidekiq_mailer_up
+      sidekiq_mailer_up = process['queues'].include? 'mailers' unless sidekiq_mailer_up
     end
   end
   SettingsHelper.set(:sidekiq_mailer_down, !sidekiq_mailer_up)
