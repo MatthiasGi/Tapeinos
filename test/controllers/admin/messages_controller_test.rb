@@ -8,6 +8,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     user = users(:admin)
     session[:user_id] = user.id
     session[:server_id] = user.servers.first.id
+    ActionMailer::Base.deliveries.clear
   end
 
   test "index shows all messages" do
@@ -289,6 +290,26 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     assert plan = message.plan
     patch :update, { id: message.id, message: { plan_id: nil }}
     assert_equal plan, message.plan
+  end
+
+  test "sending message associated with plan" do
+    message = messages(:with_plan)
+    assert message.update(servers: Server.all)
+
+    emails = Server.all.map(&:email).uniq
+    assert_difference 'ActionMailer::Base.deliveries.size', emails.size do
+      get :mail, { id: message.id }
+    end
+    ActionMailer::Base.deliveries.each do |mail|
+      assert_match "#{message.plan.title}.pdf", mail.attachments.first.to_s
+    end
+
+    message = Message.find(message.id)
+    assert_response :success
+    assert_template :show
+    assert_equal message, assigns(:message)
+    assert message.sent?
+    assert_not message.draft?
   end
 
 end

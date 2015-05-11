@@ -23,6 +23,7 @@ de:
 
           Dies lässt sich nicht rückgängig machen!
         no_servers: Keine Empfänger
+        no_plan: Kein Plan
 
       edit:
         title: Nachricht bearbeiten

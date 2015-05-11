@@ -7,13 +7,13 @@
   %strong= "#{Message.human_attribute_name(:servers)}:"
   = @message.servers.any? ? @message.servers.map(&:shortname).join(', ') : t('.no_servers')
 
+%p
+  %strong= "#{Message.human_attribute_name(:plan)}:"
+  = @message.plan ? link_to(@message.plan, admin_plan_path(@message.plan)) : t('.no_plan')
+
 = panel @message.as_html(@current_server), title: t('.html')
 = panel title: t('.text') do
   %pre.panel-body= @message.as_text(@current_server)
-
-%p
-  %strong= "#{Message.human_attribute_name(:plan)}:"
-  = link_to @message.plan, admin_plan_path(@message.plan)
 
 .form-group
   .col-sm-9.col-sm-offset-3

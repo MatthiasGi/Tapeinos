@@ -64,7 +64,7 @@ class Admin::MessagesController < Admin::AdminController
       return render :edit
     end
 
-    MessageMailer.send_message(@message)
+    MessageMailerSenderJob.perform_later(@message)
     @message.sent!
     render :show
   end
