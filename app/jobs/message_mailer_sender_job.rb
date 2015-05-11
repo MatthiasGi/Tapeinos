@@ -14,7 +14,7 @@ class MessageMailerSenderJob < ActiveJob::Base
     if message.plan
       view = ApplicationController.new.render_to_string(template: 'admin/plans/show.pdf.haml',
         layout: 'layouts/pdf.html.haml', locals: { :@plan => message.plan })
-      plan = WickedPdf.new.pdf_from_string(view, orientation: 'Landscape')
+      plan = WickedPdf.new.pdf_from_string(view, orientation: 'Landscape', encoding: 'UTF-8')
     end
 
     # Send the message to each assigned server.
