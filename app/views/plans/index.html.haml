@@ -14,6 +14,11 @@
         %tr
           %td
             %strong= link_to plan, plan_path(plan)
+            -# Mark new plans for servers, that didn't enroll yet for a plan.
+            - unless plan.servers.include? @current_server
+              .label.label-primary.pull-right
+                = icon :star
+                = t 'defaults.new'
             %br/
             %span.visible-xs= date_range(plan.first_date, plan.last_date)
           %td.text-nowrap.hidden-xs= date_range(plan.first_date, plan.last_date)

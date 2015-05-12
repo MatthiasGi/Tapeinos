@@ -42,6 +42,7 @@ de:
     forward: Weiter
     login: Einloggen
     download: Herunterladen
+    new: Neu
 
     register:
       title: Account erstellen

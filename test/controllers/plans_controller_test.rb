@@ -16,6 +16,22 @@ class PlansControllerTest < ActionController::TestCase
     assert_equal expected, assigns(:plans)
   end
 
+  test "homepage marks new plans for servers" do
+    get :index
+    number = 0
+    assert_select '.label.label-primary', I18n.t('defaults.new') do |obj|
+      number = obj.size
+    end
+
+    # enroll for a plan
+    plan = plans(:easter)
+    assert plan.update(servers: [ @server ])
+
+    get :index
+    number -= 1
+    assert_select '.label.label-primary', number
+  end
+
   test "enrolling for a plan" do
     plan = plans(:easter)
     get :show, id: plan.id

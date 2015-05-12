@@ -24,6 +24,7 @@ Event.create(date: '2015-04-02 19:30:00', title: 'Holy Thursday', location: 'EK'
 Event.create(date: '2015-04-03 15:00:00', title: 'Good Friday', location: 'LK', plan: plan)
 Event.create(date: '2015-04-04 21:00:00', title: 'Easter', plan: plan)
 Event.create(date: '2015-04-05 10:30:00', plan: plan)
+Event.create(date: 2.weeks.from_now, plan: plan)
 
 text = "**Test** %{firstname}\n\n %{login}"
 Message.create(subject: 'Testsubject Last', date: 2.days.ago, text: text, user: user)
