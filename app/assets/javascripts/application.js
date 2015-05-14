@@ -135,8 +135,9 @@ var ready = function() {
     return false;
   });
 
-  // Activates Bootstrap's tooltip-plugin.
-  $('[data-toggle="tooltip"]').tooltip()
+  // Activates Bootstrap's tooltip- and popover-plugins.
+  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="popover"]').popover({ placement: 'auto' });
 
   // This function intialises ALL used datepickers throughout the app.
   var datepicker = function () {

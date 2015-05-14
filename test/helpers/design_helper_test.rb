@@ -177,4 +177,16 @@ class DesignHelperTest < ActionView::TestCase
     SettingsHelper.setHash(old_settings)
   end
 
+  test "help button in title" do
+    title = SecureRandom.hex
+    remark = SecureRandom.hex
+    help = SecureRandom.hex
+
+    doc = node(page_header(title))
+    assert_select doc, '.help-btn', 0
+
+    doc = node(page_header(title, remark, help))
+    assert_select doc, '.help-btn[data-toggle="popover"][data-content="' + help + '"]'
+  end
+
 end

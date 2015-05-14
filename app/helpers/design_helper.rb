@@ -6,15 +6,10 @@ module DesignHelper
 
   # ============================================================================
 
-  # The page-header contains a title and optional subtitle.
-  def page_header(title = t('.title'), remark = nil)
-    content_tag :div, class: 'page-header' do
-      content_tag :h1 do
-        html = title.html_safe
-        html << ' ' << content_tag(:small, remark) if remark.present?
-        html
-      end
-    end
+  # The page-header contains a title and optional subtitle. If a help-text is available, a help-button is displayed that
+  #    shows the help text on click.
+  def page_header(title = t('.title'), remark = nil, help_text = t('.help', default: ''))
+    render partial: 'shared/page_header', locals: { title: title, remark: remark, help_text: help_text }
   end
 
   # Outputs a message, if the corresponding flash-attribute is set.
@@ -82,7 +77,7 @@ module DesignHelper
 
   # Displays severe server-errors inside one consistent message with preference
   #    for required restarts.
-  def server_errors()
+  def server_errors
     conditions = [ :restart_required, :redis_down, :sidekiq_down,
       :sidekiq_mailer_down ]
     errors = conditions.select { |c| SettingsHelper.get(c) }

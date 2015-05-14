@@ -123,7 +123,30 @@ th.sorting_disabled
 #events-table input[type=text]
   width: auto
 
-/* Fixing border inside of panel */
+/* Fixing border inside of panel. */
 pre.panel-body
   background: none
   border: none
+
+/* Allow positioning of the `.help-btn`. */
+.page-header
+  position: relative
+
+/* Button inside of the page-header to allow displaying more information for using the current page. */
+.help-btn
+  position: absolute
+  bottom: -1em
+  right: 0
+  width: 2em
+  height: 2em
+  padding: 0
+  border-radius: 50%
+  box-shadow: 0 0 0 .5em #fff
+  font-size: 1.2em
+
+  .glyphicon
+    line-height: inherit
+
+/* Make popovers more wider, so they scale up a bit. */
+.popover
+  max-width: 100%

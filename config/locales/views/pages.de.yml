@@ -3,3 +3,4 @@ de:
     about:
       version: Version %{version} (%{locale})
       description: Tapeinos ist eine Software zum Verwalten von Messdienergruppen und ihren Plänen, Ausbildungen, uvm.
+      help: Hier wird Dir angezeigt, was sich in Tapeinos in letzter Zeit so alles geändert hat und wie viel Arbeit da eigentlich drin steckt.

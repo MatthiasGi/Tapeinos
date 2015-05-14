@@ -3,7 +3,7 @@ de:
     plans:
       new:
         title: Plan erstellen
-        lead: Der Plan wird den Messdienern erst angezeigt, wenn Termine hinzugefügt werden, die in der Zukunft liegen.
+        lead: Füge einen neuen Plan hinzu, der den Messdienern zur Eintragung zur Verfügung steht.
 
       index:
         title: Pläne verwalten
@@ -28,7 +28,7 @@ de:
         lead: Das Bearbeiten von Terminen wirkt sich nicht auf Eintragungen durch Messdiener aus. Nachträgliche Bearbeitung verwirrt also.
 
       form:
-        lead: Erst, wenn ein Termin hinzugefügt wurde, ist der Plan für die Messdiener sichtbar.
+        lead: Erst, wenn ein Termin hinzugefügt wurde, der in der Zukunft liegt, ist der Plan für die Messdiener sichtbar.
         needed: Benötigt
         new_event: Termin hinzufügen
         confirm_delete: |

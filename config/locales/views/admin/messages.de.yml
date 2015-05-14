@@ -9,8 +9,8 @@ de:
         title: Nachrichten verwalten
         messages:
           zero: Bisher wurde keine einzige Nachricht geschrieben.
-          one: Es wurde bisher nur eine Nachricht geschrieben.
-          other: Es wurden bisher schon %{count} Nachrichten geschrieben.
+          one: Es wurde bisher eine Nachricht geschrieben.
+          other: Es wurden bisher %{count} Nachrichten geschrieben.
 
       show:
         title: Nachricht verwalten

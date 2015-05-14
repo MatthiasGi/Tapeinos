@@ -1,0 +1,8 @@
+.page-header
+  %h1
+    = title.html_safe
+    - if remark.present?
+      %small= remark
+  - unless help_text.empty?
+    %button.btn.btn-default.help-btn{ data: { toggle: 'popover', content: help_text }}
+      = icon :question_sign

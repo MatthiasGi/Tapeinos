@@ -7,8 +7,10 @@ de:
         one: 'Zur Zeit steht der folgende Plan aus:'
         other: 'Zur Zeit stehen die folgenden %{count} Pläne aus:'
       enroll: Eintragen
+      help: Möchtest Du Dich in einen Plan eintragen, klicke ihn einfach an. Siehst Du keinen Plan, steht zur Zeit leider noch keiner aus. Probiere es später nocheinmal oder warte auf eine E-Mail vom Leiterteam.
 
     show:
       title: Eintragen
       submit: Eintragen
       enrolled: Du hast Dich erfolgreich in den Plan eingetragen. Vielen Dank für Dein Engagement!
+      help: 'Wähle die Termine aus, an denen Du Zeit hast und bestätige unten mit „Eintragen“. Auch wenn Du an keinem Termin kannst: klicke bitte trotzdem auf den Knopf „Eintragen“, damit auch Tapeinos weiß, dass Du keine Zeit hast. Dann kann Dir auch richtig angezeigt werden, wie viele Messdiener sich bereits eingetragen haben.'
