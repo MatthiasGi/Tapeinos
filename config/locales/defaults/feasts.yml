@@ -1,0 +1,283 @@
+de:
+  feasts:
+    defaults:
+      newyear:
+        color: blue
+        title: Hochfest der Gottesmutter Maria, Neujahr
+        description: Der Oktavtag (also achte Tag) nach Weihnachten ist seit der Liturgiereform das Hochfest der Gottesmutter Maria. Das Fest wird aber auch noch – da es früher so hieß – „Fest der Beschneidung Jesu“ genannt.
+
+      epiphany:
+        color: white
+        title: Erscheinung des Herrn
+        description: Erscheinung des Herrn (Epiphanias) gedenkt der Menschwerdung Gottes durch Jesus und seine Anbetung durch Hirten und die Weisen. Deshalb wird dieser Tag auch nach den Heiligen Drei Königen benannt.
+
+      baptism_jesus:
+        color: white
+        title: Taufe des Herrn
+        description: Am Sonntag nach der Erscheinung des Herrn (06.01.) wird das Fest „Taufe des Herrn“ begangen, das der Taufe Jesus im Jordan gedenkt.
+
+      birth_lord:
+        color: white
+        title: Weihnachten – Hochfest der Geburt des Herrn
+        description: Heute feiern wir die Geburt Jesu Christi.
+
+      holy_family:
+        color: white
+        title: Fest der Heiligen Familie
+        description: Die Heilige Familie besteht aus Jesus, seiner Mutter Maria und seinem Ziehvater Josef.
+
+      christmas:
+        color: white
+        title: Weihnachtszeit
+        description: Der Weihnachtsfestkreis dauert vom 1. Adventssontag – dem Beginn des Kirchenjahres – bis zum Fest „Taufe des Herrn“ an.
+
+      presentation_jesus:
+        color: white
+        title: Darstellung des Herrn
+        description: Am vierzigsten Tag nach Weihnachten wird die Darstellung des Herrn – auch Mariä Lichtmess – gefeiert. Früher war dies erst das Ende der Weihnachtszeit. Es erinnert an die dargebrachten Opfer bei der Geburt eines Kindes im Tempel. Dabei wird auch von den Begegnungen mit Simeon oder der Prophetin Hanna erzählt.
+
+      easter:
+        color: white
+        title: Osterzeit
+        description: Der Osterfestkreis umfasst die Fasten- und Osterzeit, sowie Pfingsten. Liturgische Besonderheiten am Sonntag in der Osterzeit ist insbesondere die erste Lesung aus der Apostelgeschichte. Ferner schließt sich ein zweifaches Halleluja an die Sendungsworte zum Messende an.
+
+      palmsunday:
+        color: red
+        title: Palmsonntag
+        description: Mit dem Palmsonntag beginnt die Karwoche, er ist der letzte Fastensonntag. Es wird an den Einzug Jesus in Jerusalem gedacht, bei dem das Volk ihm mit Palmzweigen zujubelte. Die hier genutzten Palmzweige werden im nächsten Jahr zu Aschermittwoch verbrannt.
+
+      holy_week:
+        color: violet
+        title: Karwoche
+        description: Die Karwoche ist die Trauerwoche vor Ostern.
+
+      holy_thursday:
+        color: white
+        title: Gründonnerstag
+        description: Am Gründonnerstag wird morgens in einigen Bistümern die Chrisammesse abgehalten, bei der die Heiligen Öle für das fortlaufende Jahr durch den Bischof geweiht werden. Am Abend beginnt mit der Feier des letzten Abendmahles das „Triduum Sacrum“, die dreitägige Messe über Leiden, Sterben und Auferstehung von Jesus. Nach dem Gloria verstummen Glocken, Schellen und Orgel, stattdessen werden Ratschen verwendet.
+
+      good_friday:
+        color: red
+        title: Karfreitag
+        description: 'Der Kreuzestod Jesu ist heute Zentrum der Feier. Die angefangene Messe des vorhergehenden Gründonnerstags wird heute fortgesetzt und in der Osternacht beendet. Über den gesamten Tag klingen weder Glocken noch die Orgel. Der Tabernakel ist leer, das Ewige Licht brennt heute nicht. Die Liturgie ist ganz Eigen: Sie beginnt gegen 15:00 Uhr (der überlieferten Todesstunde) mit der Hinstreckung des Zelebranten mit anschließendem Wortgottesdienst (mit Passion und den Großen Fürbitten), Erhebung und Verehrung des Kreuzes und einer anschließenden Kommunionfeier mit den restlichen Hostien des Vortages.'
+
+      holy_saturday:
+        color: black
+        title: Karsamstag
+        description: Der Karsamstag ist der einzige Tag ihm gesamten Kirchenjahr, an dem keine Messe gefeiert wird.
+
+      easter_sunday:
+        color: white
+        title: Osternacht, Ostersonntag (am Tag)
+        description: 'Die Osternacht ist der Höhepunkt des gesamten Kirchenjahres, eine Nacht des Wachens und Betens zum Gedenken an die Auferstehung. Sie beendet das Gründonnerstag begonnen „Triduum Sacrum“, die dreiteilige Messfeier. Sie beginnt mit der Lichtfeier: das Osterfeuer wird gesegnet, die Osterkerze vorbereitet und entzündet, das Licht wird an die Gläubigen weitergegeben. Es schließt sich das Exsultet, das Osterlob an, in dem u.A. die Osterkerze besungen wird. Es folgen bis zu sieben alttestamentliche Lesungen mit Antwortpsalm und Oration. Danach erklingen zum Gloria alle Glocken und Schellen, die Orgel tönt nach dreitägiger Pause wieder, alle Kerzen werden entzündet und das Licht in der Kirche angeschaltet. Es folgen Tagesgebet, Epistel (Lesung aus einem Apostelbrief) und Osterevangelium. Es schließt sich die Taufliturgie und die Erneuerung des Taufversprechens für alle Gläubigen an. Die Messe endet nach dem üblichen, weiteren Ablauf.'
+
+      lent:
+        color: violet
+        title: Fastenzeit
+        description: Die vierzigtätige Fastenzeit (unterbrochen von Sonntagen und Hochfesten) besteht aus Fasten und Beten zur Vorbereitung auf das Hochfest Ostern. In der Fastenzeit entfallen Halleluja und Gloria (außer an Hochfesten), dafür wird i.d.R. immer das Schuldbekenntnis als Bußzeichen gebetet. Kreuze werden durch violette Tücher verhüllt, Blumenschmuck wird aus der Kirche entfernt.
+
+      laetare:
+        color: pink
+        title: Laetare (Vierter Fastensonntag)
+        description: 'Laetare (aus dem Lateinischen: „Freue Dich!“) steht in der Mitte der Fastenzeit. Blumenschmuck in der Kirche ist zur Ausnahme üblich.'
+
+      ascension:
+        color: white
+        title: Christi Himmelfahrt
+        description: Zum Fest der Aufnahme des Herrn wird Jesus zur Rechten Gottes erhoben.
+
+      pentecost:
+        color: red
+        title: Pfingsten
+        description: Zu Pfingsten kam der Heilige Geist auf die Jünger herab, sie sprachen in verschiedenen Sprachen und wurden ausgesandt. Dies verstehen wir als Gründungsdatum der Kirche.
+
+      transfiguration:
+        color: white
+        title: Verklärung des Herrn
+        description: Jesus erscheint in verklärter Form drei Aposteln zusammen mit Mose und Elija.
+
+      holy_cross:
+        color: red
+        title: Kreuzerhöhung
+        description: An diesem Tag soll Kaiserin Helena das Kreuz wiedergefunden haben, an dem Jesus gestorben ist. Es ist in Bruchstücken als Reliquie inzwischen auf der gesamten Welt verteilt.
+
+      all_saints:
+        color: white
+        title: Allerheiligen
+        description: An Allerheiligen wird allen Heiligen gedacht, auch wenn sie nicht heilig gesprochen wurden.
+
+      all_souls:
+        color: violet
+        title: Allerseelen
+        description: An Allerseelen wird allen Verstorbenen gedacht.
+
+      advent:
+        color: violet
+        title: Adventszeit
+        description: Der Advent (aus dem Lateinischen etwa „Ankunft“) ist die Zeit der Vorbereitung auf Weihnachten. Dabei stellte er früher eine ähnliche Bußzeit wie die Fastenzeit dar. Aus diesem Grunde ist ebenfalls das Gloria nur zu Hochfesten sowie die liturgische Farbe Violett üblich.
+
+      christking:
+        color: white
+        title: Christkönnigsonntag
+        description: Der Christkönigtag ist der letzte Tag des Kirchenjahres. An ihm werden auch häufig die neuen Messdiener der Gemeinde vorgestellt.
+
+      gaudete:
+        color: pink
+        title: Gaudete (Dritter Adventssonntag)
+        description: 'Gaudete (aus dem Lateinischen: „Freuet Euch!“) ist ein hervorgehobener Adventssonntag.'
+
+    dates:
+      01:
+        24:
+          color: white
+          title: Franz von Sales, Bischof von Genf, Ordensgründer, Kirchenlehrer (1622)
+          description: Franz von Sales hat den „Orden von der Heimsuchung Mariens“ mit der Johanna Franziska von Chantal gegründet, der auch unter dem Namen „Salesianerinnen“ bekannt ist. Er ist einer von 36 katholischen Kirchenlehrern, also solchen Heiligen, die besonderen Einfluss auf die theologische Entwicklung der Kirche hatten. Er ist Patron der Schriftsteller, Journalisten und der Gehörlosen.
+
+        28:
+          color: white
+          title: Thomas von Aquin, Ordenspriester, Kirchenlehrer (1274)
+          description: 'Thomas von Aquin war Priester der Dominikaner und einer der bedeuntensten Kirchenlehrer; einer der bedeuntensten Theologen und Philosophen der Geschichte. Von ihm wird heute noch ein Hymnus zur Besingung des Allerheiligsten bspw. vor dem sakramentalen Segen gesungen: „Tantum ergo sacramentum…“ oder in der deutschen Fassung: „Sakrament der Liebe Gottes…“.'
+
+        31:
+          color: white
+          title: Johannes Bosco, Priester, Ordensgründer (1888)
+          description: Don Bosco war Jugendseelsorger, als er seinen Orden, die Salesianer Don Boscos gründete. Dieser drittgrößte Männerorden der Welt hat heute immernoch die Jugendarbeit als Hauptaufgabe. Deshalb ist Giovanni Bosco auch Schutzpatron der Jugend und Jugendseelsorger.
+
+      02:
+        03:
+          color: red
+          title: Blasius, Bischof von Sebaste in Armenien, Märtyrer (um 316)
+          description: Blasius gilt als einer der vierzehn Nothelfer, der einem jungen Mann im Gefägnis während der Christenverfolgung das Leben gerettet haben soll, als dieser an einer Fischgräte zu ersticken drohte. Deshalb wird er bei Halsleiden angerufen. An seinem Gedenktag wird der Blasiussegen erteilt.
+
+        24:
+          color: red
+          title: Matthias, Apostel (um 63)
+          description: Matthias wurde als Apostel hinzugewählt, nachdem Judas Ischariot aus der Gruppe ausschied. Er ist der einzige Apostel, dessen Leichnam nördlich der Alpen – nämlich in Trier – liegt.
+
+      03:
+        09:
+          color: white
+          title: Dominikus Savio, Jugendlicher (1857)
+          description: Im Alter von 15 Jahren erlag Dominikus, Lieblingsschüler von Don Bosco, einer Lungentuberkulose. Er ist unter anderem Schutzpatron der Ministranten.
+
+        19:
+          color: white
+          title: Josef, Bräutigam der Gottesmutter Maria
+          description: Josef war Zimmermann und ist als solcher Schutzpatron der Arbeiter, insbesondere der Schreiner und Holzfäller.
+
+        25:
+          color: white
+          title: Verkündigung des Herrn
+          description: An Mariä Verkündigung wird die Verheißung der Geburt Christi an Maria durch den Erzengel Gabriel gefeiert.
+
+      06:
+        05:
+          color: red
+          title: Bonifatius, Bischof, Glaubensbote in Deutschland, Märtyrer (754)
+          description: Bonifatius missionierte vornehmlich in Deutschland, wo er auch den Märtyrertod erfuhr. Um zu demonstieren, dass die Germanischen Götter keine Macht besitzen, fällte er eine dem Donar geweihte Eiche. Er gilt als „Apostel der Deutschen“.
+
+        24:
+          color: white
+          title: Geburt Johannes des Täufers
+          description: Kurz nachdem er Jesus getauft hatte, wurde er gefangen genommen. Er wurde auf Wunsch der Tochter von Herodes Frau geköpft.
+
+        29:
+          color: red
+          title: Petrus und Paulus
+          description: Am überlieferten Todestag gedenken wir der Kirchenväter Peter und Paul. Der Papst ist noch heute Nachfolger von Petrus.
+
+      07:
+        31:
+          color: white
+          title: Ignatius von Loyola, Priester, Ordensbegründer (1556)
+          description: Ignatius war der wichtigste Mitbegründer der größten Ordensgemeinschaft, nämlich der Jesuiten.
+
+      08:
+        14:
+          color: red
+          title: Maximilian Kolbe, Ordenspriester, Märtyrer (1941)
+          description: Kolbe war polnischer Minorit. Er wurde 1941 zum zweiten Male durch die Gestapo festgenommen, nachdem er 2300 Juden mit seinen Brüdern im Kloster während des zweiten Weltkrieges und weiteren Flüchtlingen Zuflicht gewährte. Später wurde er in das Konzentrationslager Auschwitz verlegt. Da die Flucht eines Häftlings vermutet wurde (dessen Leiche später jedoch gefunden wurde), wählten die Führer des Lagers mehrere Häftlinge willkürlich für die Hinrichtung aus. Kolbe bat darum, einen der Männer – der Frau und Kinder besaß und das KZ letztendlich überlebte – zu ersetzen. Sie wurden in einen Hungerbunker gesperrt. Als er nach zwei Wochen noch nicht verhungert war, wurde er mit einer Giftspritze hingerichtet und anschließend verbrannt. Er ist Schutzpatron der Journalisten und Funkamateure.
+
+        15:
+          color: blue
+          title: Mariä Aufnahme in den Himmel
+          description: Zu Mariä Himmelfahrt gedenken die Christen der leiblich im Himmel aufgenommenen Maria. Ferner ist heute Gedenktag des Hl. Trazisius. Er ist der Schutzheilige der Ministranten, der selbst das Martyrium bei der Ausübung seines Dienstes erlitt.
+
+        16:
+          color: white
+          title: Altfrid, Gründer des Stiftes Essen
+          description: Altfrid ist Gründer des Stiftes, aus dem die Stadt Essen hervorging. Nach ihm ist das Jugendbildungshaus St. Altfrid benannt, in dem die Messdienerleiter im Bistum Essen ausgebildet werden.
+
+        22:
+          color: blue
+          title: Maria Königin
+          description: Dies ist das Patronatsfest der Liebfrauenkirche in Gevelsberg.
+
+        28:
+          color: white
+          title: Augustinus, Bischof von Hippo, Kirchenlehrer (430)
+          description: Augustinus war einer der vier ersten Kirchenlehrer. Er hat sich u.A. besonders mit der Dreifaltigkeit beschäftigt. Eine bekannte Erzählung über ihn handelt von ihm, tief nachdenklich, am Strand spazierend. Er trifft auf einen Jungen, der mit einer Muschel Wasser schöpfte und in ein Loch im Sand goss. Nachdem er den Jungen fragte, antwortete er ihm, er wolle das Meer leerschöpfen. Augustinus lachte über ihn und sagte ihm, dass das nicht gehe, worauf ihm der Junge entgegnete, dass er die Dreifaltigkeit ebensowenig ausschöpfen könne.
+
+        29:
+          color: red
+          title: Enthauptung Johannes des Täufers
+          description: Kurz nachdem er Jesus getauft hatte, wurde Johannes gefangen genommen. Er wurde auf Wunsch der Tochter von Herodes Frau geköpft.
+
+      09:
+        29:
+          color: white
+          title: Erzengel Michael, Gabriel und Rafael
+          description: Michael soll den Satan bezwungen haben. Er ist u.A. Schutzpatron Deutschlands. Gabriel hat die Geburt Christi verkündet und ist Vorsteher der Cherubim und Seraphim. Raphael ist auch Patron der Kranken und Apotheker, sowie der Seeleute, Auswanderer und Pilger.
+
+      10:
+        04:
+          color: white
+          title: Franz von Assisi, Ordensbegründer (1226)
+          description: Franz war Begründer des Ordens der Minderen Brüder (Franziskaner), die Armut leben. Aus diesem Grunde gab es einige Zerwürfnisse mit der Kirche, verkörpert durch die damaligen Päpste.
+
+        11:
+          color: blue
+          title: Maria, Mutter vom guten Rat
+          description: Patronat des Bistums Essen.
+
+      11:
+        07:
+          color: red
+          title: Engelbert, Bischof von Köln, Märtyrer
+          description: An diesem Tag im Jahr 1225 wurde der Engelbert im Holweg in Gevelsberg von über 20 Komplizen überfallen und ermordet. An diesem Ort wurde das Kloster Gevelsberg begründet, woraus später die Stadt Gevelsberg entstanden ist. In der St.-Engelbert-Kirche wird ein Teil seines Unterarms als Reliquie aufbewahrt.
+
+        11:
+          color: white
+          title: Martin, Bischof von Tours (397)
+          description: Als römischer Soldat teilte Martin seinen Mantel für einen dem Erfrieren nahen Bettler. Später ließ er sich taufen und wurde Bischof.
+
+      12:
+        04:
+          color: white
+          title: Adolph Kolping, Priester (1865), Barbara, Märtyrin in Nikomedien (306) und Johannes von Damaskus, Priester, Kirchenlehrer (um 750)
+          description: Am heutigen Tage wird gleich drei Persönlichkeiten gedacht. Adolph Kolping setzte sich mit der sozialen Frage auseinander und gründete das Kolpingwerk. Barbara wurde von ihrem Vater enthauptet, weil sie ihren Glauben nicht ablegen wollte, sie ist Patronin von Berg- und Hüttenleuten, Gießern, Geologen, Glöcknern, Glockengießern, Kanonengießern, Schmieden, Maurern, Steinmetzen, Zimmerleuten, Dachdeckern, Elektrikern, Architekten, Artilleristen, Kampfmittelbeseitigern, Pyrotechnikern, Feuerwehrleuten, Helfer des Technischen Hilfswerkes, Totengräbern, Hutmachern, Jungfrauen und Gefangenen. Johannes von Damaskus gilt als letzter Kirchenvater.
+
+        06:
+          color: white
+          title: Nikolaus, Bischof von Myra (um 350)
+          description: Als Urvater des Weihnachtsmanns hat er noch vor dem Christkind die Geschenke gebracht. Er ist u.A. Patron der Messdiener und Kinder.
+
+        13:
+          color: red
+          title: Luzia, Jungfrau, Märtyrin in Syrakus (um 304)
+          description: Sie sollte zur Bestrafung gegenüber dem zurückgewiesenen Bräutigam in ein Bordell verlegt werden, jedoch konnte sie weder von einem Ochsengespann, noch von 1000 Männern bewegt werden, sodass sie getötet wurde.
+
+        26:
+          color: red
+          title: Stephanus, Märtyrer
+          description: Stephanus ist der erste Märtyrer der Kirche, also der Erste, der durch sein Bekenntnis zu Jesus getötet wurde.
+
+        27:
+          color: red
+          title: Johannes, Apostel und Evangelist
+          description: Verfasser des vierten Evangeliums und Lieblingsjünger Jesus.
+
+        28:
+          color: red
+          title: Unschuldige Kinder
+          description: Nach Jesus Geburt ließ Herodes alle männlichen Kleinkinder hinrichten, um Jesus zu töten.

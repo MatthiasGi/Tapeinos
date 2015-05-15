@@ -91,6 +91,7 @@ GEM
       sass-rails (<= 5.0.1)
       sprockets (< 2.13)
     connection_pool (2.1.2)
+    date_easter (0.0.1)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     erubis (2.7.0)
@@ -232,6 +233,7 @@ DEPENDENCIES
   chosen-rails
   cocoon
   coffee-rails (~> 4.1.0)
+  date_easter
   haml
   jbuilder (~> 2.0)
   jquery-rails

@@ -53,6 +53,9 @@ gem 'wicked'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
+# Determines the easter-date. Why reinvent the wheel?
+gem 'date_easter'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
