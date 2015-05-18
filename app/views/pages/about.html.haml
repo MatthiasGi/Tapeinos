@@ -1,10 +1,9 @@
 .row
   .col-sm-3
-    .about-logo.img-circle.center-block.text-center
-      %strong τ
+    %object.about-logo{ type: 'image/svg+xml', data: 'tapeinos.svg', width: '100%' }
 
   .col-sm-9
-    = page_header '<span class="tap-tau">τ</span>apeinos', t('.version') % { version: Rails.configuration.version, locale: I18n.locale }
+    = page_header 'τapeinos', t('.version') % { version: Rails.configuration.version, locale: I18n.locale }
     %p.lead= t '.description'
 
 %hr/
@@ -16,4 +15,7 @@
   %small.text-muted
     = icon :copyright_mark
     #{DateTime.now.year},
-    = mail_to 'matthias@gianfelice.de', 'Matthias Gianfelice'
+    #{mail_to 'matthias@gianfelice.de', 'Matthias Gianfelice'},
+    #{t '.additional_design_work'}:
+    = mail_to 'chat@philipbleicker.com', 'Philip Bleicker'
+
