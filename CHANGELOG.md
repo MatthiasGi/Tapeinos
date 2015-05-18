@@ -1,5 +1,9 @@
 ## Changelog
 
+### v0.2.1 (2015-05-18)
+* Added favicons in different sizes.
+* Banned bots from scanning the application.
+
 ### v0.2.0 (2015-05-18)
 New features:
 

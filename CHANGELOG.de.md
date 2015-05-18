@@ -1,5 +1,9 @@
 ## Änderungen (Changelog)
 
+### v0.2.1 (18.05.2015)
+* Es wurden Favicons verschiedenster Größen hinzugefügt.
+* Automatische Bots dürfen die Applikation nun nicht mehr durchsuchen.
+
 ### v0.2.0 (18.05.2015)
 Neue Funktionen:
 
