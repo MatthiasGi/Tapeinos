@@ -86,4 +86,18 @@ module DesignHelper
     render partial: 'shared/server_errors', locals: { messages: errors }
   end
 
+  # Displays the logo of tapeinos in appropriate size. This method is not tested because it is only visual and produces
+  #    quite complicated output (svg…)
+  def liturgic_logo
+    liturgy = Rails.application.config.try(:liturgy)
+    date = liturgy.try(:date)
+
+    if !date or date != Date.today
+      Rails.application.config.liturgy = liturgy = LiturgicPainter.get_liturgy(Date.today)
+      Rails.application.config.liturgy[:date] = Date.today
+    end
+
+    render partial: 'shared/logo', locals: { liturgy: liturgy }
+  end
+
 end

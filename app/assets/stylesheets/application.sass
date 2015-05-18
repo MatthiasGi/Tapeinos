@@ -21,11 +21,6 @@
 @import 'bootstrap-chosen'
 @import 'bootstrap-datetimepicker'
 
-/* Make the tau in Tapeinos slightly bigger to match rest of the text. */
-.tap-tau
-  font-size: 110%
-  line-height: 0
-
 /* A small padding assures, that the content isn't cut off right at the bottom. */
 body
   padding: 70px 0
@@ -81,10 +76,6 @@ input[type="datetime"]
 
 /* The logo on the about-page is displayed nicely with a subtle background. */
 .about-logo
-  width: 100px
-  height: 100px
-  background: $gray-lighter
-  font-size: 420%
   margin: 40px auto 20px
 
 /* Simple class to make elements monospaced. */
@@ -147,6 +138,46 @@ pre.panel-body
   .glyphicon
     line-height: inherit
 
-/* Make popovers more wider, so they scale up a bit. */
-.popover
+/* Make popovers with help-texts more wider, so they scale up a bit. */
+.page-header .popover
   max-width: 100%
+
+/* Overwrite default styles to fit in the logo. */
+.navbar-brand
+  padding: 5px $navbar-padding-horizontal
+  color: $text-color !important
+
+/* Styles for various color-variations of the logo. */
+.tap-logo
+  height: 40px
+  width: 40px
+  cursor: pointer
+  color: $navbar-inverse-bg
+
+  path
+    fill: currentColor
+
+.tap-logo-white .logo-background
+  fill: $gray-lighter
+
+.tap-logo-red .logo-background
+  fill: #f00
+
+.tap-logo-violet .logo-background
+  fill: #7f00ff
+
+.tap-logo-green .logo-background
+  fill: $brand-success
+
+.tap-logo-pink .logo-background
+  fill: lighten(#7f00ff, 35%)
+
+.tap-logo-black
+  color: $navbar-default-bg
+
+  .logo-background
+    fill: $navbar-inverse-bg
+
+.tap-logo-blue .logo-background
+  fill: saturate($brand-primary, 100%)
+

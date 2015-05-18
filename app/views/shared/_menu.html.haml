@@ -1,9 +1,9 @@
-.navbar.navbar-default.navbar-fixed-top
+.navbar.navbar-inverse.navbar-fixed-top
   .container
 
     -# Title of the software ("Brand").
     .navbar-header.pull-left
-      = link_to '<strong class="tap-tau">τ</strong>apeinos', root_path, class: 'navbar-brand'
+      .navbar-brand= liturgic_logo
 
     -# Button group for collapsing the menu and changing the current server.
     - if @current_server
