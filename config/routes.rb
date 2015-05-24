@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
   get '/login/:email' => 'sessions#new', \
-    constraints: { email: /[\w\d@\.%]+/ }
+    constraints: { email: /[\S]+@[\S]+\.[\S]+/ }
 
   # Displays the plan-overview as root.
   root 'plans#index'
