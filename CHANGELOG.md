@@ -1,5 +1,11 @@
 ## Changelog
 
+### v0.2.2 (2015-05-24)
+Bugfixes:
+
+* Login-routes can now be accessed by email-addresses with more complex contents than only word-characters (e.g. hyphens).
+* Precompilation of assets now also includes the pdf-stylesheet.
+
 ### v0.2.1 (2015-05-18)
 * Added favicons in different sizes.
 * Banned bots from scanning the application.

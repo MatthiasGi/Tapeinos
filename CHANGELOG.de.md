@@ -1,5 +1,11 @@
 ## Änderungen (Changelog)
 
+### v0.2.2 (2015-05-24)
+Fehlerbehebungen:
+
+* Login-Routen können nun auch durch E-Mail-Adressen genutzt werden, die aus komplexeren Symbolen als reinen Wortsymbolen bestehen (also z.B. auch Bindestriche).
+* Das Vorkompilieren von Assets enthält nun auch das Stylesheet für die Generierung von PDF-Dokumenten.
+
 ### v0.2.1 (18.05.2015)
 * Es wurden Favicons verschiedenster Größen hinzugefügt.
 * Automatische Bots dürfen die Applikation nun nicht mehr durchsuchen.
