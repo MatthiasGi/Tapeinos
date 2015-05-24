@@ -31,3 +31,6 @@ erd.pdf
 
 # Ignore the redis-server-dump.
 dump.rdb
+
+# Precompiled assets
+public/assets
