@@ -186,7 +186,7 @@ class UserTest < ActiveSupport::TestCase
     user.role = 1
     assert_not user.update(role: :admin)
     assert_not user.update(role: :user)
-    assert user.errors[:role] = I18n.t('activerecord.attributes.user/errors.role.one_root_needed')
+    assert_equal I18n.t('activerecord.attributes.user/errors.role.one_root_needed'), user.errors[:role].first
 
     # Let him change to same one
     assert user.update(role: :root)

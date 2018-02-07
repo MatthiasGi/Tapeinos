@@ -91,7 +91,7 @@ class PlanTest < ActiveSupport::TestCase
     plan = plans(:easter)
     servers = Server.all
     assert plan.update(servers: servers)
-    assert_equal servers, plan.servers(true)
+    assert_equal servers, plan.servers.reload
   end
 
 end

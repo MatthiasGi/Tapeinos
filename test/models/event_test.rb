@@ -34,7 +34,7 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 0, event.enrolled
     assert event.update(servers: servs)
     assert event.valid?
-    assert_equal servs, event.servers(true)
+    assert_equal servs, event.servers.reload
     assert_equal 4, event.enrolled
   end
 

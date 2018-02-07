@@ -10,27 +10,27 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "get new display only for servers" do
-    get :new, nil, nil
+    get :new
     assert_response :success
     assert_template 'sessions/new'
 
     server = servers(:heinz)
-    get :new, nil, { server_id: server.id }
+    get :new, session: { server_id: server.id }
     assert_response :success
     assert_template :new
 
     server = servers(:max)
-    get :new, nil, { server_id: server.id, user_id: server.user.id }
+    get :new, session: { server_id: server.id, user_id: server.user.id }
     assert_redirected_to plans_path
   end
 
   test "create account not for users or invalid servers" do
-    get :create, nil, nil
+    get :create
     assert_response :success
     assert_template 'sessions/new'
 
     server = servers(:max)
-    get :create, nil, { server_id: server.id, user_id: server.user.id }
+    get :create, session: { server_id: server.id, user_id: server.user.id }
     assert_redirected_to plans_path
   end
 
@@ -39,7 +39,7 @@ class UsersControllerTest < ActionController::TestCase
     email = server.email
     siblings = server.siblings
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      get :create, nil, { server_id: server.id }
+      get :create, session: { server_id: server.id }
     end
     server = Server.find(server.id)
     assert_response :success
@@ -66,34 +66,34 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "settings only available to registered users" do
-    get :edit, nil, nil
+    get :edit
     assert_template 'sessions/new'
 
     server = servers(:heinz)
-    get :edit, nil, { server_id: server.id }
+    get :edit, session: { server_id: server.id }
     assert_redirected_to root_path
 
     user = users(:max)
-    get :edit, nil, { server_id: user.servers.first.id, user_id: user.id }
+    get :edit, session: { server_id: user.servers.first.id, user_id: user.id }
     assert_template :edit
     assert_response :success
   end
 
   test "update only available to registered users" do
-    post :update, nil, nil
+    post :update
     assert_template 'sessions/new'
 
     server = servers(:heinz)
-    post :update, nil, { server_id: server.id }
+    post :update, session: { server_id: server.id }
     assert_redirected_to root_path
 
-    post :update, { user: { test: nil }}, @session
+    post :update, params: { user: { test: nil }}, session: @session
     assert_template :edit
     assert_response :success
   end
 
   test "updating user-values with invalid email" do
-    post :update, { user: { email: 'testen.de' }}, @session
+    post :update, params: { user: { email: 'testen.de' }}, session: @session
     user = User.find(users(:max).id)
     assert_template :edit
     assert_select '.alert.alert-success', false
@@ -102,7 +102,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "updating user-values only with email" do
-    post :update, { user: { email: 'test@bla.de' }}, @session
+    post :update, params: { user: { email: 'test@bla.de' }}, session: @session
     user = User.find(users(:max).id)
     assert_template :edit
     assert_select '.alert.alert-success', I18n.t('users.edit.changes_saved')
@@ -110,7 +110,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "updating user-values only with password" do
-    post :update, { user: { password: 'testenen', password_confirmation: 'testenen' }}, @session
+    post :update, params: { user: { password: 'testenen', password_confirmation: 'testenen' }}, session: @session
     user = User.find(users(:max).id)
     assert user.authenticate('testenen')
     assert_template :edit
@@ -118,7 +118,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "updating user-values with wrong confirmation" do
-    post :update, { user: { password: 'testenen', password_confirmation: 'testenem' }}, @session
+    post :update, params: { user: { password: 'testenen', password_confirmation: 'testenem' }}, session: @session
     user = User.find(users(:max).id)
     assert_template :edit
     assert_select '.alert.alert-success', false
@@ -127,7 +127,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "updating user-values with invalid password" do
-    post :update, { user: { password: 'test', password_confirmation: 'test' }}, @session
+    post :update, params: { user: { password: 'test', password_confirmation: 'test' }}, session: @session
     user = User.find(users(:max).id)
     assert_template :edit
     assert_select '.alert.alert-success', false
@@ -137,7 +137,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "updating valid size for servers" do
     server = users(:max).servers.first
-    post :update, { user: { servers_attributes: { id: server.id, size_talar: 150, size_rochet: 90 }}}, @session
+    post :update, params: { user: { servers_attributes: { id: server.id, size_talar: 150, size_rochet: 90 }}}, session: @session
     server = Server.find(server.id)
     assert_template :edit
     assert_select '.alert.alert-success', I18n.t('users.edit.changes_saved')
@@ -147,7 +147,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "updating invalid sizes for servers" do
     server = users(:max).servers.first
-    post :update, { user: { servers_attributes: { id: server.id, size_talar: 180, size_rochet: 200 }}}, @session
+    post :update, params: { user: { servers_attributes: { id: server.id, size_talar: 180, size_rochet: 200 }}}, session: @session
     server = Server.find(server.id)
     assert_template :edit
     assert_select '.alert.alert-success', false
@@ -166,7 +166,7 @@ class UsersControllerTest < ActionController::TestCase
     servers.update_all(email: 'test@blabla.de')
 
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      delete :destroy, nil, @session
+      delete :destroy, session: @session
     end
     assert_not User.find_by(id: id)
     servers.each do |server|

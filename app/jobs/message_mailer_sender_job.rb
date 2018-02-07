@@ -1,7 +1,7 @@
 # This job allows asynchronus creation of a pdf-file for a plan assigned to a message and sends this plan multiple
 #    times.
 
-class MessageMailerSenderJob < ActiveJob::Base
+class MessageMailerSenderJob < ApplicationJob
 
   # Use the default mailers-queue also used by "normal" ActiveMailer-jobs.
   queue_as :mailers

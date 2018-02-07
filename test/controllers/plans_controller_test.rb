@@ -34,7 +34,7 @@ class PlansControllerTest < ActionController::TestCase
 
   test "enrolling for a plan" do
     plan = plans(:easter)
-    get :show, id: plan.id
+    get :show, params: { id: plan.id }
     assert_response :success
     assert_template :show
     assert_equal plan, assigns(:plan)
@@ -45,11 +45,11 @@ class PlansControllerTest < ActionController::TestCase
     assert_not_includes plan.servers, @server
     evts = [ events(:easter), events(:goodfriday) ]
     ids = evts.map(&:id)
-    patch :update, id: plan.id, events: ids
+    patch :update, params: { id: plan.id, events: ids }
     assert_response :success
     assert_template :show
-    assert_equal evts, @server.events(true)
-    evts.each { |event|  assert_includes event.servers(true), @server }
+    assert_equal evts, @server.events.reload
+    evts.each { |event|  assert_includes event.servers.reload, @server }
     assert_select '.alert.alert-success', I18n.t('plans.show.enrolled')
     assert_includes plan.servers, @server
   end
@@ -57,7 +57,7 @@ class PlansControllerTest < ActionController::TestCase
   test "saving with empty plan list" do
     plan = plans(:easter)
     assert_not_includes plan.servers, @server
-    patch :update, id: plan.id, events: nil
+    patch :update, params: { id: plan.id, events: nil }
     assert_response :success
     assert_template :show
     assert_select '.alert.alert-success', I18n.t('plans.show.enrolled')
@@ -67,17 +67,17 @@ class PlansControllerTest < ActionController::TestCase
   test "saving plan-enrollement only if not already saved" do
     plan = plans(:easter)
     assert_not_includes plan.servers, @server
-    patch :update,id: plan.id, events: nil
+    patch :update, params: { id: plan.id, events: nil }
     assert_includes plan.servers, @server
-    patch :update,id: plan.id, events: nil
+    patch :update, params: { id: plan.id, events: nil }
     assert_equal 1, plan.servers.to_a.count(@server)
   end
 
   test "invalid plan shows overview" do
-    get :show, id: 1
+    get :show, params: { id: 1 }
     assert_redirected_to plans_path
 
-    patch :update, id: 1
+    patch :update, params: { id: 1 }
     assert_redirected_to plans_path
   end
 
@@ -88,8 +88,8 @@ class PlansControllerTest < ActionController::TestCase
     events = [ events(:older), events(:easter), events(:goodfriday) ]
     @server.update(events: pres)
 
-    patch :update, id: plan.id, events: posts
-    assert_equal events, @server.events(true)
+    patch :update, params: { id: plan.id, events: posts }
+    assert_equal events, @server.events.reload
     assert_select '.alert.alert-success', I18n.t('plans.show.enrolled')
   end
 

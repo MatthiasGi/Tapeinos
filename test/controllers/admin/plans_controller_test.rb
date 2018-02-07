@@ -16,26 +16,26 @@ class Admin::PlansControllerTest < ActionController::TestCase
   end
 
   test "show invalid plan" do
-    get :show, { id: 1 }
+    get :show, params: { id: 1 }
     assert_redirected_to admin_plans_path
   end
 
   test "show valid plan" do
     plan = plans(:easter)
-    get :show, { id: plan.id }
+    get :show, params: { id: plan.id }
     assert_response :success
     assert_template :show
     assert_equal plan, assigns(:plan)
   end
 
   test "edit invalid plan" do
-    get :edit, { id: 1 }
+    get :edit, params: { id: 1 }
     assert_redirected_to admin_plans_path
   end
 
   test "edit valid plan" do
     plan = plans(:easter)
-    get :edit, { id: plan.id }
+    get :edit, params: { id: plan.id }
     assert_response :success
     assert_template :edit
     assert_equal plan, assigns(:plan)
@@ -43,7 +43,7 @@ class Admin::PlansControllerTest < ActionController::TestCase
 
   test "update with wrong parameters" do
     plan = plans(:easter)
-    patch :update, { id: plan.id, plan: { title: '' }}
+    patch :update, params: { id: plan.id, plan: { title: '' }}
     assert_response :success
     assert_template :edit
     assert_equal plan, assigns(:plan)
@@ -53,7 +53,7 @@ class Admin::PlansControllerTest < ActionController::TestCase
   test "update valid parameters" do
     old = plans(:easter)
     old_ev = old.events.first
-    patch :update, { id: old.id, plan: { title: 'TEST', remark: 'blabla', events_attributes: { id: old_ev.id, date: 1.day.ago, title: 'testen' }}}
+    patch :update, params: { id: old.id, plan: { title: 'TEST', remark: 'blabla', events_attributes: { id: old_ev.id, date: 1.day.ago, title: 'testen' }}}
     new = Plan.find(old.id)
     assert_equal 'TEST', new.title
     assert_equal 'blabla', new.remark
@@ -67,20 +67,20 @@ class Admin::PlansControllerTest < ActionController::TestCase
     plan = plans(:easter)
     id = plan.events.first.id
     assert_difference 'Plan.find(plan.id).events.count', -1 do
-      patch :update, { id: plan.id, plan: { events_attributes: { id: id, _destroy: 1 }}}
+      patch :update, params: { id: plan.id, plan: { events_attributes: { id: id, _destroy: 1 }}}
     end
     assert_not Event.find_by(id: id)
   end
 
   test "deleting plan" do
     plan = plans(:easter)
-    delete :destroy, { id: plan.id }
+    delete :destroy, params: { id: plan.id }
     assert_redirected_to admin_plans_path
     assert_not Plan.find_by(id: plan.id)
   end
 
   test "deleting invalid plan" do
-    delete :destroy, { id: 1 }
+    delete :destroy, params: { id: 1 }
     assert_redirected_to admin_plans_path
   end
 
@@ -94,7 +94,7 @@ class Admin::PlansControllerTest < ActionController::TestCase
   test "create plan" do
     assert_difference 'Plan.all.count', +1 do
       assert_difference 'Event.all.count', +2 do
-        post :create, { plan: { title: 'Test', events_attributes: [{ date: 2.days.ago }, { date: 1.day.ago }]}}
+        post :create, params: { plan: { title: 'Test', events_attributes: [{ date: 2.days.ago }, { date: 1.day.ago }]}}
       end
     end
     assert_redirected_to admin_plan_path(Plan.all.last)
@@ -103,7 +103,7 @@ class Admin::PlansControllerTest < ActionController::TestCase
   test "create plan with error" do
     assert_no_difference 'Plan.all.count' do
       assert_no_difference 'Event.all.count' do
-        post :create, { plan: { title: '', events_attributes: [{ date: 2.days.ago, needed: 1 }, { date: 1.day.ago, needed: 1 }]}}
+        post :create, params: { plan: { title: '', events_attributes: [{ date: 2.days.ago, needed: 1 }, { date: 1.day.ago, needed: 1 }]}}
       end
     end
     assert_response :success

@@ -19,7 +19,7 @@ class PlansController < ApplicationController
 
   # Saves the new enrollement of the currently logged in server.
   def update
-    params[:events] ||= []
+    params[:events] = [] if params[:events].blank? 
     evts_param = params[:events].map { |id| Event.find_by(id: id) }
     evts_param = evts_param.compact
     events = @current_server.events - @plan.events + evts_param

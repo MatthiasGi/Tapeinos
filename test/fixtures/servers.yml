@@ -33,6 +33,7 @@ heinz:
   lastname: Müller
   email: heinz@gianfelice.de
   sex: 0
+  last_used: <%= 2.days.ago %>
   seed: abcdefabcdefabcdefabcdefabcdefae
 
 heinz2:
@@ -90,4 +91,3 @@ root:
   sex: 0
   seed: 13245678901324567890132456789012
   user: root
-

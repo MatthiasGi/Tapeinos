@@ -19,13 +19,13 @@ class Admin::MessagesControllerTest < ActionController::TestCase
   end
 
   test "show invalid message" do
-    get :show, { id: 1 }
+    get :show, params: { id: 1 }
     assert_redirected_to admin_messages_path
   end
 
   test "show valid message" do
     message = messages(:one)
-    get :show, { id: message.id }
+    get :show, params: { id: message.id }
     assert_response :success
     assert_template :show
     assert_equal message, assigns(:message)
@@ -33,7 +33,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "draft message show with send" do
     message = messages(:one)
-    get :show, { id: message.id }
+    get :show, params: { id: message.id }
     assert_template :show
     assert_select '.btn.btn-primary .glyphicon-send'
     assert_select '.btn.btn-primary .glyphicon-pencil'
@@ -42,7 +42,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "sent message shows without send" do
     message = messages(:two)
-    get :show, { id: message.id }
+    get :show, params: { id: message.id }
     assert_template :show
     assert_select '.btn.btn-primary .glyphicon-send', false
     assert_select '.btn.btn-primary .glyphicon-pencil', false
@@ -50,13 +50,13 @@ class Admin::MessagesControllerTest < ActionController::TestCase
   end
 
   test "edit invalid message" do
-    get :edit, { id: 1 }
+    get :edit, params: { id: 1 }
     assert_redirected_to admin_messages_path
   end
 
   test "edit sent message" do
     message = messages(:two)
-    get :edit, { id: message.id }
+    get :edit, params: { id: message.id }
     assert_response :success
     assert_template :show
     assert_equal message, assigns(:message)
@@ -64,7 +64,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "edit valid message" do
     message = messages(:one)
-    get :edit, { id: message.id }
+    get :edit, params: { id: message.id }
     assert_response :success
     assert_template :edit
     assert_equal message, assigns(:message)
@@ -72,7 +72,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "update sent message" do
     message = messages(:two)
-    patch :update, { id: message.id, message: { subject: 'test' }}
+    patch :update, params: { id: message.id, message: { subject: 'test' }}
     assert_not_equal 'test', Message.find(message.id).subject
     assert_response :success
     assert_template :show
@@ -81,7 +81,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "update with wrong parameters" do
     message = messages(:one)
-    patch :update, { id: message.id, message: { subject: '', text: '' }}
+    patch :update, params: { id: message.id, message: { subject: '', text: '' }}
     assert_response :success
     assert_template :edit
     assert_equal message, assigns(:message)
@@ -92,7 +92,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
   test "update with valid parameters" do
     message = messages(:one)
     date = message.date
-    patch :update, { id: message.id, message: { subject: 'test', text: 'bla' }}
+    patch :update, params: { id: message.id, message: { subject: 'test', text: 'bla' }}
     message = Message.find(message.id)
     assert_response :success
     assert_template :show
@@ -107,21 +107,21 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "update invalid receivers" do
     message = messages(:one)
-    patch :update, { id: message.id, message: { server_ids: [1, 2] }}
+    patch :update, params: { id: message.id, message: { server_ids: [1, 2] }}
     assert Message.find(message.id).servers.empty?
   end
 
   test "update valid receivers" do
     message = messages(:one)
     servs = [ servers(:max), servers(:max2), servers(:heinz) ]
-    patch :update, { id: message.id, message: { server_ids: servs.map(&:id) }}
+    patch :update, params: { id: message.id, message: { server_ids: servs.map(&:id) }}
     assert_equal servs, Message.find(message.id).servers.to_a
   end
 
   test "update with invalid parameters" do
     old = messages(:one)
     date = 2.minutes.ago
-    patch :update, { id: old.id, message: { date: date, state: 1, user: users(:max) }}
+    patch :update, params: { id: old.id, message: { date: date, state: 1, user: users(:max) }}
     new = Message.find(old.id)
     assert_not_equal date, new.date
     assert new.draft?
@@ -138,7 +138,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "create message" do
     assert_difference 'Message.all.count', +1 do
-      post :create, { message: { subject: 'test', text: 'bla' }}
+      post :create, params: { message: { subject: 'test', text: 'bla' }}
     end
     message = Message.all.last
     assert_redirected_to admin_message_path(message)
@@ -153,7 +153,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "create message with error" do
     assert_no_difference 'Message.all.count' do
-      post :create, { message: { subject: '', text: '' }}
+      post :create, params: { message: { subject: '', text: '' }}
     end
     assert_response :success
     assert_template :new
@@ -163,7 +163,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "create with invalid receivers" do
     assert_no_difference 'Message.all.count' do
-      post :create, { message: { subject: 'test', text: 'bla', server_ids: [1, 2] }}
+      post :create, params: { message: { subject: 'test', text: 'bla', server_ids: [1, 2] }}
     end
     message = Message.all.last
     assert message.servers.empty?
@@ -172,7 +172,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
   test "create with valid receivers" do
     servs = [ servers(:heinz), servers(:heinz2), servers(:max3) ]
     assert_difference 'Message.all.count', +1 do
-      post :create, { message: { subject: 'test', text: 'bla', server_ids: servs.map(&:id) }}
+      post :create, params: { message: { subject: 'test', text: 'bla', server_ids: servs.map(&:id) }}
     end
     message = Message.all.last
     assert_equal servs, message.servers.to_a
@@ -180,19 +180,19 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
   test "deleting message" do
     message = messages(:one)
-    delete :destroy, { id: message.id }
+    delete :destroy, params: { id: message.id }
     assert_redirected_to admin_messages_path
     assert_not Message.find_by(id: message.id)
   end
 
   test "deleting invalid message" do
-    delete :destroy, { id: 1 }
+    delete :destroy, params: { id: 1 }
     assert_redirected_to admin_messages_path
   end
 
   test "deleting sent message" do
     message = messages(:two)
-    delete :destroy, { id: message.id }
+    delete :destroy, params: { id: message.id }
     assert_response :success
     assert_template :show
     assert_equal message, assigns(:message)
@@ -203,7 +203,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     message = messages(:two)
     assert message.update(servers: [ servers(:max) ])
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      get :mail, { id: message.id }
+      get :mail, params: { id: message.id }
     end
     assert_response :success
     assert_template :show
@@ -211,7 +211,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
   end
 
   test "sending invalid email" do
-    get :mail, { id: 1 }
+    get :mail, params: { id: 1 }
     assert_redirected_to admin_messages_path
   end
 
@@ -221,7 +221,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
     emails = Server.all.map(&:email).uniq
     assert_difference 'ActionMailer::Base.deliveries.size', emails.size do
-      get :mail, { id: message.id }
+      get :mail, params: { id: message.id }
     end
     ActionMailer::Base.deliveries.each do |mail|
       assert_includes emails, mail.to.first
@@ -238,7 +238,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
   test "sending valid mail but with no receiver" do
     message = messages(:one)
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      get :mail, { id: message.id }
+      get :mail, params: { id: message.id }
     end
 
     message = Message.find(message.id)
@@ -254,7 +254,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     message = messages(:one)
     plan = plans(:easter)
     assert_not message.plan
-    patch :update, { id: message.id, message: { plan_id: plan.id }}
+    patch :update, params: { id: message.id, message: { plan_id: plan.id }}
     message = Message.find(message.id)
     assert_equal plan, message.plan
   end
@@ -262,7 +262,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
   test "create message with associated plan" do
     plan = plans(:easter)
     assert_difference 'Message.all.count', +1 do
-      post :create, { message: { subject: 'test', text: 'bla', plan_id: plan.id }}
+      post :create, params: { message: { subject: 'test', text: 'bla', plan_id: plan.id }}
     end
     message = Message.all.last
     assert_equal plan, message.plan
@@ -271,14 +271,14 @@ class Admin::MessagesControllerTest < ActionController::TestCase
   test "don't update the plan for a message when already sent" do
     message = messages(:two)
     plan = plans(:easter)
-    patch :update, { id: message.id, message: { plan_id: plan.id }}
+    patch :update, params: { id: message.id, message: { plan_id: plan.id }}
     assert_not Message.find(message.id).plan
   end
 
   test "remove plan from message" do
     message = messages(:with_plan)
     assert message.plan
-    patch :update, { id: message.id, message: { plan_id: nil }}
+    patch :update, params: { id: message.id, message: { plan_id: nil }}
     assert_not Message.find(message.id).plan
   end
 
@@ -288,7 +288,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     message.sent!
     assert message.sent?
     assert plan = message.plan
-    patch :update, { id: message.id, message: { plan_id: nil }}
+    patch :update, params: { id: message.id, message: { plan_id: nil }}
     assert_equal plan, message.plan
   end
 
@@ -298,7 +298,7 @@ class Admin::MessagesControllerTest < ActionController::TestCase
 
     emails = Server.all.map(&:email).uniq
     assert_difference 'ActionMailer::Base.deliveries.size', emails.size do
-      get :mail, { id: message.id }
+      get :mail, params: { id: message.id }
     end
     ActionMailer::Base.deliveries.each do |mail|
       assert_match "#{message.plan.title}.pdf", mail.attachments.first.to_s

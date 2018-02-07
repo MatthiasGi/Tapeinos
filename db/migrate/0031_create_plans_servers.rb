@@ -1,4 +1,4 @@
-class CreatePlansServers < ActiveRecord::Migration
+class CreatePlansServers < ActiveRecord::Migration[5.1]
   def change
     create_table :plans_servers, id: false do |t|
       t.belongs_to :plan, index: true

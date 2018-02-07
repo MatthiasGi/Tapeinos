@@ -44,7 +44,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
   end
 
   test "update lists settings" do
-    post :update, settings: {}
+    post :update, params: { settings: {}}
     assert_response :success
     assert_template :index
     assert_not SettingsHelper.get(:restart_required)
@@ -65,7 +65,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
         timezone: 'Edinburgh'
       }
 
-    post :update, settings: new_settings
+    post :update, params: { settings: new_settings }
     new_settings.each do |key, value|
       assert_equal value, SettingsHelper.get(key)
     end
@@ -79,14 +79,14 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     old_pw = SettingsHelper.get(:email_password)
     get :index
     settings = assigns(:settings)
-    post :update, settings: { email_password: settings[:email_password] }
+    post :update, params: { settings: { email_password: settings[:email_password] }}
     assert_equal old_pw, SettingsHelper.get(:email_password)
     assert_not SettingsHelper.get(:restart_required)
   end
 
   test "don't set other settings" do
     redis = !SettingsHelper.get(:redis_up)
-    post :update, settings: { redis_up: redis }
+    post :update, params: { settings: { redis_up: redis }}
     assert_not_equal redis, SettingsHelper.get(:redis_up)
   end
 

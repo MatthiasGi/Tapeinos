@@ -90,7 +90,7 @@ class SessionsController < ApplicationController
       # The server is the same or a server is changing to another server that is
       #    related to him.
       server.used
-      redirect_to :back
+      redirect_back fallback_location: plans_path
     else
       # The change is not allowed, abort everything
       flash.now[:invalid_server_change] = true and logout

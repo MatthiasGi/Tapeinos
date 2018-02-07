@@ -34,3 +34,6 @@ dump.rdb
 
 # Precompiled assets
 public/assets
+
+# Ignore other files.
+.DS_STORE

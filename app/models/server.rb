@@ -1,11 +1,11 @@
 # This class contains the server: a kind of user of the interface who can
 #    optionally be linked with a "real" user.
 
-class Server < ActiveRecord::Base
+class Server < ApplicationRecord
 
   # Optional linked user-account to make login and password-managment available
   #    to one or more servers.
-  belongs_to :user
+  belongs_to :user, optional: true
 
   # The servers can enroll to many events (contained in plans).
   has_and_belongs_to_many :events

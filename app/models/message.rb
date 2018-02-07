@@ -1,6 +1,6 @@
 # The messages are send to the servers and stored for later reference.
 
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
 
   # Each message has an author.
   belongs_to :user
@@ -19,7 +19,7 @@ class Message < ActiveRecord::Base
   has_and_belongs_to_many :servers
 
   # The message can be linked to a plan to send the current plan as pdf.
-  belongs_to :plan
+  belongs_to :plan, required: false
 
   # ============================================================================
 

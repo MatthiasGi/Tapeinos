@@ -1,7 +1,7 @@
 # This class is used for manging multiple servers. It allows the user of the app
 #    to login and save settings.
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   # This user-object holds a collection of servers it manages.
   has_many :servers

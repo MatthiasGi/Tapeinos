@@ -16,13 +16,13 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test "edit invalid user" do
-    get :edit, { id: 1 }
+    get :edit, params: { id: 1 }
     assert_redirected_to admin_users_path
   end
 
   test "edit valid user" do
     user = users(:max)
-    get :edit, { id: user.id }
+    get :edit, params: { id: user.id }
     assert_response :success
     assert_template :edit
     assert_equal user, assigns(:user)
@@ -30,7 +30,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test "update with wrong parameters" do
     user = users(:max)
-    patch :update, { id: user.id, user: { email: 'testbla.de', password: 'test', password_confirmation: 'asdf' }}
+    patch :update, params: { id: user.id, user: { email: 'testbla.de', password: 'test', password_confirmation: 'asdf' }}
     assert_response :success
     assert_template :edit
     assert_equal user, assigns(:user)
@@ -41,19 +41,19 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test "update invalid parameters" do
     old = users(:max)
-    patch :update, { id: old.id, user: { password_digest: 'testestetset', last_used: DateTime.now, password_reset_token: 'test', password_reset_expire: DateTime.now, failed_authentications: 3 }}
+    patch :update, params: { id: old.id, user: { password_digest: 'testestetset', last_used: DateTime.now, password_reset_token: 'test', password_reset_expire: DateTime.now, failed_authentications: 3 }}
     assert_redirected_to admin_users_path
     new = User.find(old.id)
     assert_equal old.password_digest, new.password_digest
     assert_equal old.last_used, new.last_used
-    assert_equal old.password_reset_token, new.password_reset_token
-    assert_equal old.password_reset_expire, new.password_reset_expire
+    assert_nil new.password_reset_token
+    assert_nil new.password_reset_expire
     assert_equal old.failed_authentications, new.failed_authentications
   end
 
   test "update valid parameters" do
     old = users(:max)
-    patch :update, { id: old.id, user: { email: 'test@blabla.de', password: 'testtest', password_confirmation: 'testtest', role: :admin }}
+    patch :update, params: { id: old.id, user: { email: 'test@blabla.de', password: 'testtest', password_confirmation: 'testtest', role: :admin }}
     assert_redirected_to admin_users_path
     new = User.find(old.id)
     assert_equal 'test@blabla.de', new.email
@@ -63,13 +63,13 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test "deleting user" do
     user = users(:max)
-    delete :destroy, { id: user.id }
+    delete :destroy, params: { id: user.id }
     assert_redirected_to admin_users_path
     assert_not User.find_by(id: user.id)
   end
 
   test "deleting invalid user" do
-    delete :destroy, { id: 1 }
+    delete :destroy, params: { id: 1 }
     assert_redirected_to admin_users_path
   end
 
@@ -77,7 +77,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     user = users(:max)
     old_servs = user.servers.map(&:id)
     new_servs = [ servers(:heinz), servers(:heinz2) ].map(&:id)
-    patch :update, { id: user.id, user: { email: 'test@bla.de', server_ids: new_servs, role: :admin }}
+    patch :update, params: { id: user.id, user: { email: 'test@bla.de', server_ids: new_servs, role: :admin }}
     old_servs.each { |s| assert_not Server.find(s).user }
     new_servs.each { |s| assert_equal(user, Server.find(s).user) }
   end
@@ -85,7 +85,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   test "removing all servers" do
     user = users(:max)
     assert_not user.servers.empty?
-    patch :update, { id: user.id, user: { server_ids: [] }}
+    patch :update, params: { id: user.id, user: { server_ids: [ nil ] }}
     assert user.servers.empty?
     Server.all.each { |s| assert_not_equal(user, s.user) }
   end

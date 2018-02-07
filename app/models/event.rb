@@ -1,7 +1,7 @@
 # Events hold dates that are assigned to plans. They allow servers to enroll for
 #    specific dates inside a plan.
 
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
 
   # Each event *must* be linked to a plan.
   belongs_to :plan

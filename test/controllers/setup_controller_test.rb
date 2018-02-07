@@ -38,7 +38,7 @@ class SetupControllerTest < ActionController::TestCase
       email_port: 587
     }
     defaults.each { |k, v| SettingsHelper.set(k, nil) }
-    get :show, { id: :domain }, @authenticated
+    get :show, params: { id: :domain }, session: @authenticated
 
     defaults.each do |key, value|
       assert_equal value, assigns(:settings)[key]
@@ -49,7 +49,7 @@ class SetupControllerTest < ActionController::TestCase
 
   test "setup destroys session information" do
     server = servers(:heinz)
-    get :show, { id: :authenticate }, { server_id: server.id }
+    get :show, params: { id: :authenticate }, session: { server_id: server.id }
     assert_response :success
     assert_template :authenticate
     assert_nil session[:server_id]
@@ -59,12 +59,12 @@ class SetupControllerTest < ActionController::TestCase
   test "setup not available if a user is available" do
     user = User.new(email: 'test@bla.de', password: 'testen')
     assert user.save
-    get :show, id: :authenticate
+    get :show, params: { id: :authenticate }
     assert_redirected_to root_path
   end
 
   test "setup generates authentication key" do
-    get :show, id: :authenticate
+    get :show, params: { id: :authenticate }
     assert_response :success
     assert_template :authenticate
     assert File.exists?('SETUP_CODE')
@@ -73,7 +73,7 @@ class SetupControllerTest < ActionController::TestCase
 
   test "existing file gets overwritten" do
     File.write('SETUP_CODE', 'blabla')
-    get :show, id: :authenticate
+    get :show, params: { id: :authenticate }
     assert_response :success
     assert_template :authenticate
     assert_not_equal 'blabla', File.read('SETUP_CODE')
@@ -81,16 +81,16 @@ class SetupControllerTest < ActionController::TestCase
   end
 
   test "authenticating with correct token works" do
-    get :show, id: :authenticate
+    get :show, params: { id: :authenticate }
     token = File.read('SETUP_CODE')
-    put :update, { id: :authenticate, token: token }
+    put :update, params: { id: :authenticate, token: token }
     assert_redirected_to '/setup/domain'
     assert_not File.exists?('SETUP_CODE')
   end
 
   test "authenticating with incorrect token yields error" do
-    get :show, id: :authenticate
-    put :update, { id: :authenticate, token: 'asdf' }
+    get :show, params: { id: :authenticate }
+    put :update, params: { id: :authenticate, token: 'asdf' }
     assert_response :success
     assert_template :authenticate
     assert_select '.alert.alert-danger', I18n.t('setup.authenticate.invalid_token')
@@ -98,7 +98,7 @@ class SetupControllerTest < ActionController::TestCase
   end
 
   test "authenticating without file yields error" do
-    put :update, { id: :authenticate, token: 'asdf' }
+    put :update, params: { id: :authenticate, token: 'asdf' }
     assert_response :success
     assert_template :authenticate
     assert_select '.alert.alert-danger', I18n.t('setup.authenticate.invalid_token')
@@ -106,13 +106,13 @@ class SetupControllerTest < ActionController::TestCase
   end
 
   test "calling wrong action without first authenticating fails" do
-    get :show, id: :domain
+    get :show, params: { id: :domain }
     assert_redirected_to '/setup/authenticate'
     assert_not assigns(:settings)
   end
 
   test "calling when authenticated works" do
-    get :show, { id: :domain }, @authenticated
+    get :show, params: { id: :domain }, session: @authenticated
     assert_response :success
     assert_template :domain
     settings_tester
@@ -124,7 +124,7 @@ class SetupControllerTest < ActionController::TestCase
     timezone = SettingsHelper.get(:timezone)
 
     SettingsHelper.set(:restart_required, false)
-    put :update, { id: :domain, settings: { domain: 'test', redis: 'bla', timezone: 'Berlin' }}
+    put :update, params: { id: :domain, settings: { domain: 'test', redis: 'bla', timezone: 'Berlin' }}
     assert_redirected_to '/setup/mailer'
     assert_equal 'test', SettingsHelper.get(:domain)
     assert_equal 'bla', SettingsHelper.get(:redis)
@@ -132,7 +132,7 @@ class SetupControllerTest < ActionController::TestCase
     assert SettingsHelper.get(:restart_required, false)
     SettingsHelper.set(:restart_required, false)
 
-    get :show, { id: :domain }, @authenticated
+    get :show, params: { id: :domain }, session: @authenticated
     settings_tester
     assert_equal 'test', assigns(:settings)[:domain]
     assert_equal 'bla', assigns(:settings)[:redis]
@@ -148,7 +148,7 @@ class SetupControllerTest < ActionController::TestCase
     redis = SettingsHelper.get(:redis)
     timezone = SettingsHelper.get(:timezone)
 
-    get :show, { id: :domain }, @authenticated
+    get :show, params: { id: :domain }, session: @authenticated
     settings_tester
     assert_equal domain, assigns(:settings)[:domain]
     assert_equal redis, assigns(:settings)[:redis]
@@ -156,12 +156,12 @@ class SetupControllerTest < ActionController::TestCase
   end
 
   test "mailer only if authenticated" do
-    get :show, { id: :mailer }
+    get :show, params: { id: :mailer }
     assert_redirected_to setup_path(:authenticate)
     assert_not assigns(:settings)
     assert_not SettingsHelper.get(:restart_required)
 
-    get :show, { id: :mailer }, @authenticated
+    get :show, params: { id: :mailer }, session: @authenticated
     settings_tester
     assert_response :success
     assert_template :mailer
@@ -178,7 +178,7 @@ class SetupControllerTest < ActionController::TestCase
     }
 
     SettingsHelper.set(:restart_required, false)
-    put :update, { id: :mailer, settings: { email_server: 'test', email_port: 3, email_username: 'bla', email_password: 'testen', email_email: 'blubb', email_name: 'heinz' }}, @authenticated
+    put :update, params: { id: :mailer, settings: { email_server: 'test', email_port: 3, email_username: 'bla', email_password: 'testen', email_email: 'blubb', email_name: 'heinz' }}, session: @authenticated
     assert SettingsHelper.get(:restart_required, false)
     SettingsHelper.set(:restart_required, false)
 
@@ -195,18 +195,26 @@ class SetupControllerTest < ActionController::TestCase
     end
   end
 
-  test "mailer shows already saved settings" do
-    attr = [:server, :port, :username, :password, :email, :name]
-    attr.collect { |s| "email_#{s}".to_sym }
-    get :show, { id: :mailer }, @authenticated
+  test "mailer shows already saved settings (except password)" do
+    attr = [:server, :port, :username, :email, :name]
+    attr = attr.collect { |s| "email_#{s}".to_sym }
+    get :show, params: { id: :mailer }, session: @authenticated
     settings_tester
     attr.each do |key|
+      assert_not_nil SettingsHelper.get(key)
       assert_equal SettingsHelper.get(key), assigns(:settings)[key]
     end
   end
 
+  test "mailer shows password obfustcated" do
+    get :show, params: { id: :mailer }, session: @authenticated
+    settings_tester
+    assert_not_nil SettingsHelper.get(:email_password)
+    assert_equal '      ', assigns(:settings)[:email_password]
+  end
+
   test "creating server with invalid data" do
-    put :update, { id: :server, server: { email: 'testbla.de' }}
+    put :update, params: { id: :server, server: { email: 'testbla.de' }}
     assert_not assigns(:settings)
     assert_response :success
     assert_template :server
@@ -218,7 +226,7 @@ class SetupControllerTest < ActionController::TestCase
 
   test "creating server with valid data" do
     Server.destroy_all
-    put :update, { id: :server, server: { firstname: 'Test', lastname: 'Bla', email: 'test@bla.de', sex: :female }}
+    put :update, params: { id: :server, server: { firstname: 'Test', lastname: 'Bla', email: 'test@bla.de', sex: :female }}
     assert_not assigns(:settings)
     assert_response :success
     assert_template :finish
@@ -239,18 +247,18 @@ class SetupControllerTest < ActionController::TestCase
   end
 
   test "Only settings-pages which need settings should get them" do
-    get :show, id: :authenticate
+    get :show, params: { id: :authenticate }
     assert_not assigns(:settings)
-    get :show, { id: :server }, @authenticated
+    get :show, params: { id: :server }, session: @authenticated
     assert_not assigns(:settings)
-    get :show, { id: :finish }, @authenticated
+    get :show, params: { id: :finish }, session: @authenticated
     assert_not assigns(:settings)
-    get :show, { id: :domain }, @authenticated
+    get :show, params: { id: :domain }, session: @authenticated
     settings_tester
   end
 
   test "Settings in mailer-settings" do
-    get :show, { id: :mailer }, @authenticated
+    get :show, params: { id: :mailer }, session: @authenticated
     settings_tester
   end
 

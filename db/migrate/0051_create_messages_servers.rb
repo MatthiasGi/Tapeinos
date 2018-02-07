@@ -1,4 +1,4 @@
-class CreateMessagesServers < ActiveRecord::Migration
+class CreateMessagesServers < ActiveRecord::Migration[5.1]
   def change
     create_table :messages_servers, id: false do |t|
       t.belongs_to :message, index: true

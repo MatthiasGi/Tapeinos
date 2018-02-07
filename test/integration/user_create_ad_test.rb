@@ -4,11 +4,13 @@ class UserCreateAdTest < ActionDispatch::IntegrationTest
 
   test "get register advertising" do
     server = servers(:heinz)
-    get_via_redirect login_seed_path(server.seed)
+    get login_seed_path(server.seed)
+    follow_redirect!
 
     assert_template 'plans/index'
     assert_select '.panel .btn', I18n.t('defaults.register.submit')
-    get_via_redirect change_server_path(server.siblings.first.id), nil, referer: plans_path
+    get change_server_path(server.siblings.first.id), headers: { HTTP_REFERER: plans_path }
+    follow_redirect!
 
     assert_template 'plans/index'
     assert_select '.panel .btn', I18n.t('defaults.register.submit')
@@ -16,7 +18,8 @@ class UserCreateAdTest < ActionDispatch::IntegrationTest
 
   test "no advertise on logged in user" do
     user = users(:max)
-    post_via_redirect login_path, { user: { email: user.email, password: 'testen' }}
+    post login_path, params: { user: { email: user.email, password: 'testen' }}
+    follow_redirect!
 
     assert_template 'plans/index'
     assert_select '.panel .btn', false
@@ -24,7 +27,8 @@ class UserCreateAdTest < ActionDispatch::IntegrationTest
     # The following was added due to bug #9
     assert assigns(:current_server)
     other = assigns(:current_server).siblings.first
-    get_via_redirect change_server_path(other.id), nil, referer: plans_path
+    get change_server_path(other.id), headers: { HTTP_REFERER: plans_path }
+    follow_redirect!
     assert_template 'plans/index'
     assert_equal user, assigns(:current_user)
     assert_equal other, assigns(:current_server)

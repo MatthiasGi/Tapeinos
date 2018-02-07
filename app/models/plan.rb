@@ -1,6 +1,6 @@
 # A plan holds many dates allowing the servers to enroll to them.
 
-class Plan < ActiveRecord::Base
+class Plan < ApplicationRecord
 
   # The title is the only way for the user to distinguish plans
   validates :title, presence: true

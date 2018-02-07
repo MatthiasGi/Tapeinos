@@ -17,7 +17,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     # Wrong email
     email = 'test@bla.de'
-    post :create, {user: {email: email}}
+    post :create, params: { user: { email: email }}
     assert_response :success
     assert_template :new
     assert_select '.email.has-error .help-block', I18n.t('sessions.create.email_not_found')
@@ -25,7 +25,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil assigns(:current_user)
 
     # Wrong password
-    post :create, {user: {email: user.email, password: 'wrongpass'}}
+    post :create, params: { user: { email: user.email, password: 'wrongpass' }}
     assert_response :success
     assert_template :new
     assert_select '.email.has-error', false
@@ -37,7 +37,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     # Everything right
     used = user.last_used
-    post :create, {user: {email: user.email, password: 'testen'}}
+    post :create, params: { user: { email: user.email, password: 'testen' }}
     assert_equal user.id, session[:user_id]
     user = User.find(session[:user_id])
     assert_not_equal used, user.last_used
@@ -48,7 +48,7 @@ class SessionsControllerTest < ActionController::TestCase
   test "reset password reset on login" do
     user = users(:max)
     user.prepare_password_reset
-    post :create, {user: {email: user.email, password: 'testen'}}
+    post :create, params: { user: { email: user.email, password: 'testen' }}
     user = User.find(user.id)
     assert_nil user.password_reset_token
     assert_nil user.password_reset_expire
@@ -56,7 +56,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "logout" do
     user = users(:max)
-    delete :destroy, nil, {user_id: user.id, server_id: user.servers.first.id}
+    delete :destroy, session: { user_id: user.id, server_id: user.servers.first.id }
     assert_nil session[:user_id]
     assert_response :success
     assert_template :new
@@ -66,7 +66,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "no logout message if not appropriate" do
-    delete :destroy, nil, nil
+    delete :destroy
     assert_template :new
     assert_select '.alert.alert-success', false
   end
@@ -74,7 +74,7 @@ class SessionsControllerTest < ActionController::TestCase
   test "blocked accounts should not be able to log in" do
     user = users(:max)
     user.update(failed_authentications: 5)
-    post :create, {user: {email: user.email, password: 'testen'}}
+    post :create, params: { user: { email: user.email, password: 'testen' }}
     assert_nil session[:user_id]
     assert_response :success
     assert_template :new
@@ -82,14 +82,14 @@ class SessionsControllerTest < ActionController::TestCase
     assert_select '.alert.alert-danger', I18n.t('sessions.new.blocked')
 
     # Blocked should not provide hints about real password.
-    post :create, {user: {email: user.email, password: 'wrong_pass'}}
+    post :create, params: { user: { email: user.email, password: 'wrong_pass' }}
     assert_select '.alert.alert-danger', I18n.t('sessions.new.blocked')
     assert_select '.password.has-error', false
   end
 
   test "No current user on login" do
     user = users(:max)
-    get :new, nil, {user_id: user.id}
+    get :new, session: { user_id: user.id }
     assert_response :success
     assert_template :new
     assert_nil assigns(:user)
@@ -99,7 +99,7 @@ class SessionsControllerTest < ActionController::TestCase
   test "login by seed" do
     server = servers(:heinz)
     used = server.last_used
-    get :temporary, { seed: server.seed }
+    get :temporary, params: { seed: server.seed }
     assert_not_equal used, Server.find(server.id).last_used
     assert_equal server.id, session[:server_id]
     assert_redirected_to root_path
@@ -107,7 +107,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "login of server with user should fail" do
     server = servers(:max)
-    get :temporary, { seed: server.seed }
+    get :temporary, params: { seed: server.seed }
     assert_nil session[:server_id]
     assert_nil assigns(:current_server)
     assert_template :new
@@ -116,7 +116,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "login with invalid seed" do
-    get :temporary, { seed: '12345678901234567890123456789012' }
+    get :temporary, params: { seed: '12345678901234567890123456789012' }
     assert_nil session[:server_id]
     assert_nil assigns(:current_server)
     assert_template :new
@@ -125,25 +125,25 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "logout server by different means" do
     server = servers(:heinz)
-    get :temporary, { seed: server.seed }
+    get :temporary, params: { seed: server.seed }
     get :destroy
     assert_nil session[:server_id]
     assert_nil assigns(:current_server)
     assert_template :new
     assert_select '.alert.alert-success', I18n.t('sessions.new.logout')
 
-    get :temporary, { seed: server.seed }
-    get :temporary, { seed: '12345678901234567890123456789012' }
+    get :temporary, params: { seed: server.seed }
+    get :temporary, params: { seed: '12345678901234567890123456789012' }
     assert_nil session[:server_id]
     assert_nil assigns(:current_server)
 
-    get :temporary, { seed: server.seed }
+    get :temporary, params: { seed: server.seed }
     get :new
     assert_nil session[:server_id]
     assert_nil assigns(:current_server)
 
-    get :temporary, { seed: server.seed }
-    post :create, { user: { email: nil } }
+    get :temporary, params: { seed: server.seed }
+    post :create, params: { user: { email: nil }}
     assert_nil session[:server_id]
     assert_nil assigns(:current_server)
   end
@@ -151,15 +151,15 @@ class SessionsControllerTest < ActionController::TestCase
   test "logging in user logs in first available server" do
     user = users(:max)
     used = user.servers.first
-    post :create, {user: {email: user.email, password: 'testen'}}
-    server = user.servers(true).first
+    post :create, params: { user: { email: user.email, password: 'testen' }}
+    server = user.servers.reload.first
     assert_equal server.id, session[:server_id]
     assert_not_equal used, server.last_used
   end
 
   test "logging in user without server fails" do
     user = users(:monika)
-    post :create, {user: {email: user.email, password: 'blabla'}}
+    post :create, params: { user: { email: user.email, password: 'blabla' }}
     assert_template :new
     assert_select '.alert.alert-danger', I18n.t('sessions.new.no_server_available')
     assert_nil session[:user_id]
@@ -169,16 +169,16 @@ class SessionsControllerTest < ActionController::TestCase
   test "changing user-managed servers" do
     user = users(:max)
     used = user.servers.second.last_used
-    get :update, { id: user.servers.second }, { user_id: user.id, server_id: user.servers.first.id }
+    get :update, params: { id: user.servers.second }, session: { user_id: user.id, server_id: user.servers.first.id }
     assert_redirected_to plans_path
     assert_equal user.servers.second.id, session[:server_id]
-    assert_not_equal used, user.servers(true).second.last_used
+    assert_not_equal used, user.servers.reload.second.last_used
   end
 
   test "changing server-managed servers" do
     server = servers(:heinz)
     used = server.last_used
-    get :update, { id: server.id }, { server_id: servers(:heinz2).id }
+    get :update, params: { id: server.id }, session: { server_id: servers(:heinz2).id }
     assert_redirected_to plans_path
     server = Server.find(server.id)
     assert_not_equal used, server.last_used
@@ -189,7 +189,7 @@ class SessionsControllerTest < ActionController::TestCase
     user = users(:max)
 
     # Invalid server
-    get :update, { id: 20 }, { user_id: user.id, server_id: user.servers.first.id }
+    get :update, params: { id: 20 }, session: { user_id: user.id, server_id: user.servers.first.id }
     assert_template :new
     assert_nil session[:server_id]
     assert_nil session[:user_id]
@@ -198,7 +198,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     # User may not manage server
     server = servers(:heinz)
-    get :update, { id: server.id }, { user_id: user.id, server_id: user.servers.first.id }
+    get :update, params: { id: server.id }, session: { user_id: user.id, server_id: user.servers.first.id }
     assert_template :new
     assert_nil session[:server_id]
     assert_nil session[:user_id]
@@ -206,7 +206,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal user, assigns(:user)
 
     # Servers do not have equal email-addresses
-    get :update, { id: servers(:heinz).id }, { server_id: servers(:kunz).id }
+    get :update, params: { id: servers(:heinz).id }, session: { server_id: servers(:kunz).id }
     assert_template :new
     assert_nil session[:server_id]
     assert_nil session[:user_id]
@@ -214,7 +214,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil assigns(:user)
 
     # New server managed by user
-    get :update, { id: servers(:heinz).id }, { server_id: servers(:max4).id }
+    get :update, params: { id: servers(:heinz).id }, session: { server_id: servers(:max4).id }
     assert_template :new
     assert_nil session[:server_id]
     assert_nil session[:user_id]
@@ -224,14 +224,14 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "changing server to itself" do
     server = servers(:heinz)
-    get :update, { id: server.id }, { server_id: server.id }
+    get :update, params: { id: server.id }, session: { server_id: server.id }
     assert_redirected_to plans_path
     assert_equal server.id, session[:server_id]
   end
 
   test "Calling user login by email" do
     user = users(:max)
-    get :new, { email: user.email }
+    get :new, params: { email: user.email }
     assert_response :success
     assert_template :new
     assert_equal user, assigns(:user)
@@ -239,7 +239,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "Calling login with email of server" do
     server = servers(:heinz)
-    get :new, { email: server.email }
+    get :new, params: { email: server.email }
     assert_response :success
     assert_template :new
     assert_not assigns(:user)
@@ -247,7 +247,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "Calling login with invalid email" do
-    get :new, { email: 'testen@invalid.notexisting.de' }
+    get :new, params: { email: 'testen@invalid.notexisting.de' }
     assert_response :success
     assert_template :new
     assert_not assigns(:user)

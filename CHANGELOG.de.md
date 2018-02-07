@@ -1,5 +1,8 @@
 ## Änderungen (Changelog)
 
+### v0.2.3 (2018-02-07)
+Vollständige Portierung des Backends von Rails 4.2 auf 5.1.
+
 ### v0.2.2 (2015-05-24)
 Fehlerbehebungen:
 

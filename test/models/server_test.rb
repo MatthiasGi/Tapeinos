@@ -55,14 +55,13 @@ class ServerTest < ActiveSupport::TestCase
 
   test "sex should be valid" do
     server = servers(:max)
-    assert_nothing_raised(ArgumentError) do
-      server.update(sex: nil)
-      assert_not (server.male? and server.female?), "Sex was not set to nil correctly"
-      server.update(sex: :male)
-      assert server.male?, "Sex male wasn't saved correctly"
-      server.update(sex: :female)
-      assert server.female?, "Sex female wasn't saved correctly"
-    end
+
+    server.update(sex: nil)
+    assert_not (server.male? and server.female?), "Sex was not set to nil correctly"
+    server.update(sex: :male)
+    assert server.male?, "Sex male wasn't saved correctly"
+    server.update(sex: :female)
+    assert server.female?, "Sex female wasn't saved correctly"
 
     assert_raises(ArgumentError) do
       server.update(sex: 3)
@@ -75,11 +74,10 @@ class ServerTest < ActiveSupport::TestCase
 
   test "rank should be valid" do
     server = servers(:max)
-    assert_nothing_raised(ArgumentError) do
-      Server.ranks.keys.each do |rank|
-        server.update(rank: rank)
-        assert_equal rank.to_s, server.rank, "Rank was not saved correctly"
-      end
+
+    Server.ranks.keys.each do |rank|
+      server.update(rank: rank)
+      assert_equal rank.to_s, server.rank, "Rank was not saved correctly"
     end
 
     server.rank = nil
@@ -204,7 +202,7 @@ class ServerTest < ActiveSupport::TestCase
     server = servers(:max)
     assert server.update(events: evts)
     assert server.valid?
-    assert_equal evts, server.events(true)
+    assert_equal evts, server.events.reload
   end
 
   test "Shortnames are unique and as short as possible" do
@@ -245,7 +243,7 @@ class ServerTest < ActiveSupport::TestCase
     plans = Plan.all
     server = servers(:max)
     assert server.update(plans: plans)
-    assert_equal plans, server.plans(true)
+    assert_equal plans, server.plans.reload
   end
 
 end

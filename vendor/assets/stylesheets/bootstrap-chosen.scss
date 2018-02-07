@@ -12,6 +12,8 @@
 .chosen-select { width: 100%; }
 .chosen-select-deselect { width: 100%; }
 
+.chosen-single .chosen-search-input { display: none } // Add-On that was necessary on chosen-update 
+
 .chosen-container {
   display: inline-block;
   font-size: $font-size-base;
