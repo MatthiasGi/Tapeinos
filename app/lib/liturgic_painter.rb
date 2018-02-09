@@ -59,6 +59,9 @@ class LiturgicPainter
     # Pentecost
     date.between?(pentecost, pentecost + 1) and return default_liturgy(:pentecost)
 
+    # Trinitatis
+    date == pentecost + 7 and return default_liturgy(:trinitatis)
+
     # Corpus Christi
     date == easter + 60 and return default_liturgy(:corpus_christi)
 

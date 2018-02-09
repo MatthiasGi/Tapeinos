@@ -111,6 +111,11 @@ de:
         title: Pfingsten
         description: Zu Pfingsten kam der Heilige Geist auf die Jünger herab, sie sprachen in verschiedenen Sprachen und wurden ausgesandt. Dies verstehen wir als Gründungsdatum der Kirche.
 
+      trinitatis:
+        color: white
+        title: Dreifaltigkeitssonntag
+        description: 'Eines der zentralen Glaubensgeheimnisse ist die Dreifaltigkeit. Gott ist einer aber zugleich drei Personen: Vater, Sohn und heiliger Geist.'
+
       corpus_christi:
         color: white
         title: Hochfest des Leibes und Blutes Christi
