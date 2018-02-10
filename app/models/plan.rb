@@ -6,7 +6,7 @@ class Plan < ApplicationRecord
   validates :title, presence: true
 
   # The plan holds multiple events which should be also deleted on destroy
-  has_many :events, dependent: :destroy
+  has_many :events, -> { order(:date) }, dependent: :destroy
   accepts_nested_attributes_for :events, allow_destroy: true
 
   # Multiple servers can enroll for a plan without really attending to an event.

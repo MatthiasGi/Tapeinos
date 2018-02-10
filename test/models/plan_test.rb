@@ -94,4 +94,10 @@ class PlanTest < ActiveSupport::TestCase
     assert_equal servers, plan.servers.reload
   end
 
+  test "Events should be sorted by date" do
+    plan = plans(:unorderd)
+    sorted = plan.events.sort_by &:date
+    assert_equal sorted, plan.events
+  end
+
 end
