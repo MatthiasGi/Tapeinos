@@ -170,7 +170,6 @@ var ready = function() {
           var pos = $(this).position()
           $picker = $('.bootstrap-datetimepicker-widget')
           height = $picker.height()
-          console.log(height)
           $picker
             .css('position', 'absolute')
             .css('left', pos.left)

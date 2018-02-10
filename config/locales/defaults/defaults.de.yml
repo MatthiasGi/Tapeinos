@@ -3,6 +3,7 @@ de:
     formats:
       long: '%a, %e. %B %Y'
       mobile: '%a, %e.%m.'
+      form: '%d.%m.%Y'
 
   time:
     formats:
