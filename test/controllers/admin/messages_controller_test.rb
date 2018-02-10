@@ -312,4 +312,12 @@ class Admin::MessagesControllerTest < ActionController::TestCase
     assert_not message.draft?
   end
 
+  test "don't display a table when no message exists" do
+    get :index
+    assert_select "table", 1
+    Message.delete_all
+    get :index
+    assert_select "table", 0
+  end
+
 end
