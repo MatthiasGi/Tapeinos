@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
       @user.failed_authentication
       @user.errors.add(:password, t('.password_wrong'))
 
-    elsif @user.servers.empty?
+    elsif @user.servers.empty? and not @user.administrator?
 
       # The user has no server, so there's no point in logging him in.
       flash.now[:no_server_available] = true
@@ -56,13 +56,24 @@ class SessionsController < ApplicationController
       @user.used
       session[:user_id] = @user.id
 
-      # Save the first available server of the user as currently logged in.
-      server = @user.servers.first
-      session[:server_id] = server.id
-      server.used
+      if @user.servers.empty?
 
-      # Allow entrance for the user
-      return redirect_to root_path
+        # The user must be an administrator as he has no servers (not an
+        #     administrator was catched beforehand). So redirect him directly to
+        #     the administrative interface.
+        return redirect_to admin_servers_path
+        
+      else
+
+        # Save the first available server of the user as currently logged in.
+        server = @user.servers.first
+        session[:server_id] = server.id
+        server.used
+
+        # Allow entrance for the user
+        return redirect_to root_path
+
+      end
 
     end
 

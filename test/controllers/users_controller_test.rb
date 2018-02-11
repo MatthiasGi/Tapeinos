@@ -184,4 +184,13 @@ class UsersControllerTest < ActionController::TestCase
     assert_nil assigns(:current_server)
   end
 
+  test "last root cant be deleted" do
+    user = users(:root)
+    User.where(role: :root).without(user).map(&:destroy)
+
+    delete :destroy, session: { server_id: user.servers.first, user_id: user.id }
+    assert_template :edit
+    assert_select '.alert.alert-danger', I18n.t('users.edit.cant_delete_last_root')
+  end
+
 end

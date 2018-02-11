@@ -5,7 +5,7 @@ class Admin::AdminController < ApplicationController
 
   # All controllers in this directroy (descendants of this controller) should
   #    only be invoked by real administrative users.
-  before_action :require_user, :require_admin
+  before_action :require_user_no_server, :require_admin
 
   # The administration uses another layout with sidebar for navigation.
   layout 'administration'
@@ -24,6 +24,15 @@ class Admin::AdminController < ApplicationController
   #    a superadministrator (root).
   def require_root
     @current_user.root? or redirect_to admin_servers_path
+  end
+
+  # After modifying the servers of the current user or the current user itself,
+  #    an update of the session could be required.
+  def update_session(edited_user)
+    return unless @current_user and @current_user == edited_user and @current_user.servers
+
+    destroy_currents
+    session[:server_id] = edited_user.servers.any? ? edited_user.servers.first.id : nil
   end
 
 end

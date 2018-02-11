@@ -3,9 +3,10 @@ require 'test_helper'
 class Admin::UsersControllerTest < ActionController::TestCase
 
   def setup
-    user = users(:root)
-    session[:user_id] = user.id
-    session[:server_id] = user.servers.first.id
+    @user = users(:root)
+    session[:user_id] = @user.id
+    @server = @user.servers.first
+    session[:server_id] = @server.id
   end
 
   test "index shows all users" do
@@ -63,9 +64,11 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test "deleting user" do
     user = users(:max)
+    servers = user.servers
     delete :destroy, params: { id: user.id }
     assert_redirected_to admin_users_path
     assert_not User.find_by(id: user.id)
+    servers.each { |s| assert_nil Server.user }
   end
 
   test "deleting invalid user" do
@@ -88,6 +91,18 @@ class Admin::UsersControllerTest < ActionController::TestCase
     patch :update, params: { id: user.id, user: { server_ids: [ nil ] }}
     assert user.servers.empty?
     Server.all.each { |s| assert_not_equal(user, s.user) }
+  end
+
+  test "deleting current user logs out" do
+    delete :destroy, params: { id: @user.id }
+    assert_redirected_to logout_path
+  end
+
+  test "last root cant be deleted" do
+    User.where(role: :root).without(@user).map(&:destroy)
+    delete :destroy, params: { id: @user.id }
+    assert_template :edit
+    assert_select '.alert.alert-danger', I18n.t('admin.users.edit.cant_delete_last_root')
   end
 
 end

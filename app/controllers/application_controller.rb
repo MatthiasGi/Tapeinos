@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   #    in. This prevents content in the views that shouldn't be displayed to a
   #    freshly logged out user from showing up.
   def destroy_currents
-    @current_user = @current_server = nil
+    @current_user = @current_server = @other_servers = nil
   end
 
   # ============================================================================
@@ -54,10 +54,23 @@ class ApplicationController < ActionController::Base
     require_server and !@current_user and redirect_to root_path
   end
 
+  # Only allow registered user past this point. The requirement of contained
+  #    servers is optional for administrators.
+  def require_user_no_server
+    @current_user and (@current_user.servers.any? or @current_user.administrator?) and return
+    !@current_user and @current_server and return redirect_to root_path
+    destroy_currents
+    logout
+    render 'sessions/new', layout: 'application'
+  end
+
   # Only allow registered servers past this point.
   def require_server
     @current_server and return true
-    render 'sessions/new', layout: 'application' and false
+    @current_user and @current_user.administrator? and return redirect_to admin_servers_path
+    destroy_currents
+    logout
+    render 'sessions/new', layout: 'application' and return false
   end
 
   # If no user is found, the setup should be initiated. This is handled here.

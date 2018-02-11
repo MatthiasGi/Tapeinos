@@ -16,3 +16,13 @@ root:
   email: root@gianfelice.de
   password_digest: <%= BCrypt::Password.create('testen', cost: 4) %>
   role: <%= User.roles[:root] %>
+
+admin_without_servers:
+  email: admin2@gianfelice.de
+  password_digest: <%= BCrypt::Password.create('testen', cost: 4) %>
+  role: <%= User.roles[:admin] %>
+
+root_without_servers:
+  email: root2@gianfelice.de
+  password_digest: <%= BCrypt::Password.create('testen', cost: 4) %>
+  role: <%= User.roles[:root] %>

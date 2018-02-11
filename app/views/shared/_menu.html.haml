@@ -6,11 +6,11 @@
       .navbar-brand= liturgic_logo
 
     -# Button group for collapsing the menu and changing the current server.
-    - if @current_server
+    - if @current_server or @current_user
       .btn-group.pull-right
 
         -# The css ensures that this button is rounded, if the %button.collapsed below is not shown on large screens.
-        - html = [icon(:user), @current_server.firstname].join(' ')
+        - html = @current_server ? [icon(:user), @current_server.firstname].join(' ') : icon(:user)
         = dropdown html, button: { class: 'navbar-btn serverchanger-btn' }, align: :right do
           - if @other_servers.any?
             - @other_servers.each do |other|
@@ -36,6 +36,7 @@
       -# The actual menu is displayed here.
       .collapse.navbar-collapse#navbar-collapse
         %ul.nav.navbar-nav
-          %li{class: ('active' if controller_name == 'plans' && !@admin)}= link_to Plan.model_name.human(count: :many), plans_path
+          - if @current_server
+            %li{class: ('active' if controller_name == 'plans' && !@admin)}= link_to Plan.model_name.human(count: :many), plans_path
           - if @current_user.try(:administrator?)
             %li{class: ('active' if @admin)}= link_to t('defaults.administration'), admin_servers_path

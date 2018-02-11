@@ -164,6 +164,28 @@ class SessionsControllerTest < ActionController::TestCase
     assert_select '.alert.alert-danger', I18n.t('sessions.new.no_server_available')
     assert_nil session[:user_id]
     assert_nil assigns(:current_user)
+
+    controller = @controller
+    @controller = PlansController.new
+    get :index, session: { user_id: user.id }
+    @controller = controller
+
+    assert_template :new
+    assert_nil session[:user_id]
+    assert_nil assigns(:current_user)
+  end
+
+  test "logging in user without server but that is admin or root works" do
+    [users(:admin_without_servers), users(:root_without_servers)].each do |user|
+      used = user.last_used
+      post :create, params: { user: { email: user.email, password: 'testen' }}
+
+      assert_equal user.id, session[:user_id]
+      user = User.find(session[:user_id])
+      assert_not_equal used, user.last_used
+      assert_equal 0, user.failed_authentications
+      assert_redirected_to admin_servers_path
+    end
   end
 
   test "changing user-managed servers" do

@@ -29,13 +29,18 @@ class Admin::ServersController < Admin::AdminController
 
   # Validate and save the updated attributes.
   def update
-    @server.update(server_params) and return redirect_to admin_servers_path
-    render :edit
+    old_user = @server.user
+    @server.update(server_params) or return render :edit
+    update_session(old_user)
+    update_session(@server.user)
+    redirect_to admin_servers_path
   end
 
   # Destroys the selected server by removing him from the database.
   def destroy
+    old_user = @server.user
     @server.destroy
+    update_session(old_user)
     redirect_to admin_servers_path
   end
 

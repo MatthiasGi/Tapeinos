@@ -21,14 +21,22 @@ class Admin::UsersController < Admin::AdminController
 
   # Actually saving changes done to the user.
   def update
-    @user.update(user_params) and return redirect_to admin_users_path
-    render :edit
+    @user.update(user_params) or return render :edit
+    update_session(@user)
+    redirect_to admin_users_path
   end
 
   # Delete a user.
   def destroy
+    # Last root can't be deleted
+    if @user.root? and User.where(role: :root).count == 1
+      flash.now[:cant_delete_last_root] = true
+      return render :edit
+    end
+
+    # All other users will be deleted.
     @user.destroy
-    redirect_to admin_users_path
+    redirect_to @current_user == @user ? logout_path : admin_users_path
   end
 
   # ============================================================================

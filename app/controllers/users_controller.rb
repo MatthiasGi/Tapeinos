@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   # Only servers without user-account are allowed to create an account, only
   #    servers with an user-account are allowed to edit/delete it.
   before_action :require_server, :no_user, only: [ :new, :create ]
-  before_action :require_user, only: [ :edit, :update, :destroy ]
+  before_action :require_user_no_server, only: [ :edit, :update, :destroy ]
 
   # ============================================================================
 
@@ -50,6 +50,12 @@ class UsersController < ApplicationController
 
   # Delete the user, if the server really wishes to. Ignorant.
   def destroy
+
+    # Block the deletion if the user is the last available root
+    if @current_user.root? and User.where(role: :root).count == 1
+      flash.now[:cant_delete_last_root] = true
+      return render :edit
+    end
 
     # Gather all linked servers and generate new seeds (security and such).
     servers = @current_user.servers

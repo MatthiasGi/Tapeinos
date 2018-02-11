@@ -54,7 +54,7 @@ class User < ApplicationRecord
 
   # ============================================================================
 
-  # This updates the time the server was last used. Should be called by
+  # This updates the time the user was last used. Should be called by
   #    session-managment or similar.
   def used
     update(last_used: DateTime.now)

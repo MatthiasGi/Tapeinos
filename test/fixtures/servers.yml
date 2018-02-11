@@ -64,6 +64,13 @@ admin:
   sex: 1
   seed: abcdefabcdefabcdefabcdefabcdefa3
 
+admin2:
+  firstname: Administrator
+  lastname: Junior
+  user: admin
+  sex: 1
+  seed: abcdefabcdefabcdefabcdefabcdef19
+
 shortkunz:
   firstname: Kunz
   lastname: Hinderlich
@@ -90,4 +97,11 @@ root:
   lastname: Sudo
   sex: 0
   seed: 13245678901324567890132456789012
+  user: root
+
+root2:
+  firstname: Root2
+  lastname: Sudo2
+  sex: 0
+  seed: 1324567890132456789013245678901f
   user: root

@@ -16,3 +16,4 @@ de:
           Soll der Benutzer wirklich gelöscht werden?
 
           Dies lässt sich nicht wieder rückgängig machen!
+        cant_delete_last_root: Der letzte Root-Benutzer kann nicht gelöscht werden, da ansonsten keine Verwaltung möglich wäre.

@@ -1,6 +1,8 @@
 = page_header t('.title'), @user
 %p.lead= t '.lead'
 
+= flash_message :cant_delete_last_root, context: :danger
+
 = simple_horizontal_form_for [ :admin, @user ] do |f|
 
   = f.input :email

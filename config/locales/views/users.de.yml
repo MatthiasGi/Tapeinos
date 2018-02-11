@@ -33,4 +33,4 @@ de:
       delete: Account löschen
       delete_confirm: Willst Du Deinen Account wirklich löschen?
       changes_saved: Deine Änderungen wurden erfolgreich gespeichert!
-
+      cant_delete_last_root: Du bist der letzte Superadministrator. Du kannst Deinen Account also gar nicht löschen, da sonst keine Verwaltung mehr möglich wäre.

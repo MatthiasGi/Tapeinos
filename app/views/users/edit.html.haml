@@ -1,7 +1,7 @@
 = page_header t('.title'), @current_user
+= flash_messages [:changes_saved, context: :success],
+                 [:cant_delete_last_root, context: :danger]
 %p.lead= t '.lead'
-
-= flash_message :changes_saved, context: :success
 
 = simple_horizontal_form_for @current_user, url: settings_path, method: :post do |f|
   = f.input :email
@@ -14,34 +14,35 @@
 
 %hr/
 
-%h2= Server.model_name.human(count: :many)
-%p.lead
-  = t '.server_lead'
-  %small= t '.server_description'
+- if @current_server
+  %h2= Server.model_name.human(count: :many)
+  %p.lead
+    = t '.server_lead'
+    %small= t '.server_description'
 
-= simple_horizontal_form_for @current_user, url: settings_path, method: :post do |f|
-  .table-responsive
-    %table.table.table-striped.table-hover
-      %thead
-        %tr
-          %th= Server.model_name.human
-          %th= Server.human_attribute_name(:size_talar)
-          %th= Server.human_attribute_name(:size_rochet)
-      %tbody
-        = f.simple_fields_for :servers, @current_user.servers do |server|
+  = simple_horizontal_form_for @current_user, url: settings_path, method: :post do |f|
+    .table-responsive
+      %table.table.table-striped.table-hover
+        %thead
           %tr
-            %td= server.object
-            %td
-              = server.number_field :size_talar, class: 'form-control'
-              = server.full_error :size_talar
-            %td
-              = server.number_field :size_rochet, class: 'form-control'
-              = server.full_error :size_rochet
-  .form-group
-    .col-sm-offset-3.col-sm-9
-      = f.button :submit, t('.save_servers')
+            %th= Server.model_name.human
+            %th= Server.human_attribute_name(:size_talar)
+            %th= Server.human_attribute_name(:size_rochet)
+        %tbody
+          = f.simple_fields_for :servers, @current_user.servers do |server|
+            %tr
+              %td= server.object
+              %td
+                = server.number_field :size_talar, class: 'form-control'
+                = server.full_error :size_talar
+              %td
+                = server.number_field :size_rochet, class: 'form-control'
+                = server.full_error :size_rochet
+    .form-group
+      .col-sm-offset-3.col-sm-9
+        = f.button :submit, t('.save_servers')
 
-%hr/
+  %hr/
 
 %h2= t '.delete_account'
 %p.lead= t '.delete_lead'
@@ -51,4 +52,3 @@
   = button_to settings_path, method: :delete, context: :danger, icon: :trash, data: { confirm: t('.delete_confirm') } do
     = icon :trash
     = t '.delete'
-
