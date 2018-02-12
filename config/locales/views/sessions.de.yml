@@ -14,7 +14,7 @@ de:
       user_created: Dein Benutzer wurde erfolgreich erstellt. Per E-Mail hast Du ein Passwort zum Einloggen zugesandt bekommen. Beachte bitte, dass die personalisierten Links nicht mehr gültig sind. Aus Sicherheitsgründen wurdest Du nun ausgeloggt, probiere doch Deinen Benutzer direkt aus.
       user_deleted: Dein Benutzer wurde gelöscht, Du kannst Dich ab jetzt wieder nur über einen personalisierten Link einloggen. Dazu wurde Dir soeben eine E-Mail gesendet. Wenn Du möchtest, kannst Du Dir jederzeit wieder einen Benutzer erstellen.
       server_has_no_account: Du hast keinen Account (mehr). Falls Du Dir (wieder) einen erstellen möchtest, logge Dich erst über einen personalisierten Link in einer aktuellen E-Mail ein.
-      help: Wenn Du noch kein Benutzerkonto hast, öffne Deinen personalisierten Link in einer E-Mail. Dort kannst Du Dir dann ein Konto erstellen.
+      help: Tapeinos ist eine Verwaltungssoftware für Messdienergemeinschaften. Bei Fragen wende Dich bitte an das Dir bekannte Leiterteam. Weitere Informationen stehen aus Datenschutzgründen nach dem Login unter „Über“ zur Verfügung. Wenn Du noch kein Benutzerkonto hast, öffne Deinen personalisierten Link in einer E-Mail. Dort kannst Du Dir dann ein Konto erstellen.
 
     create:
       email_not_found: Diese E-Mail-Adresse wurde nicht gefunden. Hast Du Dich vielleicht vertippt? Oder noch gar keinen Account?
