@@ -45,6 +45,27 @@ class SessionsControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
+  test "Allow login with wrong casing of email" do
+    user = users(:max)
+    post :create, params: { user: { email: 'Max@giaNfelIcE.dE', password: 'testen' }}
+    assert_equal user.id, session[:user_id]
+    assert_equal 'max@gianfelice.de', assigns(:user).email
+    assert_redirected_to root_path
+  end
+
+  test "Disallow login with wrong casing of password" do
+    user = users(:max)
+    post :create, params: { user: { email: user.email, password: 'Testen' }}
+    assert_response :success
+    assert_template :new
+    assert_select '.email.has-error', false
+    assert_select '.password.has-error .help-block', I18n.t('sessions.create.password_wrong')
+    assert_equal user.email, assigns(:user).email
+    user = User.find(user.id)
+    assert_equal 1, user.failed_authentications
+    assert_nil assigns(:current_user)
+  end
+
   test "reset password reset on login" do
     user = users(:max)
     user.prepare_password_reset
@@ -253,7 +274,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "Calling user login by email" do
     user = users(:max)
-    get :new, params: { email: user.email }
+    get :new, params: { email: 'Max@giaNfelIcE.dE'}
     assert_response :success
     assert_template :new
     assert_equal user, assigns(:user)
@@ -261,7 +282,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "Calling login with email of server" do
     server = servers(:heinz)
-    get :new, params: { email: server.email }
+    get :new, params: { email: 'Heinz@giaNfelIcE.dE' }
     assert_response :success
     assert_template :new
     assert_not assigns(:user)

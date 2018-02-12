@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
   # Display a login form. If an email is provided, try to get the user or assume
   #    which server tried to login by this way.
   def new
-    email = params[:email] or return
+    email = params[:email].try(:downcase) or return
     @user = User.find_by(email: email) and return
     Server.find_by(email: email) and flash.now[:server_has_no_account] = true
   end
@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
   def create
 
     # Get the entered email and try to find a user.
-    email = params[:user][:email]
+    email = params[:user][:email].downcase
     @user = User.find_by(email: email)
 
     if @user.nil?
@@ -62,7 +62,7 @@ class SessionsController < ApplicationController
         #     administrator was catched beforehand). So redirect him directly to
         #     the administrative interface.
         return redirect_to admin_servers_path
-        
+
       else
 
         # Save the first available server of the user as currently logged in.
