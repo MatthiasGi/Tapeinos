@@ -1,4 +1,4 @@
-# This mailer is used to send out mails regardin user-administration.
+# This mailer is used to send out mails regarding user-administration.
 
 class UserMailer < ApplicationMailer
 
