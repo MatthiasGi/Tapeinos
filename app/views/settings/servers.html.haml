@@ -1,0 +1,30 @@
+= flash_message :changes_saved, context: :success
+%h2= t '.title'
+%p.lead
+  = t '.lead'
+  %small= t '.description'
+
+  = simple_horizontal_form_for :user, url: settings_servers_path, method: :post do |f|
+    .table-responsive
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th= Server.model_name.human
+            %th= Server.human_attribute_name(:size_talar)
+            %th= Server.human_attribute_name(:size_rochet)
+        %tbody
+          - for server in @servers
+            = f.simple_fields_for 'servers[]', server do |s|
+              %tr
+                %td= s.object
+                %td
+                  = s.number_field :size_talar, class: 'form-control'
+                  = s.full_error :size_talar
+                %td
+                  = s.number_field :size_rochet, class: 'form-control'
+                  = s.full_error :size_rochet
+
+
+    .form-group
+      .col-sm-offset-3.col-sm-9
+        = f.button :submit, t('.save')

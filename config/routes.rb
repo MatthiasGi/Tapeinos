@@ -26,9 +26,21 @@ Rails.application.routes.draw do
   # Non-administrative user-managment
   get '/register' => 'users#new'
   get '/register/do' => 'users#create'
-  get '/settings' => 'users#edit'
-  post '/settings' => 'users#update'
-  delete '/settings' => 'users#destroy'
+  get '/settings.bak' => 'users#edit'
+  post '/settings.bak' => 'users#update'
+  delete '/settings.bak' => 'users#destroy'
+  # TODO: Old routes for editing / destroying users are deprecated
+
+  # Interface for user-settings
+  get 'settings' => 'settings#servers'
+  get 'settings/servers'
+  post 'settings/servers' => 'settings#servers_update'
+  get 'settings/data'
+  post 'settings/data' => 'settings#data_update'
+  get 'settings/security'
+  get 'settings/security/generate' => 'settings#security_do'
+  get 'settings/delete'
+  delete 'settings/delete' => 'settings#delete_do'
 
   # Non-administrative plan-interface.
   resources :plans, only: [ :index, :show, :update ]
@@ -48,38 +60,5 @@ Rails.application.routes.draw do
 
   # Static pages
   get '/about' => 'pages#about'
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
 
 end

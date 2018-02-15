@@ -1,0 +1,22 @@
+= render layout: 'layouts/master' do
+
+  = server_errors
+
+  = page_header t('settings.title'), @current_user
+
+  .row
+
+    -# Menu
+    .col-md-2
+      - list = [ :servers, :security, :data, :delete ]
+
+      %ul.nav.nav-pills.nav-stacked
+        - list.each do |action|
+          - if @display[action]
+            - label = 'settings.%s.title'
+            - value = settings_path + '/%s'
+            %li{ class: ('active' if @active == action.to_s) }
+              = link_to t(label % [ action ]), value % [ action ]
+
+    -# Content
+    .col-md-10= yield

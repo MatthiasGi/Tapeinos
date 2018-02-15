@@ -1,0 +1,9 @@
+%p Hallo,
+
+%p soeben hast Du Dir neue Sicherheitscodes generieren lassen, mit denen Du Dich bei Tapeinos, dem Messdienerportal einloggen kannst. Deshalb wurde Dir auch ein neuer, persönlicher Link generiert:
+%p= link_to @seed_link, @seed_link
+
+%p Bitte behalte den Link geheim. Mit ihm kannst Du Dich auch in Zukunft in die Pläne eintragen, bekommst ihn aber zwischendurch neu geschickt.
+
+%p Beste, automatisch generierte Grüße aus der Serverfarm
+%p= SettingsHelper.get(:email_name)

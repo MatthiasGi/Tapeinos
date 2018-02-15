@@ -78,18 +78,6 @@ class AdminWithoutServersTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "Sees reduced settings for his user" do
-    login
-    get settings_path
-    assert_template 'users/edit'
-    assert_select 'h2', 1 # Only one section-header (no servers-section)
-
-    login_server
-    get settings_path
-    assert_template 'users/edit'
-    assert_select 'h2', 2
-  end
-
   test "Gets redirected to administrative root on invalid route" do
     login
     get plans_path

@@ -1,0 +1,9 @@
+= flash_message :success, context: :success
+%h2= t '.title'
+%p.lead= t '.lead'
+%p= t '.description'
+
+.text-center
+  = button_to settings_security_generate_path, context: :primary, method: :get do
+    = icon :refresh
+    = t '.button'

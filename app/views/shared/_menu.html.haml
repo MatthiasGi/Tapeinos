@@ -18,10 +18,9 @@
                 = icon :user
                 = other.firstname
             %li.divider
-          - if @current_user
-            = link_to settings_path do
-              = icon :cog
-              = t 'defaults.settings'
+          = link_to settings_path do
+            = icon :cog
+            = t 'defaults.settings'
           = link_to about_path do
             = icon :info_sign
             = t 'defaults.about'

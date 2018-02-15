@@ -59,23 +59,27 @@ class ApplicationController < ActionController::Base
   def require_user_no_server
     @current_user and (@current_user.servers.any? or @current_user.administrator?) and return
     !@current_user and @current_server and return redirect_to root_path
-    destroy_currents
-    logout
-    render 'sessions/new', layout: 'application'
+    request_login
   end
 
   # Only allow registered servers past this point.
   def require_server
     @current_server and return true
     @current_user and @current_user.administrator? and return redirect_to admin_servers_path
-    destroy_currents
-    logout
-    render 'sessions/new', layout: 'application' and return false
+    request_login
   end
 
   # If no user is found, the setup should be initiated. This is handled here.
   def require_setup
     User.any? or redirect_to setup_path(:authenticate)
   end
+
+  # Asks the user to login and destroys all session-information.
+  def request_login
+    destroy_currents
+    logout
+    render 'sessions/new', layout: 'application'
+  end
+  # TODO: Optimize destroy_currents + logout + request_login into one function
 
 end

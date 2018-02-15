@@ -1,0 +1,12 @@
+= flash_message :changes_saved, context: :success
+%h2= t '.title'
+%p.lead= t '.lead'
+
+= simple_horizontal_form_for @current_user, url: settings_data_path, method: :post do |f|
+  = f.input :email
+  %span.help-block.col-sm-9.col-sm-offset-3= t '.password_optional'
+  = f.input :password
+  = f.input :password_confirmation
+  .form-group
+    .col-sm-offset-3.col-sm-9
+      = f.button :submit

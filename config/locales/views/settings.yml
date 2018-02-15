@@ -1,0 +1,31 @@
+de:
+  settings:
+    title: Einstellungen
+
+    servers:
+      title: Messdiener
+      lead: Hier kannst Du Deine Gewändergrößen ändern.
+      description: Wir benutzen diese Angaben, um möglichst immer ausreichend Gewänder vorzuhalten.
+      changes_saved: Die neuen Gewändergrößen wurden erfolgreich gespeichert!
+      save: Gewändergrößen speichern
+
+    security:
+      title: Sicherheit
+      lead: Aus Sicherheitsgründen kannst Du Dir hier einen neuen Authentifizierungscode generieren lassen.
+      description: Da Du keinen Benutzeraccount erstellt hast, kannst Du Dich über den persönlichen Link in Deiner E-Mail einloggen. Diesen musst Du unbedingt geheim halten, damit niemand Anderes sich in Deinem Namen Zugang zum System verschaffen kann. Solltest Du den Verdacht haben, dass Dein Link nicht mehr geheim ist (oder einfach so einen neuen wollen), klicke bitte auf den Knopf. Du bekommst dann auch eine E-Mail mit Deinem neuen persönlichen Link.
+      button: Neuen Code generieren
+      success: Es wurden ein neuer Code erstellt, den Du per E-Mail zugeschickt bekommst.
+
+    data:
+      title: Daten
+      lead: Im Folgenden kannst Du die Einstellungen zum Einloggen in Deinen Accounts bearbeiten. Ändert sich Deine E-Mail-Adresse, passe sie auch hier bitte an, damit wir Dich immer erreichen können.
+      password_optional: 'Fülle die folgenden Felder nur aus, wenn Du Dein Passwort tatsächlich ändern möchtest, ansonsten lasse sie einfach leer:'
+      changes_saved: Deine Änderungen wurden erfolgreich gespeichert!
+
+    delete:
+      title: Account löschen
+      lead: Hier kannst Du Deinen Account löschen, wenn Du ihn nicht mehr benutzen willst.
+      description: Beachte, dass Du Dich weiterhin über personalisierte Links in die Pläne eintragen kannst. Du bleibst als Messdiener im System erhalten. Solltest Du das nicht wollen, wende Dich bitte an Deine Administration. Es wird lediglich die Möglichkeit zum Einloggen mit Hilfe eines Passworts entfernt. Weiterhin gehen alle Zusatzfunktionen eines Benutzers verloren. Du kannst Dir jederzeit wieder einen Account erstellen.
+      button: Account löschen
+      delete_confirm: Willst Du Deinen Account wirklich löschen?
+      cant_delete_last_root: Du bist der letzte Superadministrator im System. Du kannst Deinen Account also gar nicht öschen, da sonst keine Verwaltung mehr möglich wäre. Ernenne vorher in der Administration einen neuen Superadministrator.
