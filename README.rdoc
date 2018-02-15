@@ -1,7 +1,7 @@
 == README
 
 _Tapeinos_ is a altar-server managment system. It allows easy enrollement for
-events. It was developed on Ruby 2 and Rails 4.2.
+events. It was developed on Ruby 2 and Rails 5.1.
 
 === Starting up the server
 
