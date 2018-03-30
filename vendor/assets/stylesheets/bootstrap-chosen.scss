@@ -12,7 +12,13 @@
 .chosen-select { width: 100%; }
 .chosen-select-deselect { width: 100%; }
 
-.chosen-single .chosen-search-input { display: none } // Add-On that was necessary on chosen-update 
+// Add-On that was necessary on chosen-update
+// ~ https://github.com/alxlit/bootstrap-chosen/issues/80#issuecomment-376564791
+.chosen-container-single .chosen-single input[type="text"] {
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+}
 
 .chosen-container {
   display: inline-block;
