@@ -58,6 +58,13 @@ class Server < ApplicationRecord
   # The seed should be generated automagically if it does not exist already.
   before_validation :generate_seed, unless: :seed
 
+  # The API-Key should be unique as it identifies a server (similar to the
+  #    seed). It also should have a specific length
+  validates :api_key,
+    uniqueness: true,
+    allow_nil: true,
+    format: { with: /\A[0-9a-f]{32}\z/ }
+
   # ============================================================================
 
   # If the server has a linked account, the email should be taken from the user.
@@ -67,7 +74,7 @@ class Server < ApplicationRecord
 
   # This function updates the servers seed, it can also be called externally.
   def generate_seed
-    update(seed: SecureRandom.hex)
+    update(seed: SecureRandom.hex(16))
   end
 
   # This updates the time the server was last used. Should be called by session-
@@ -113,6 +120,16 @@ class Server < ApplicationRecord
   # Generates a login-token for a personal login-link (see sessions-controller).
   def login_token
     user ? email : seed
+  end
+
+  # Generates a new API key which is used to identify a server without login for
+  #    API-purposes
+  def generate_api_key
+    begin
+      self.api_key = SecureRandom.hex(16)
+    end while self.class.exists?(api_key: api_key)
+    self.save
+    self.api_key
   end
 
   # :nodoc:

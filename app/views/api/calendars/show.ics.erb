@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERION:2.0
+PRODID:-//TAPEINOS//CALENDAR
+METHOD:PUBLISH
+<% @events.each do |e| %>
+BEGIN:VEVENT
+UID:<%= e.id %>
+SUMMARY:<%= e.title %>
+LOCATION:<%= e.location %>
+DTSTART:<%= (e.date - 15.minutes).strftime("%Y%m%dT%H%M%SZ") %>
+DTEND:<%= (e.date + 1.hour).strftime("%Y%m%dT%H%M%SZ") %>
+STATUS:CONFIRMED
+LAST-MODIFIED:<%= e.updated_at.strftime("%Y%m%dT%H%M%SZ") %>
+END:VEVENT
+<% end %>
+END:VCALENDAR

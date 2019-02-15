@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 51) do
+ActiveRecord::Schema.define(version: 100) do
 
   create_table "events", force: :cascade do |t|
     t.datetime "date", null: false
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 51) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "api_key"
     t.index ["seed"], name: "index_servers_on_seed"
     t.index ["user_id"], name: "index_servers_on_user_id"
   end

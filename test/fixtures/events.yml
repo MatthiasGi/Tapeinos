@@ -3,12 +3,14 @@ holythursday:
   title: Holy Thursday
   location: EK
   plan: easter
+  servers: max
 
 easter:
   date: <%= 4.days.from_now %>
   title: Easter Vigil
   location: EK
   plan: easter
+  servers: max
 
 goodfriday:
   date: <%= 5.days.from_now %>

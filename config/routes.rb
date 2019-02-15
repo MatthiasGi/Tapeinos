@@ -58,6 +58,13 @@ Rails.application.routes.draw do
     post '/settings' => 'settings#update'
   end
 
+  # API, that currently only displays a calendar. Not sure if more is helpful.
+  namespace :api do
+
+    # There is no need for versioning to display a calendar.
+    get '/calendars/:api_key' => 'calendars#show', as: 'calendars'
+  end
+
   # Static pages
   get '/about' => 'pages#about'
 

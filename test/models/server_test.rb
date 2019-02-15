@@ -134,7 +134,7 @@ class ServerTest < ActiveSupport::TestCase
     assert_not server.update(seed: seed), "seed should be unique"
   end
 
-  test "seed length 16" do
+  test "seed length 32" do
     server = servers(:max)
     server.seed = "1234567890123456789012345678901"
     assert_not server.valid?, "seed to short"
@@ -244,6 +244,54 @@ class ServerTest < ActiveSupport::TestCase
     server = servers(:max)
     assert server.update(plans: plans)
     assert_equal plans, server.plans.reload
+  end
+
+  test "Server should be able to generate API-Key" do
+    server = servers(:max)
+    assert_nil server.api_key
+    server.generate_api_key
+    assert server.valid?
+    assert server.api_key
+  end
+
+  test "API-Key should regenerate on call" do
+    server = servers(:max)
+    server.generate_api_key
+    key = server.api_key
+    server.generate_api_key
+    assert_not_equal key, server.api_key
+  end
+
+  test "API-Key should be unique" do
+    heinz = servers(:heinz)
+    max = servers(:max)
+    assert max.valid?
+    heinz.generate_api_key
+    max.api_key = heinz.api_key
+    assert_not max.valid?
+  end
+
+  test "API-Key should have length 32" do
+    s = servers(:max)
+    s.api_key = "12345678901234567890123456789012"
+    assert s.valid?
+    s.api_key = "1234567890123456789012345678901"
+    assert_not s.valid?, "too short"
+    s.api_key = "123456789012345678901234567890123"
+    assert_not s.valid?, "too long"
+  end
+
+  test "Generate function returns API-Key" do
+    s = servers(:max)
+    assert_equal s.generate_api_key, s.api_key
+  end
+
+  test "API-Key hexanumerical" do
+    server = servers(:max)
+    server.api_key = "1234567890123456789012345678901g"
+    assert_not server.valid?, "API-Key contains non-hexanumerical character"
+    server.api_key = "abcdef1234567890abcdef1234567890"
+    assert server.valid?, "API-Key should be valid, contains only hexanumerical characters"
   end
 
 end
